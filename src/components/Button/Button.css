@@ -1,13 +1,30 @@
 .button {
     color: #ffffff;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 1.2;
     text-align: center;
     padding: 12px 0;
     width: 100%;
     background: #000000;
+    border: none;
     cursor: pointer;
+    border-radius: 0;
+}
+
+.button:hover,
+.button:focus {
+    background: #101010;
+    outline: #5933f2 solid;
 }
 
 .button--link {
     background: none;
     color: #3369F3
+}
+
+.button--link:hover,
+.button--link:focus {
+    background: none;
+    color: #5933f2;
 }

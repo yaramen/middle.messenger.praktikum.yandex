@@ -29,7 +29,7 @@ function className(classObject) {
         if  (classObject[curr]) {
             acc += ' ' + curr
         }
-        return acc;
+        return acc.trim();
     }, '')
 }
 

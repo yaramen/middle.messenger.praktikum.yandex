@@ -1,0 +1,12 @@
+.text-field {
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1;
+    width: 100%;
+    border: 3px solid black;
+}
+
+.text-field:focus {
+    border-color: #5933f2;
+    outline: none;
+}

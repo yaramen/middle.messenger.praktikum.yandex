@@ -1,18 +1,8 @@
 import {html} from "./modules/html";
-import {Button} from "./components/Button/Button";
+import {Pages} from "./pages/Pages";
 
 function App() {
-    return html`
-<div>
-    ${html(Button, {
-        label: 'Авторизоваться',
-    })}
-    ${html(Button, {
-        label: 'Авторизоваться',
-        type: 'link',
-    })}
-</div>
-`
+    return html(Pages)
 }
 
 export {
