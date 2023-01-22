@@ -10,3 +10,7 @@ Debug
 ```
 npm run dev
 ```
+Server
+```
+npm run server
+```
