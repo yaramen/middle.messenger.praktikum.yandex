@@ -1,0 +1,13 @@
+.button {
+    color: #ffffff;
+    text-align: center;
+    padding: 12px 0;
+    width: 100%;
+    background: #000000;
+    cursor: pointer;
+}
+
+.button--link {
+    background: none;
+    color: #3369F3
+}
