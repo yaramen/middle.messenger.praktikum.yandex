@@ -2,7 +2,6 @@
   "name": "messenger",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html"
@@ -11,6 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.8.3"
+    "@parcel/transformer-postcss": "^2.8.3",
+    "autoprefixer": "^10.4.13",
+    "parcel": "^2.8.3",
+    "postcss": "^8.4.21",
+    "postcss-modules": "^4.3.1"
   }
 }
