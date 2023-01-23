@@ -18,13 +18,16 @@
     outline: #5933f2 solid;
 }
 
-.button--link {
+.button--link,
+.button--icon {
     background: none;
     color: #3369F3
 }
 
 .button--link:hover,
-.button--link:focus {
+.button--link:focus,
+.button--icon:hover,
+.button--icon:focus {
     background: none;
     color: #5933f2;
 }

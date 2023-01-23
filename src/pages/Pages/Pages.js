@@ -3,6 +3,7 @@ import styles from "./Pages.css";
 import {Auth} from "../Auth";
 import {CheckIn} from "../CheckIn";
 import {ErrorLayout} from "../../layout/ErrorLayout";
+import {Messenger} from "../Messenger";
 
 const pages = {
     auth: Auth,
@@ -15,6 +16,7 @@ const pages = {
         title: 'Ошибка сервера',
         code: 500,
     }),
+    messenger: Messenger,
 };
 
 function renderPage(page) {
@@ -22,7 +24,8 @@ function renderPage(page) {
 }
 
 function Pages() {
-    const activePage = "error404"
+    const urlParams  = new URLSearchParams(window.location.search)
+    const activePage = urlParams.get('page')
     const page = renderPage(pages[activePage])
 
     return html`

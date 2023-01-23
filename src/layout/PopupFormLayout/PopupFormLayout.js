@@ -1,7 +1,7 @@
 import {html} from "../../modules/html";
-import styles from "./PopupForm.css";
+import styles from "./PopupFormLayout.css";
 
-function PopupForm({children}) {
+function PopupFormLayout({children}) {
     return html`
 <div class="${styles.container}">
     ${children}
@@ -10,5 +10,5 @@ function PopupForm({children}) {
 }
 
 export {
-    PopupForm,
+    PopupFormLayout,
 }

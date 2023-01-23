@@ -5,13 +5,20 @@ function TextField({
     type = 'text',
     name,
     placeholder,
+    icon,
 }) {
     const classes = className({
         [styles['text-field']]: true,
+        [styles['text-field--icon']]: !!icon,
     })
 
     return html`
-<input type="${type}" class="${classes}" type="text" name="${name}" placeholder="${placeholder}"/>
+<div class="${classes}">
+    ${icon && html`
+        <img class="${styles.icon}" src="${icon}" alt="${placeholder}">
+    `}
+    <input type="${type}" class="${styles.input}" type="text" name="${name}" placeholder="${placeholder}"/>
+</div>
 `
 }
 

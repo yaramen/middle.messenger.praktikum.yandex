@@ -1,5 +1,5 @@
 import {html} from "../../modules/html";
-import {PopupForm} from "../../layout/PopupForm";
+import {PopupFormLayout} from "../../layout/PopupFormLayout";
 import {Form} from "../../components/Form";
 
 const formData = {
@@ -27,7 +27,7 @@ const formData = {
 }
 
 function Auth() {
-    return html(PopupForm, {
+    return html(PopupFormLayout, {
         children: html(Form, {
             title: 'Вход',
             formData

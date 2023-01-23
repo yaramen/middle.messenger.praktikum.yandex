@@ -1,5 +1,5 @@
 import {html} from "../../modules/html";
-import {PopupForm} from "../../layout/PopupForm";
+import {PopupFormLayout} from "../../layout/PopupFormLayout";
 import {Form} from "../../components/Form";
 
 const formData = {
@@ -52,7 +52,7 @@ const formData = {
 }
 
 function CheckIn() {
-    return html(PopupForm, {
+    return html(PopupFormLayout, {
         children: html(Form, {
             title: 'Регистрация',
             formData

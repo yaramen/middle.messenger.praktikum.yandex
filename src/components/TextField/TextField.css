@@ -1,12 +1,27 @@
 .text-field {
-    padding: 16px;
+    position: relative;
+}
+
+.text-field--icon .input {
+    padding-left: 40px
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+}
+
+.input {
+    padding: 9px;
     font-size: 16px;
     line-height: 1;
     width: 100%;
     border: 3px solid black;
 }
 
-.text-field:focus {
+.input:focus {
     border-color: #5933f2;
     outline: none;
 }
