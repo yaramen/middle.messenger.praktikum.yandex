@@ -1,0 +1,45 @@
+.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #999999;
+}
+
+.chat {
+    height: 100%;
+}
+
+.header {
+    background-color: #FCFCFC;
+    border-bottom: 1px solid #E9E9E9;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    max-width: 648px;
+    min-height: 62px;
+    margin: 0 auto;
+}
+
+.avatar {
+    margin-right: 14px;
+    border-radius: 50%;
+}
+
+.name {
+    font-weight: 500;
+}
+
+.action {
+    margin-left: auto;
+}
+
+.content {
+
+}
+
+.new-message {
+
+}

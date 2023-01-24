@@ -10,12 +10,14 @@ function Button({
     const classes = className({
         [styles['button']]: true,
         [styles['button--link']]: type === 'link',
+        [styles['button--action']]: type === 'action',
         [styles['button--icon']]: type === 'icon',
+        [styles['button--icon-text']]: icon && label,
     })
 
     return html`
 <button class="${classes}" onclick="${click}">
-    ${icon && html`<img src="${icon}" alt="${label}"/>`}
+    ${icon && html`<img class="${styles.icon}" src="${icon}" alt="${label}"/>`}
     ${label}
 </button>
 `;

@@ -4,12 +4,22 @@
     font-size: 16px;
     line-height: 1.2;
     text-align: center;
-    padding: 12px 0;
+    padding: 12px 6px;
     width: 100%;
     background: #000000;
     border: none;
     cursor: pointer;
     border-radius: 0;
+    white-space: nowrap;
+}
+
+.button--icon-text {
+    display: flex;
+    align-items: center;
+}
+
+.button--icon-text .icon {
+    margin-right: 12px;
 }
 
 .button:hover,
@@ -30,4 +40,15 @@
 .button--icon:focus {
     background: none;
     color: #5933f2;
+}
+
+.button--action {
+    background: none;
+    color: #000000;
+}
+
+.button--action:hover,
+.button--action:focus {
+    background: none;
+    color: #000000;
 }

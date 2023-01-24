@@ -10,13 +10,7 @@
 }
 
 .avatar {
-    width: 46px;
-    height: 46px;
     margin-right: 24px;
-}
-
-.image {
-    border-radius: 50%;
 }
 
 .content {

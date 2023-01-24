@@ -1,5 +1,6 @@
 import {html} from "../../modules/html";
 import styles from "./ChatItem.css"
+import {Avatar} from "../Avatar";
 
 function ChatItem({
     name,
@@ -11,7 +12,7 @@ function ChatItem({
     return html`
 <div class="${styles.item}">
     <div class="${styles.avatar}">
-        <img src="${avatar}" alt="${name}" class="${styles.image}"/>
+        ${html(Avatar, avatar, name)}
     </div>
     <div class="${styles.content}">
         <div class="${styles.group}">

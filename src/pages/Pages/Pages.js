@@ -8,6 +8,7 @@ import {Messenger} from "../Messenger";
 const pages = {
     auth: Auth,
     checkIn: CheckIn,
+    messenger: Messenger,
     error404: html(ErrorLayout, {
         title: 'Страница не найдена',
         code: 404,
@@ -16,7 +17,6 @@ const pages = {
         title: 'Ошибка сервера',
         code: 500,
     }),
-    messenger: Messenger,
 };
 
 function renderPage(page) {
