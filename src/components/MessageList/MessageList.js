@@ -1,7 +1,9 @@
 import {className, html} from "../../modules/html";
 import styles from "./MessageList.css";
+import oneIcon from "../../icons/one-send.svg"
+import doubleIcon from "../../icons/double-send.svg"
 
-function Message({actor, time, messageType, content}) {
+function Message({actor, time, messageType, content, status}) {
     const isHtml = messageType === 'html'
     const isImage = messageType === 'image'
 
@@ -18,6 +20,7 @@ function Message({actor, time, messageType, content}) {
     ${isHtml && content}
     ${isImage && html`<img src="${content}" alt="time" />`}
     <time class="${styles.time}" datetime="${time}">${time.split(' ')[1]}</time>
+    ${status && html`<img class="${styles.status}" src="${status === "send" ? doubleIcon : oneIcon}" alt="send" />`}
 </div>
 `
 }

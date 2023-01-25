@@ -68,6 +68,7 @@
 .message-my {
     align-self: flex-end;
     background-color: #E4EDFD;
+    padding-right: 40px;
 }
 
 .message-my::after {
@@ -78,6 +79,12 @@
     width: 10px;
     height: 15px;
     background: linear-gradient(45deg, #E4EDFD 0, #E4EDFD 50%, #ffffff 50%, #ffffff);
+}
+
+.status {
+    position: absolute;
+    right: 17px;
+    bottom: 22px;
 }
 
 .time {
