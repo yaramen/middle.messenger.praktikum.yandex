@@ -7,7 +7,10 @@
 }
 
 .chat {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    overflow: hidden;
 }
 
 .header {
@@ -21,6 +24,7 @@
     max-width: 648px;
     min-height: 62px;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .avatar {
@@ -36,10 +40,20 @@
     margin-left: auto;
 }
 
-.content {
+.dots {
+    border-radius: 50%;
+    cursor: pointer;
+}
 
+.dots:hover {
+    background-color: #D4D4D4;
+}
+
+.content {
+    margin-top: auto;
+    overflow-y: auto;
 }
 
 .new-message {
-
+    width: 100%;
 }

@@ -1,10 +1,13 @@
 import {html} from "../../modules/html";
 import styles from './Chat.css'
 import {Avatar} from "../Avatar";
-import {Popover} from "../Popover/Popover";
+import {Popover} from "../Popover";
 import {ActionList} from "../ActionList/ActionList";
 import addIcon from '../../icons/add.svg';
 import deleteIcon from '../../icons/delete.svg';
+import dotsIcon from '../../icons/dots.svg';
+import {NewMessage} from "../NewMessage";
+import {MessageList} from "../MessageList";
 
 function Chat(chat) {
     if (!chat) {
@@ -25,7 +28,7 @@ function Chat(chat) {
             <div class="${styles.name}">${name}</div>
             <div class="${styles.action}">
                 ${html(Popover, {
-                    target: html`<div class="${styles.action}">Test</div>`,
+                    target: html`<img class="${styles.dots}" src="${dotsIcon}" alt="more" />`,
                     content: html(ActionList, [{
                         icon: addIcon,
                         label: 'Добавить пользователя',
@@ -37,14 +40,18 @@ function Chat(chat) {
                     }]),
                     offset: {
                         x: 0,
-                        y: 22,
+                        y: 16,
                     },
                 })}
             </div>
         </div>
     </div>
-    <div class="${styles.content}"></div>
-    <div class="${styles["new-message"]}"></div>
+    <div class="${styles.content}">
+        ${html(MessageList, messages)}
+    </div>
+    <div class="${styles["new-message"]}">
+        ${html(NewMessage)}
+    </div>
 </div>
 `
 }

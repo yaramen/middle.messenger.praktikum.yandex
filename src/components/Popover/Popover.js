@@ -23,7 +23,7 @@ function Popover({
 <div class="${classes}" onclick="${click}">
     ${target}
     <div class="${styles.content}" style="${offsetStyle}">${content}</div>
-<div>
+</div>
 `
 }
 
