@@ -1,6 +1,7 @@
 import {html} from "../../modules/html";
 import {PopupFormLayout} from "../../layout/PopupFormLayout";
 import {Form} from "../../components/Form";
+import {getLinkPage} from "../../router";
 
 const formData = {
     fields: [
@@ -18,10 +19,12 @@ const formData = {
     buttons: [
         {
             label: 'Авторизоваться',
+            link: getLinkPage('messenger')
         },
         {
             type: 'link',
             label: 'Нет аккаунта?',
+            link: getLinkPage('checkIn')
         }
     ]
 }

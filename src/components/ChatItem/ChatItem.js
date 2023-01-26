@@ -1,16 +1,22 @@
 import {html} from "../../modules/html";
 import styles from "./ChatItem.css"
 import {Avatar} from "../Avatar";
+import {getLinkPage, goTo} from "../../router";
 
 function ChatItem({
+    id,
     name,
     lastMessage,
     time,
     unread,
     avatar,
 }) {
+    function click(element, id) {
+        goTo(getLinkPage('messenger', id))
+    }
+
     return html`
-<div class="${styles.item}">
+<div class="${styles.item}" onclick="${click.bind(this, this, id)}">
     <div class="${styles.avatar}">
         ${html(Avatar, avatar, name)}
     </div>
