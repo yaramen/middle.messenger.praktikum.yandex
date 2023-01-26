@@ -10,28 +10,30 @@ import {NewMessage} from "../NewMessage";
 import {MessageList} from "../MessageList";
 import {usePopup} from "../../modules/popup";
 import {Popup} from "../Popup/Popup";
-import {TextField} from "../TextField";
-import {Button} from "../Button";
 import {AddUserPopup} from "../AddUserPopup";
 import {RemoveUserPopup} from "../RemoveUserPopup/RemoveUserPopup";
 
 function Chat(chat) {
     if (!chat) {
-        return html`
-            <div class="${styles.empty}">Выберите чат, чтобы отправить сообщение</div>
-        `
+        return html`<div class="${styles.empty}">Выберите чат, чтобы отправить сообщение</div>`
     }
 
-    const {name, avatar, messages} = chat;
+    const {id, name, avatar, messages} = chat;
     const popupAdd = usePopup(html(Popup, {
         title: 'Добавить пользователя',
-        content: html(AddUserPopup),
+        content: html(AddUserPopup, {
+            closePopup:() => popupRemove.close()
+        }),
         close: () => popupAdd.close()
     }))
 
     const popupRemove = usePopup(html(Popup, {
         title: 'Удалить пользователя',
-        content: html(RemoveUserPopup, name),
+        content: html(RemoveUserPopup, {
+            id,
+            name,
+            closePopup: () => popupRemove.close()
+        }),
         close: () => popupRemove.close()
     }))
 
