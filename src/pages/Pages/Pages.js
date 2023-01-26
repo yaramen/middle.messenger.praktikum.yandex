@@ -13,6 +13,7 @@ function Pages() {
     return html`
 <div class="${styles.page}">
     ${page}
+    <div class="${styles.overlay}" data-ref="overlay"></div>
 </div>
 `
 }

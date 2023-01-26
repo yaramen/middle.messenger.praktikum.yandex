@@ -8,6 +8,12 @@ import deleteIcon from '../../icons/delete.svg';
 import dotsIcon from '../../icons/dots.svg';
 import {NewMessage} from "../NewMessage";
 import {MessageList} from "../MessageList";
+import {usePopup} from "../../modules/popup";
+import {Popup} from "../Popup/Popup";
+import {TextField} from "../TextField";
+import {Button} from "../Button";
+import {AddUserPopup} from "../AddUserPopup";
+import {RemoveUserPopup} from "../RemoveUserPopup/RemoveUserPopup";
 
 function Chat(chat) {
     if (!chat) {
@@ -17,6 +23,18 @@ function Chat(chat) {
     }
 
     const {name, avatar, messages} = chat;
+    const popupAdd = usePopup(html(Popup, {
+        title: 'Добавить пользователя',
+        content: html(AddUserPopup),
+        close: () => popupAdd.close()
+    }))
+
+    const popupRemove = usePopup(html(Popup, {
+        title: 'Удалить пользователя',
+        content: html(RemoveUserPopup, name),
+        close: () => popupRemove.close()
+    }))
+
 
     return html`
 <div class="${styles.chat}">
@@ -32,11 +50,11 @@ function Chat(chat) {
                     content: html(ActionList, [{
                         icon: addIcon,
                         label: 'Добавить пользователя',
-                        click: () => {}
+                        click: () => popupAdd.show()
                     }, {
                         icon: deleteIcon,
                         label: 'Удалить пользователя',
-                        click: () => {}
+                        click: () => popupRemove.show()
                     }]),
                     offset: {
                         x: 0,
