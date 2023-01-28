@@ -18,9 +18,9 @@ function html(parts, ...args) {
             if (typeof currentArg === 'object') {
                 if (currentArg instanceof Array) {
                     currentArg = currentArg.join('')
-                } else if (currentArg instanceof Object) (
+                } else if (currentArg instanceof Object) {
                     currentArg = Object.keys(currentArg).map(key => `${key}="${currentArg[key]}"`)
-                )
+                }
             }
             result += currentArg + parts[i]
         }
