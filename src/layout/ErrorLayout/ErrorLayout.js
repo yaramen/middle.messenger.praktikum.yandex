@@ -13,7 +13,7 @@ function ErrorLayout({
         <h1>${title}</h1>
         ${html(Button, {
             label: "На главную",
-            type: 'link',
+            type: 'secondary',
         })}
     </div>
 </div>

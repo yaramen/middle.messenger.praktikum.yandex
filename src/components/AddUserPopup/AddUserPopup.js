@@ -22,7 +22,7 @@ function AddUserPopup({
     ${html(Button, {
         label: 'Добавить',
         click: () => {
-            store.dispatchEvent(actions.removeUser(userName))
+            store.dispatch(actions.removeUser(userName))
             closePopup()
         }
     })}

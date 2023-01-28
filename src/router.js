@@ -4,6 +4,7 @@ import {Messenger} from "./pages/Messenger";
 import {html} from "./modules/html";
 import {ErrorLayout} from "./layout/ErrorLayout";
 import {EventEmit} from "./modules/event/EventEmit";
+import {Profile} from "./pages/Profile/Profile";
 
 const event = new EventEmit();
 
@@ -11,6 +12,8 @@ const pages = {
     auth: Auth,
     checkIn: CheckIn,
     messenger: Messenger,
+    profile: Profile,
+    profileEdit: html(Profile, true),
     error404: html(ErrorLayout, {
         title: 'Страница не найдена',
         code: 404,

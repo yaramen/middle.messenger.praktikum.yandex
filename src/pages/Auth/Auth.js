@@ -22,7 +22,7 @@ const formData = {
             link: getLinkPage('messenger')
         },
         {
-            type: 'link',
+            type: 'secondary',
             label: 'Нет аккаунта?',
             link: getLinkPage('checkIn')
         }

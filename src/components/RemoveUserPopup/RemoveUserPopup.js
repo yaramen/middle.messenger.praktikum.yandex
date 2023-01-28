@@ -16,7 +16,7 @@ function RemoveUserPopup({
         ${html(Button, {
             label: 'Да',
             click: () => {
-                store.dispatchEvent(actions.removeUser(id))
+                store.dispatch(actions.removeUser(id))
                 closePopup()
             }
         })}

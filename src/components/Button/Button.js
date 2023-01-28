@@ -4,11 +4,12 @@ import styles from './Button.css';
 function Button({
     label,
     click,
-    type = 'button',
+    type = 'primary',
     icon = '',
 }) {
     const classes = className({
         [styles['button']]: true,
+        [styles['button--secondary']]: type === 'secondary',
         [styles['button--link']]: type === 'link',
         [styles['button--action']]: type === 'action',
         [styles['button--icon']]: type === 'icon',

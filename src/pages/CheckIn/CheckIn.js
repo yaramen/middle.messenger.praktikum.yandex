@@ -47,7 +47,7 @@ const formData = {
             link: getLinkPage('messenger')
         },
         {
-            type: 'link',
+            type: 'secondary',
             label: 'Войти',
             link: getLinkPage('auth')
         }

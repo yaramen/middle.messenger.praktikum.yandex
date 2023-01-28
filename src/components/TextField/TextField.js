@@ -6,6 +6,8 @@ function TextField({
     name,
     placeholder,
     icon,
+    value,
+    readonly = false,
     onChange = () => {},
 }) {
     const classes = className({
@@ -22,7 +24,16 @@ function TextField({
     ${icon && html`
         <img class="${styles.icon}" src="${icon}" alt="${placeholder}">
     `}
-    <input type="${type}" class="${styles.input}" type="text" name="${name}" placeholder="${placeholder}" oninput="${onInput}"/>
+    <input 
+        type="${type}"
+        class="${styles.input}"
+        value="${value}"
+        type="text"
+        name="${name}"
+        placeholder="${placeholder}"
+        oninput="${onInput}"
+        ${readonly ? 'readonly' : ''}
+    />
 </div>
 `
 }

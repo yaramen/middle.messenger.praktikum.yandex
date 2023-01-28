@@ -9,6 +9,7 @@ const actions = {
 }
 
 const store = new EventEmit();
+store.dispatch = store.dispatchEvent
 store.addEventListener(ADD_USER, ({detail: userName}) => {
     console.log('add user', userName)
 })

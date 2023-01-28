@@ -28,14 +28,14 @@
     outline: #5933f2 solid;
 }
 
-.button--link,
+.button--secondary,
 .button--icon {
     background: none;
-    color: #3369F3
+    color: #5933f2
 }
 
-.button--link:hover,
-.button--link:focus,
+.button--secondary:hover,
+.button--secondary:focus,
 .button--icon:hover,
 .button--icon:focus {
     background: none;
@@ -48,7 +48,23 @@
 }
 
 .button--action:hover,
-.button--action:focus {
+.button--action:focus { 
     background: none;
     color: #000000;
+}
+
+.button--link {
+    color: #5551FF;
+    font-weight: bold;
+    text-align: left;
+    padding: 13px 0;
+    background: transparent;
+}
+
+.button--link:hover,
+.button--link:focus {
+    background: none;
+    color: #5551FF;
+    outline: none;
+    text-decoration: underline;
 }

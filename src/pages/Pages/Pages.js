@@ -7,8 +7,8 @@ function renderPage(page) {
 }
 
 function Pages() {
-    const activePage = getActiveRoute().page
-    const page = renderPage(pages[activePage])
+    const activePage = getActiveRoute().page ? getActiveRoute().page : 'auth'
+    const page = renderPage(pages[activePage]);
 
     return html`
 <div class="${styles.page}">
