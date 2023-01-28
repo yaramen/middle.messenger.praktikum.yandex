@@ -44,7 +44,7 @@ function ProfileForm(profileForm, isEdit) {
                  ${html(Button, {
                     label: 'Изменить пароль',
                     type: 'link',
-                    click: () => goTo(getLinkPage('profilePasswordEdit'))
+                    click: () => goTo(getLinkPage('passwordEdit'))
                 })}
             </div>`
     }

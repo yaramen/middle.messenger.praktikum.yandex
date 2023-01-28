@@ -1,10 +1,25 @@
 import {html} from "../../modules/html";
 import styles from './AvatarEdit.css'
+import {usePopup} from "../../modules/popup";
+import {Popup} from "../Popup/Popup";
+import {UploadAvatarPopup} from "../UploadAvatarPopup";
 
 function AvatarEdit(image, name) {
+    const popupUpload = usePopup(html(Popup, {
+        title: 'Загрузите файл',
+        content: html(UploadAvatarPopup, {
+            closePopup:() => popupUpload.close()
+        }),
+        close: () => popupUpload.close()
+    }))
+
+
     return html`
-<div class="${styles.avatar}">
-    <img src="${image}" alt="${name}" class="${styles.image}"/>
+<div class="${styles.avatar}" onclick="${() => popupUpload.show()}">
+    <div class="${styles.image}">
+        <img src="${image}" alt="${name}" />
+        <div class="${styles.overlay}">Поменять аватар</div>
+    </div>
     <h1 class="${styles.name}">${name}</h1>
 </div>
 `

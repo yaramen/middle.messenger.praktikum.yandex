@@ -6,6 +6,7 @@ function Button({
     click,
     type = 'primary',
     icon = '',
+    attr,
 }) {
     const classes = className({
         [styles['button']]: true,
@@ -17,7 +18,7 @@ function Button({
     })
 
     return html`
-<button class="${classes}" onclick="${click}">
+<button class="${classes}" onclick="${click}" ${attr}>
     ${icon && html`<img class="${styles.icon}" src="${icon}" alt="${label}"/>`}
     ${label}
 </button>

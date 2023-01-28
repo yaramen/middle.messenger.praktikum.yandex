@@ -1,12 +1,9 @@
 import {html} from "../../modules/html";
-import styles from './Profile.css';
-import {Button} from "../../components/Button";
-import backIcon from "../../icons/back.svg";
-import {getLinkPage, goTo} from "../../router";
 import {ProfileForm} from "../../components/ProfileForm";
 import {ProfileLayout} from "../../layout/ProfileLayout/ProfileLayout";
+import {PasswordForm} from "../../components/PasswordForm";
 
-const profile = {
+const passwordEdit = {
     email: 'pochta@yandex.ru',
     login: 'ivanivanov',
     firstName: 'Иван',
@@ -19,45 +16,45 @@ const profile = {
 
 const profileForm = [{
     name: 'avatar',
-    value: profile.avatar,
-    label: profile.nickName,
+    value: passwordEdit.avatar,
+    label: passwordEdit.nickName,
     type: 'image',
 },{
     name: 'email',
-    value: profile.email,
+    value: passwordEdit.email,
     label: 'Email',
     type: 'text',
 }, {
     name: 'login',
-    value: profile.login,
+    value: passwordEdit.login,
     label: 'Логин',
     type: 'text',
 }, {
     name: 'firstName',
-    value: profile.firstName,
+    value: passwordEdit.firstName,
     label: 'Имя',
     type: 'text',
 }, {
     name: 'fastName',
-    value: profile.fastName,
+    value: passwordEdit.fastName,
     label: 'Фамилия',
     type: 'text',
 }, {
     name: 'nickName',
-    value: profile.nickName,
+    value: passwordEdit.nickName,
     label: 'Имя в чате',
     type: 'text',
 }, {
     name: 'phone',
-    value: profile.phone,
+    value: passwordEdit.phone,
     label: 'Телефон',
     type: 'text',
 }]
 
-function Profile(isEdit = false) {
-    return html(ProfileLayout, html(ProfileForm, profileForm, isEdit));
+function PasswordEdit() {
+    return html(ProfileLayout, html(PasswordForm));
 }
 
 export {
-    Profile
+    PasswordEdit
 }

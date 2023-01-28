@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+}
+
+.file {
+    display: none;
+}
+
+.image {
+    cursor: pointer;
+}

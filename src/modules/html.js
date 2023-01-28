@@ -15,8 +15,12 @@ function html(parts, ...args) {
                 const length = window._handlers.push(currentArg);
                 currentArg = `window._handlers[${length - 1}](this)`;
             }
-            if (typeof currentArg === 'object' && currentArg instanceof Array) {
-                currentArg = currentArg.join('')
+            if (typeof currentArg === 'object') {
+                if (currentArg instanceof Array) {
+                    currentArg = currentArg.join('')
+                } else if (currentArg instanceof Object) (
+                    currentArg = Object.keys(currentArg).map(key => `${key}="${currentArg[key]}"`)
+                )
             }
             result += currentArg + parts[i]
         }
