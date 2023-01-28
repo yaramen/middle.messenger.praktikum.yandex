@@ -4,7 +4,7 @@ import {Button} from "../Button";
 import {getLinkPage, goTo} from "../../router";
 import styles from './PasswordForm.css'
 
-function PasswordForm(profileForm, isEdit) {
+function PasswordForm() {
     return html`
 <form>
     ${html(TextFieldLabel, {

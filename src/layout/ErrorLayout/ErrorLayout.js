@@ -1,6 +1,7 @@
 import {html} from "../../modules/html";
 import {Button} from "../../components/Button";
 import styles from "./ErrorLayout.css";
+import {getLinkPage, goTo} from "../../router";
 
 function ErrorLayout({
     code,
@@ -14,6 +15,7 @@ function ErrorLayout({
         ${html(Button, {
             label: "На главную",
             type: 'secondary',
+            click: () => goTo(getLinkPage('auth'))
         })}
     </div>
 </div>

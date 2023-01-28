@@ -1,4 +1,3 @@
-import {Button} from "../Button";
 import {html} from "../../modules/html";
 import uploadIcon from '../../icons/upload.svg'
 import styles from './File.css'

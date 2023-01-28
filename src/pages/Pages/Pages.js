@@ -8,7 +8,8 @@ function renderPage(page) {
 
 function Pages() {
     const activePage = getActiveRoute().page ? getActiveRoute().page : 'auth'
-    const page = renderPage(pages[activePage]);
+    const componentPage = pages[activePage] ?? pages['error404']
+    const page = renderPage(componentPage);
 
     return html`
 <div class="${styles.page}">
