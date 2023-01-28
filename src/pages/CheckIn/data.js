@@ -10,32 +10,32 @@ const checkInFormData = {
         {
             type: "text",
             name: 'login',
-            placeholder: 'Login',
+            placeholder: 'Логин',
         },
         {
             type: "text",
-            name: 'lastName',
-            placeholder: 'Last Name',
+            name: 'first_name',
+            placeholder: 'Имя',
         },
         {
             type: "text",
-            name: 'secondName',
-            placeholder: 'Second Name',
+            name: 'second_name',
+            placeholder: 'Фамилия',
         },
         {
             type: "text",
             name: 'phone',
-            placeholder: 'Phone',
+            placeholder: 'Телефон',
         },
         {
             type: "password",
             name: 'password',
-            placeholder: 'Password',
+            placeholder: 'Пароль',
         },
         {
             type: "password",
             name: 'passwordRetry',
-            placeholder: 'Password (retry)',
+            placeholder: 'Пароль (еще раз)',
         }
     ],
     buttons: [

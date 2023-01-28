@@ -1,8 +1,4 @@
 import {html} from "../../modules/html";
-import styles from './Profile.css';
-import {Button} from "../../components/Button";
-import backIcon from "../../icons/back.svg";
-import {getLinkPage, goTo} from "../../modules/router";
 import {ProfileForm} from "../../components/ProfileForm";
 import {ProfileLayout} from "../../layout/ProfileLayout/ProfileLayout";
 
@@ -33,17 +29,17 @@ const profileForm = [{
     label: 'Логин',
     type: 'text',
 }, {
-    name: 'firstName',
+    name: 'first_name',
     value: profile.firstName,
     label: 'Имя',
     type: 'text',
 }, {
-    name: 'fastName',
+    name: 'second_name',
     value: profile.fastName,
     label: 'Фамилия',
     type: 'text',
 }, {
-    name: 'nickName',
+    name: 'display_name',
     value: profile.nickName,
     label: 'Имя в чате',
     type: 'text',

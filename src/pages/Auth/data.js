@@ -15,7 +15,7 @@ const authFormData = {
     ],
     buttons: [
         {
-            label: 'Авторизоваться',
+            label: 'Вход',
             action: 'submit',
             link: getLinkPage('messenger')
         },
