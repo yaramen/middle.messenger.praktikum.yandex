@@ -9,17 +9,17 @@ function PasswordForm() {
 <form>
     ${html(TextFieldLabel, {
         type: 'password',
-        name: 'old-password',
+        name: 'oldPassword',
         label: 'Старый пароль',
     })}
      ${html(TextFieldLabel, {
         type: 'password',
-        name: 'old-password',
+        name: 'newPassword',
         label: 'Новый пароль',
     })}
     ${html(TextFieldLabel, {
         type: 'password',
-        name: 'old-password',
+        name: 'newPassword',
         label: 'Повторите пароль',
     })}
     <div class="${styles.pair}">
