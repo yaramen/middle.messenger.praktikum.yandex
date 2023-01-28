@@ -1,1 +1,1 @@
-export * from './CheckIn.js'
+export * from './CheckIn'

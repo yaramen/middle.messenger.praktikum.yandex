@@ -23,7 +23,7 @@
     height: 100%;
     padding: 20px;
     text-align: center;
-    color: #ffffff;
+    color: var(--text-secondary);
     background: rgba(0, 0, 0, 0.5);
 }
 

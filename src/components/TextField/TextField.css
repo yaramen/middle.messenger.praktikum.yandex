@@ -22,6 +22,6 @@
 }
 
 .input:focus {
-    border-color: #5933f2;
+    border-color: var(--primary);
     outline: none;
 }

@@ -1,1 +1,1 @@
-export * from './ErrorLayout.js'
+export * from './ErrorLayout'

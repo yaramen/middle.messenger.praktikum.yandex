@@ -1,1 +1,1 @@
-export * from './PasswordEdit.js'
+export * from './PasswordEdit'

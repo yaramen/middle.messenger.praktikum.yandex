@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    color: #999999;
+    color: var(--text-washy);
 }
 
 .chat {
@@ -14,8 +14,8 @@
 }
 
 .header {
-    background-color: #FCFCFC;
-    border-bottom: 1px solid #E9E9E9;
+    background-color: var(--background-first);
+    border-bottom: 1px solid var(--border-second);
 }
 
 .header-content {
@@ -46,7 +46,7 @@
 }
 
 .dots:hover {
-    background-color: #D4D4D4;
+    background-color: var(--border-first);
 }
 
 .content {

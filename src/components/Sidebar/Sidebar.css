@@ -2,8 +2,8 @@
     display: block;
     padding: 10px;
     height: 100%;
-    background: #FCFCFC;
-    border-right: 1px solid #D4D4D4;
+    background: var(--background-first);
+    border-right: 1px solid var(--border-first);
 }
 
 .header {

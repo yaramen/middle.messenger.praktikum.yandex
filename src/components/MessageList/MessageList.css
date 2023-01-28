@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     font-size: 12px;
-    color: #999999;
+    color: var(--text-washy);
     height: 33px;
     margin-bottom: 20px;
     width: 100%;
@@ -19,7 +19,7 @@
     display: block;
     height: 1px;
     width: 100%;
-    background-color: #E9E9E9;
+    background-color: var(--border-second);
 }
 
 .dateline::before {
@@ -40,7 +40,7 @@
     position: relative;
     font-size: 12px;
     font-weight: 500;
-    color: #1E1E1E;
+    color: var(--text-message);
     max-width: 420px;
     padding: 20px;
 }
@@ -58,16 +58,16 @@
 }
 
 .message-contact {
-    border: 1px solid #EAEAEA;
+    border: 1px solid var(--border-message);
 }
 
 .message-html {
-    background-color: #F6F8FA;
+    background-color: var(--message-background);
 }
 
 .message-my {
     align-self: flex-end;
-    background-color: #E4EDFD;
+    background-color: var(--my-message-background);
     padding-right: 40px;
 }
 
@@ -78,7 +78,7 @@
     bottom: 0;
     width: 10px;
     height: 15px;
-    background: linear-gradient(45deg, #E4EDFD 0, #E4EDFD 50%, #ffffff 50%, #ffffff);
+    background: linear-gradient(45deg, #e4edfd 0, #e4edfd 50%, #ffffff 50%, #ffffff);
 }
 
 .status {

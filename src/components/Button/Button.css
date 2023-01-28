@@ -1,12 +1,12 @@
 .button {
-    color: #ffffff;
+    color: var(--text-secondary);
     font-family: Inter, sans-serif;
     font-size: 16px;
     line-height: 1.2;
     text-align: center;
     padding: 12px 6px;
     width: 100%;
-    background: #000000;
+    background: var(--secondary);
     border: none;
     cursor: pointer;
     border-radius: 0;
@@ -24,14 +24,14 @@
 
 .button:hover,
 .button:focus {
-    background: #101010;
-    outline: #5933f2 solid;
+    background: var(--secondary-focus);
+    outline: var(--primary) solid;
 }
 
 .button-secondary,
 .button-icon {
     background: none;
-    color: #5933f2
+    color: var(--primary)
 }
 
 .button-secondary:hover,
@@ -39,22 +39,22 @@
 .button-icon:hover,
 .button-icon:focus {
     background: none;
-    color: #5933f2;
+    color: var(--primary);
 }
 
 .button-action {
     background: none;
-    color: #000000;
+    color: var(--text-primery);
 }
 
 .button-action:hover,
 .button-action:focus {
     background: none;
-    color: #000000;
+    color: var(--text-primery);
 }
 
 .button-link {
-    color: #5551FF;
+    color: var(--primary);
     font-weight: bold;
     text-align: left;
     padding: 13px 0;
@@ -64,7 +64,7 @@
 .button-link:hover,
 .button-link:focus {
     background: none;
-    color: #5551FF;
+    color: var(--primary);
     outline: none;
     text-decoration: underline;
 }

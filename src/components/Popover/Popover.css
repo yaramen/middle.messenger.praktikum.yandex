@@ -14,9 +14,9 @@
     position: absolute;
     left: 50%;
     display: none;
-    background: #fff;
+    background: var(--popup-background);
     padding: 12px;
-    border: 1px solid #E9E9E9;
+    border: 1px solid var(--border-second);
     box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.05);
     transform: translateX(-50%);
 }
