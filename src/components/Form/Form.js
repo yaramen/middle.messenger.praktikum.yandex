@@ -1,8 +1,7 @@
-import {html} from "../../modules/html";
-import styles from "./Form.css";
-import {TextField} from "../TextField";
-import {Button} from "../Button";
-import {goTo} from "../../modules/router";
+import {html} from '../../modules/html';
+import {TextField} from '../TextField';
+import {Button} from '../Button';
+import styles from './Form.css';
 
 function Form({
     title,
@@ -29,13 +28,11 @@ function Form({
             })}
         </div>
     `)}
-    ${formData.buttons.map((button) => {
-        return html`
-            <div class="${styles.item}" onclick="${submit.bind(this, this, button, formState)}">
-                ${html(Button, button)}
-            </div>
-    `
-    })}
+    ${formData.buttons.map((button) => html`
+        <div class="${styles.item}" onclick="${submit.bind(this, this, button, formState)}">
+            ${html(Button, button)}
+        </div>
+    `)}
 </form>
 `
 }

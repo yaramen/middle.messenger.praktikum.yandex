@@ -1,4 +1,4 @@
-import {actions, store} from "./store";
+import {actions, store} from './store';
 
 window.addEventListener('popstate', () => {
     goTo(window.location.search)

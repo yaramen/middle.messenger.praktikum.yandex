@@ -1,6 +1,6 @@
-import {html} from "../../modules/html";
-import styles from "./TextFieldLabel.css";
-import {TextField} from "../TextField";
+import {html} from '../../modules/html';
+import {TextField} from '../TextField';
+import styles from './TextFieldLabel.css';
 
 function TextFieldLabel({
     label,

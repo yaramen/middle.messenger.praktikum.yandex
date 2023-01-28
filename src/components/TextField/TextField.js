@@ -1,5 +1,5 @@
-import {className, html} from "../../modules/html";
-import styles from "./TextField.css";
+import {className, html} from '../../modules/html';
+import styles from './TextField.css';
 
 function TextField({
     type = 'text',
@@ -12,7 +12,7 @@ function TextField({
 }) {
     const classes = className({
         [styles['text-field']]: true,
-        [styles['text-field--icon']]: !!icon,
+        [styles['text-field-icon']]: !!icon,
     })
 
     function onInput(element) {

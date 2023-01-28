@@ -1,1 +1,1 @@
-export * from './Pages.js'
+export * from './Pages'

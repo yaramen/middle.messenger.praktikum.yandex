@@ -1,14 +1,14 @@
-import {html} from "../../modules/html";
-import {Popover} from "../Popover";
-import {Button} from "../Button";
-import {ActionList} from "../ActionList/ActionList";
-import {TextField} from "../TextField";
+import {html} from '../../modules/html';
+import {Popover} from '../Popover';
+import {Button} from '../Button';
+import {ActionList} from '../ActionList';
+import {TextField} from '../TextField';
 import attachIcon from '../../icons/attach.svg';
 import photoIcon from '../../icons/photo.svg';
 import fileIcon from '../../icons/file.svg';
 import locationIcon from '../../icons/location.svg';
 import sendIcon from '../../icons/send.svg';
-import styles from "./NewMessage.css"
+import styles from './NewMessage.css'
 
 function NewMessage() {
     return html`
@@ -40,8 +40,8 @@ function NewMessage() {
     </div>
     <div class="${styles.field}">
         ${html(TextField, {
-            name: "message",
-            placeholder: "Сообщение",
+            name: 'message',
+            placeholder: 'Сообщение',
         })}
     </div>
     <div class="${styles.send}">

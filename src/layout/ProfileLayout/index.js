@@ -1,1 +1,1 @@
-export * from './PopupFormLayout.js'
+export * from './ProfileLayout'

@@ -13,12 +13,12 @@
     white-space: nowrap;
 }
 
-.button--icon-text {
+.button-icon-text {
     display: flex;
     align-items: center;
 }
 
-.button--icon-text .icon {
+.button-icon-text .icon {
     margin-right: 12px;
 }
 
@@ -28,32 +28,32 @@
     outline: #5933f2 solid;
 }
 
-.button--secondary,
-.button--icon {
+.button-secondary,
+.button-icon {
     background: none;
     color: #5933f2
 }
 
-.button--secondary:hover,
-.button--secondary:focus,
-.button--icon:hover,
-.button--icon:focus {
+.button-secondary:hover,
+.button-secondary:focus,
+.button-icon:hover,
+.button-icon:focus {
     background: none;
     color: #5933f2;
 }
 
-.button--action {
+.button-action {
     background: none;
     color: #000000;
 }
 
-.button--action:hover,
-.button--action:focus { 
+.button-action:hover,
+.button-action:focus {
     background: none;
     color: #000000;
 }
 
-.button--link {
+.button-link {
     color: #5551FF;
     font-weight: bold;
     text-align: left;
@@ -61,8 +61,8 @@
     background: transparent;
 }
 
-.button--link:hover,
-.button--link:focus {
+.button-link:hover,
+.button-link:focus {
     background: none;
     color: #5551FF;
     outline: none;

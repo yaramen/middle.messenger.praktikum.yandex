@@ -1,5 +1,5 @@
-import {html} from "../../modules/html";
-import styles from "./PopupFormLayout.css";
+import {html} from '../../modules/html';
+import styles from './PopupFormLayout.css';
 
 function PopupFormLayout({children}) {
     return html`

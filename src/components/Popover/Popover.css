@@ -2,11 +2,11 @@
     position: relative;
 }
 
-.popover--top .content {
+.popover-top .content {
     bottom: 100%;
 }
 
-.popover--bottom .content {
+.popover-bottom .content {
     top: 100%;
 }
 

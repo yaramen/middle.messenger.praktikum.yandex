@@ -1,17 +1,17 @@
-import {html} from "../../modules/html";
+import {html} from '../../modules/html';
+import {Avatar} from '../Avatar';
+import {Popover} from '../Popover';
+import {ActionList} from '../ActionList';
+import {NewMessage} from '../NewMessage';
+import {MessageList} from '../MessageList';
+import {usePopup} from '../../modules/popup';
+import {Popup} from '../Popup/Popup';
+import {AddUserPopup} from '../AddUserPopup';
+import {RemoveUserPopup} from '../RemoveUserPopup';
 import styles from './Chat.css'
-import {Avatar} from "../Avatar";
-import {Popover} from "../Popover";
-import {ActionList} from "../ActionList/ActionList";
 import addIcon from '../../icons/add.svg';
 import deleteIcon from '../../icons/delete.svg';
 import dotsIcon from '../../icons/dots.svg';
-import {NewMessage} from "../NewMessage";
-import {MessageList} from "../MessageList";
-import {usePopup} from "../../modules/popup";
-import {Popup} from "../Popup/Popup";
-import {AddUserPopup} from "../AddUserPopup";
-import {RemoveUserPopup} from "../RemoveUserPopup/RemoveUserPopup";
 
 function Chat(chat, messages) {
     if (!messages) {
@@ -41,7 +41,7 @@ function Chat(chat, messages) {
     return html`
 <div class="${styles.chat}">
     <div class="${styles.header}">
-        <div class="${styles["header-content"]}">
+        <div class="${styles['header-content']}">
             <div class="${styles.avatar}">
                 ${html(Avatar, avatar, name)}
             </div>
@@ -69,7 +69,7 @@ function Chat(chat, messages) {
     <div class="${styles.content}">
         ${html(MessageList, messages)}
     </div>
-    <div class="${styles["new-message"]}">
+    <div class="${styles['new-message']}">
         ${html(NewMessage)}
     </div>
 </div>

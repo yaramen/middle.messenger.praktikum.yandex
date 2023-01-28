@@ -1,4 +1,4 @@
-import {html} from "../../modules/html";
+import {html} from '../../modules/html';
 import styles from './Avatar.css'
 
 function Avatar(image, name) {

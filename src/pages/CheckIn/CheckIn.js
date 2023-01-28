@@ -1,9 +1,9 @@
-import {html} from "../../modules/html";
-import {PopupFormLayout} from "../../layout/PopupFormLayout";
-import {Form} from "../../components/Form";
-import {checkInFormData} from "./data";
-import {actions, store} from "../../modules/store";
-import {goTo} from "../../modules/router";
+import {html} from '../../modules/html';
+import {PopupFormLayout} from '../../layout/PopupFormLayout';
+import {Form} from '../../components/Form';
+import {goTo} from '../../modules/router';
+import {checkInFormData} from './data';
+import {actions, store} from '../../modules/store';
 
 function CheckIn() {
     return html(PopupFormLayout, {

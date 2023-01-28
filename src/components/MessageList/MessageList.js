@@ -27,11 +27,9 @@ function Message({actor, time, messageType, content, status}) {
 
 
 function MessageList(messages) {
-    const dates = Object.keys(messages);
-
     return html`
 <div class="${styles.container}">
-    ${dates.map(date => html`
+    ${Object.keys(messages).map(date => html`
         <div class="${styles.wrapper}">
             <div class="${styles.dateline}">${date}</div>
             ${messages[date].map((message) => html(Message, message))}

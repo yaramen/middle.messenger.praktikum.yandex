@@ -1,8 +1,7 @@
-import styles from "./RemoveUserPopup.css";
-import {html} from "../../modules/html";
-import {TextField} from "../TextField";
-import {Button} from "../Button";
-import {actions, store} from "../../modules/store";
+import {html} from '../../modules/html';
+import {Button} from '../Button';
+import {actions, store} from '../../modules/store';
+import styles from './RemoveUserPopup.css';
 
 function RemoveUserPopup({
     id,

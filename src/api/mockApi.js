@@ -26,42 +26,42 @@ function getContactList(id) {
         id: 1,
         name: 'Андрей',
         lastMessage: 'Изображение',
-        time: "10:20",
+        time: '10:20',
         unread: 2,
         avatar: 'http://dummyimage.com/46',
     }, {
         id: 2,
         name: 'Киноклуб',
         lastMessage: '<strong>Вы:</strong> стикер',
-        time: "10:20",
+        time: '10:20',
         unread: 0,
         avatar: 'http://dummyimage.com/46',
     }, {
         id: 3,
         name: 'Илья',
         lastMessage: 'Друзья, у меня для вас особ... ',
-        time: "10:20",
+        time: '10:20',
         unread: 2,
         avatar: 'http://dummyimage.com/46',
     }, {
         id: 4,
         name: 'Андрей',
         lastMessage: 'Изображение',
-        time: "10:20",
+        time: '10:20',
         unread: 0,
         avatar: 'http://dummyimage.com/46',
     }, {
         id: 5,
         name: 'Киноклуб',
         lastMessage: '<strong>Вы:</strong> стикер',
-        time: "10:20",
+        time: '10:20',
         unread: 0,
         avatar: 'http://dummyimage.com/46',
     }, {
         id: 6,
         name: 'Илья',
         lastMessage: 'Друзья, у меня для вас особ... ',
-        time: "10:20",
+        time: '10:20',
         unread: 0,
         avatar: 'http://dummyimage.com/46',
     }];
@@ -73,9 +73,9 @@ function getMessages(id) {
     console.log('Call API:  getMessages', {id})
     const messageList = {
         1: {
-            "25:01.2023": [{
+            '25:01.2023': [{
                 actor: 'contact',
-                time: "25:01.2023 11:50",
+                time: '25:01.2023 11:50',
                 messageType: 'html',
                 content: `
                 <p>Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.</p>
@@ -83,23 +83,23 @@ function getMessages(id) {
             `,
             }, {
                 actor: 'contact',
-                time: "25:01.2023 11:52",
+                time: '25:01.2023 11:52',
                 messageType: 'image',
                 content: `http://dummyimage.com/300x200`,
             }, {
                 actor: 'my',
-                time: "25:01.2023 12:00",
+                time: '25:01.2023 12:00',
                 messageType: 'html',
                 status: 'send',
                 content: `<p>Круто!</p>`,
             }, {
                 actor: 'contact',
-                time: "25:01.2023 11:52",
+                time: '25:01.2023 11:52',
                 messageType: 'image',
                 content: `http://dummyimage.com/300x200`,
             }, {
                 actor: 'my',
-                time: "25:01.2023 12:00",
+                time: '25:01.2023 12:00',
                 messageType: 'html',
                 status: 'sending',
                 content: `

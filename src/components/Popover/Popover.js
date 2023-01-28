@@ -1,4 +1,4 @@
-import {className, html} from "../../modules/html";
+import {className, html} from '../../modules/html';
 import styles from './Popover.css';
 
 function Popover({
@@ -15,8 +15,8 @@ function Popover({
 
     const classes = className({
         [styles['popover']]: true,
-        [styles['popover--top']]: type === 'top',
-        [styles['popover--bottom']]: type === 'bottom',
+        [styles['popover-top']]: type === 'top',
+        [styles['popover-bottom']]: type === 'bottom',
     })
 
     return html`

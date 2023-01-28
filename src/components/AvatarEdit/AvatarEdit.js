@@ -1,8 +1,8 @@
-import {html} from "../../modules/html";
+import {html} from '../../modules/html';
+import {usePopup} from '../../modules/popup';
+import {Popup} from '../Popup/Popup';
+import {UploadAvatarPopup} from '../UploadAvatarPopup';
 import styles from './AvatarEdit.css'
-import {usePopup} from "../../modules/popup";
-import {Popup} from "../Popup/Popup";
-import {UploadAvatarPopup} from "../UploadAvatarPopup";
 
 function AvatarEdit(image, name) {
     const popupUpload = usePopup(html(Popup, {

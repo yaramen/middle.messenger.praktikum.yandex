@@ -1,9 +1,8 @@
-import styles from "./UploadAvatarPopup.css";
-import {html} from "../../modules/html";
-
-import {Button} from "../Button";
-import {actions, store} from "../../modules/store";
-import {File} from "../File/File";
+import {html} from '../../modules/html';
+import {Button} from '../Button';
+import {File} from '../File';
+import {actions, store} from '../../modules/store';
+import styles from './UploadAvatarPopup.css';
 
 function UploadAvatarPopup({
     closePopup

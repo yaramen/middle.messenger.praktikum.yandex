@@ -1,14 +1,14 @@
-import {getLinkPage} from "../../modules/router";
+import {getLinkPage} from '../../modules/router';
 
 const authFormData = {
     fields: [
         {
-            type: "text",
+            type: 'text',
             name: 'login',
             placeholder: 'Login',
         },
         {
-            type: "password",
+            type: 'password',
             name: 'password',
             placeholder: 'Password',
         }

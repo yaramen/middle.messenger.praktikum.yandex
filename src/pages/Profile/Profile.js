@@ -1,6 +1,6 @@
-import {html} from "../../modules/html";
-import {ProfileForm} from "../../components/ProfileForm";
-import {ProfileLayout} from "../../layout/ProfileLayout/ProfileLayout";
+import {html} from '../../modules/html';
+import {ProfileForm} from '../../components/ProfileForm';
+import {ProfileLayout} from '../../layout/ProfileLayout';
 
 const profile = {
     email: 'pochta@yandex.ru',
@@ -18,7 +18,7 @@ const profileForm = [{
     value: profile.avatar,
     label: profile.nickName,
     type: 'image',
-},{
+}, {
     name: 'email',
     value: profile.email,
     label: 'Email',

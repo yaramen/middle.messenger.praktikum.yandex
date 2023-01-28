@@ -1,8 +1,8 @@
-import styles from "./AddUserPopup.css";
-import {html} from "../../modules/html";
-import {TextField} from "../TextField";
-import {Button} from "../Button";
-import {actions, store} from "../../modules/store";
+import {html} from '../../modules/html';
+import {TextField} from '../TextField';
+import {Button} from '../Button';
+import {actions, store} from '../../modules/store';
+import styles from './AddUserPopup.css';
 
 function AddUserPopup({
     closePopup

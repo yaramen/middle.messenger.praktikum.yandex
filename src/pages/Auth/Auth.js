@@ -1,9 +1,9 @@
-import {html} from "../../modules/html";
-import {PopupFormLayout} from "../../layout/PopupFormLayout";
-import {Form} from "../../components/Form";
-import {authFormData} from "./data";
-import {actions, store} from "../../modules/store";
-import {goTo} from "../../modules/router";
+import {html} from '../../modules/html';
+import {PopupFormLayout} from '../../layout/PopupFormLayout';
+import {Form} from '../../components/Form';
+import {authFormData} from './data';
+import {actions, store} from '../../modules/store';
+import {goTo} from '../../modules/router';
 
 function Auth() {
     return html(PopupFormLayout, {

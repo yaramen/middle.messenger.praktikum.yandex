@@ -1,39 +1,39 @@
-import {getLinkPage} from "../../modules/router";
+import {getLinkPage} from '../../modules/router';
 
 const checkInFormData = {
     fields: [
         {
-            type: "email",
+            type: 'email',
             name: 'email',
             placeholder: 'Email',
         },
         {
-            type: "text",
+            type: 'text',
             name: 'login',
             placeholder: 'Логин',
         },
         {
-            type: "text",
+            type: 'text',
             name: 'first_name',
             placeholder: 'Имя',
         },
         {
-            type: "text",
+            type: 'text',
             name: 'second_name',
             placeholder: 'Фамилия',
         },
         {
-            type: "text",
+            type: 'text',
             name: 'phone',
             placeholder: 'Телефон',
         },
         {
-            type: "password",
+            type: 'password',
             name: 'password',
             placeholder: 'Пароль',
         },
         {
-            type: "password",
+            type: 'password',
             name: 'passwordRetry',
             placeholder: 'Пароль (еще раз)',
         }

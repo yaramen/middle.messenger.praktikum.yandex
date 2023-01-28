@@ -10,11 +10,11 @@ function Button({
 }) {
     const classes = className({
         [styles['button']]: true,
-        [styles['button--secondary']]: type === 'secondary',
-        [styles['button--link']]: type === 'link',
-        [styles['button--action']]: type === 'action',
-        [styles['button--icon']]: type === 'icon',
-        [styles['button--icon-text']]: icon && label,
+        [styles['button-secondary']]: type === 'secondary',
+        [styles['button-link']]: type === 'link',
+        [styles['button-action']]: type === 'action',
+        [styles['button-icon']]: type === 'icon',
+        [styles['button-icon-text']]: icon && label,
     })
 
     return html`

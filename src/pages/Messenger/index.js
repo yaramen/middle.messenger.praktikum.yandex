@@ -1,1 +1,1 @@
-export * from './Messenger.js'
+export * from './Messenger'

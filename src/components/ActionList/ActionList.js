@@ -1,5 +1,5 @@
-import {html} from "../../modules/html";
-import {Button} from "../Button";
+import {html} from '../../modules/html';
+import {Button} from '../Button';
 
 function ActionList(actions) {
     return html`

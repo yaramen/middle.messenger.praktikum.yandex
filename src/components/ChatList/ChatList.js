@@ -1,5 +1,5 @@
-import {html} from "../../modules/html";
-import {ChatItem} from "../ChatItem";
+import {html} from '../../modules/html';
+import {ChatItem} from '../ChatItem';
 
 function ChatList(list) {
     return html`

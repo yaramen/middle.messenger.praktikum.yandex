@@ -1,9 +1,9 @@
-import {html} from "../../modules/html";
-import {Sidebar} from "../../components/Sidebar";
-import {Chat} from "../../components/Chat";
-import styles from "./Messenger.css";
-import {store} from "../../modules/store";
-import {getMessages} from "../../api/mockApi";
+import {html} from '../../modules/html';
+import {Sidebar} from '../../components/Sidebar';
+import {Chat} from '../../components/Chat';
+import {store} from '../../modules/store';
+import {getMessages} from '../../api/mockApi';
+import styles from './Messenger.css';
 
 const activeChatComputed = (state) => state.contactList.find(item => state.chatId === item.id)
 

@@ -1,7 +1,6 @@
-import {html} from "../../modules/html";
-import {ProfileForm} from "../../components/ProfileForm";
-import {ProfileLayout} from "../../layout/ProfileLayout/ProfileLayout";
-import {PasswordForm} from "../../components/PasswordForm";
+import {html} from '../../modules/html';
+import {ProfileLayout} from '../../layout/ProfileLayout';
+import {PasswordForm} from '../../components/PasswordForm';
 
 const passwordEdit = {
     email: 'pochta@yandex.ru',

@@ -1,7 +1,7 @@
-import {html} from "../../modules/html";
-import {Button} from "../../components/Button";
-import styles from "./ErrorLayout.css";
-import {getLinkPage, goTo} from "../../modules/router";
+import {html} from '../../modules/html';
+import {Button} from '../../components/Button';
+import {getLinkPage, goTo} from '../../modules/router';
+import styles from './ErrorLayout.css';
 
 function ErrorLayout({
     code,
@@ -13,7 +13,7 @@ function ErrorLayout({
         <h2>${code}</h2>
         <h1>${title}</h1>
         ${html(Button, {
-            label: "На главную",
+            label: 'На главную',
             type: 'secondary',
             click: () => goTo(getLinkPage('auth'))
         })}

@@ -1,15 +1,15 @@
-import {html} from "../../modules/html";
-import {TextField} from "../TextField";
-import {Button} from "../Button";
-import styles from "./Sidebar.css";
-import hamburgerIcon from "../../icons/hamburger.svg"
-import searchIcon from "../../icons/search.svg"
-import {ChatList} from "../ChatList";
-import {ActionList} from "../ActionList/ActionList";
-import {Popover} from "../Popover";
-import profileIcon from "../../icons/profile.svg";
-import exitAction from "../../icons/exit.svg";
-import {getLinkPage, goTo} from "../../modules/router";
+import {html} from '../../modules/html';
+import {TextField} from '../TextField';
+import {Button} from '../Button';
+import styles from './Sidebar.css';
+import hamburgerIcon from '../../icons/hamburger.svg'
+import searchIcon from '../../icons/search.svg'
+import {ChatList} from '../ChatList';
+import {ActionList} from '../ActionList';
+import {Popover} from '../Popover';
+import profileIcon from '../../icons/profile.svg';
+import exitAction from '../../icons/exit.svg';
+import {getLinkPage, goTo} from '../../modules/router';
 
 function Sidebar(contactList) {
     return html`

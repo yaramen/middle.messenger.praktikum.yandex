@@ -1,12 +1,12 @@
-import {html} from "../../modules/html";
-import styles from "./Pages.css";
-import {getActiveRoute} from "../../modules/router";
-import {Auth} from "../Auth";
-import {CheckIn} from "../CheckIn";
-import {Messenger} from "../Messenger";
-import {Profile} from "../Profile";
-import {PasswordEdit} from "../PasswordEdit";
-import {ErrorLayout} from "../../layout/ErrorLayout";
+import {html} from '../../modules/html';
+import {Auth} from '../Auth';
+import {CheckIn} from '../CheckIn';
+import {Messenger} from '../Messenger';
+import {Profile} from '../Profile';
+import {PasswordEdit} from '../PasswordEdit';
+import {ErrorLayout} from '../../layout/ErrorLayout';
+import {getActiveRoute} from '../../modules/router';
+import styles from './Pages.css';
 
 const pages = {
     auth: Auth,

@@ -1,6 +1,6 @@
-import {auth, checkIn, getContactList} from "../api/mockApi";
-import {goTo} from "./router";
-import {Store} from "./store/Store";
+import {auth, checkIn, getContactList} from '../api/mockApi';
+import {goTo} from './router';
+import {Store} from './store/Store';
 
 const createAction = (name) => (payload) => new CustomEvent(name, {detail: payload})
 

@@ -1,8 +1,8 @@
-import {html} from "../../modules/html";
-import {TextFieldLabel} from "../TextFieldLabel";
-import {AvatarEdit} from "../AvatarEdit";
-import {Button} from "../Button";
-import {getLinkPage, goTo} from "../../modules/router";
+import {html} from '../../modules/html';
+import {TextFieldLabel} from '../TextFieldLabel';
+import {AvatarEdit} from '../AvatarEdit';
+import {Button} from '../Button';
+import {getLinkPage, goTo} from '../../modules/router';
 import styles from './ProfileForm.css'
 
 function ProfileForm(profileForm, isEdit) {
