@@ -13,12 +13,12 @@ import {Popup} from "../Popup/Popup";
 import {AddUserPopup} from "../AddUserPopup";
 import {RemoveUserPopup} from "../RemoveUserPopup/RemoveUserPopup";
 
-function Chat(chat) {
-    if (!chat) {
+function Chat(chat, messages) {
+    if (!messages) {
         return html`<div class="${styles.empty}">Выберите чат, чтобы отправить сообщение</div>`
     }
 
-    const {id, name, avatar, messages} = chat;
+    const {id, name, avatar} = chat;
     const popupAdd = usePopup(html(Popup, {
         title: 'Добавить пользователя',
         content: html(AddUserPopup, {

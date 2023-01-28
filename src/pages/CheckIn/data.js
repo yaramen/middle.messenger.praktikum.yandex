@@ -41,11 +41,13 @@ const checkInFormData = {
     buttons: [
         {
             label: 'Зарегистрироваться',
-            link: getLinkPage('messenger')
+            action: 'submit',
+            link: getLinkPage('auth')
         },
         {
-            type: 'secondary',
             label: 'Войти',
+            type: 'secondary',
+            action: 'link',
             link: getLinkPage('auth')
         }
     ]

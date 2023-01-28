@@ -16,11 +16,13 @@ const authFormData = {
     buttons: [
         {
             label: 'Авторизоваться',
+            action: 'submit',
             link: getLinkPage('messenger')
         },
         {
-            type: 'secondary',
             label: 'Нет аккаунта?',
+            type: 'secondary',
+            action: 'link',
             link: getLinkPage('checkIn')
         }
     ]
