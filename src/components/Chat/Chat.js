@@ -22,7 +22,7 @@ function Chat(chat, messages) {
     const popupAdd = usePopup(html(Popup, {
         title: 'Добавить пользователя',
         content: html(AddUserPopup, {
-            closePopup:() => popupRemove.close()
+            closePopup: () => popupRemove.close()
         }),
         close: () => popupAdd.close()
     }))

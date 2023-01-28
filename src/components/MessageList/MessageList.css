@@ -49,7 +49,7 @@
     margin: 0;
 }
 
-.message p:not(:last-child){
+.message p:not(:last-child) {
     margin-bottom: 10px;
 }
 

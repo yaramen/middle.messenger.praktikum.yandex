@@ -18,7 +18,7 @@ const profileForm = [{
     value: passwordEdit.avatar,
     label: passwordEdit.nickName,
     type: 'image',
-},{
+}, {
     name: 'email',
     value: passwordEdit.email,
     label: 'Email',

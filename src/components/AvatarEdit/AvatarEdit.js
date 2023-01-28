@@ -8,7 +8,7 @@ function AvatarEdit(image, name) {
     const popupUpload = usePopup(html(Popup, {
         title: 'Загрузите файл',
         content: html(UploadAvatarPopup, {
-            closePopup:() => popupUpload.close()
+            closePopup: () => popupUpload.close()
         }),
         close: () => popupUpload.close()
     }))

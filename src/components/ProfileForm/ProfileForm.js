@@ -33,7 +33,6 @@ function ProfileForm(profileForm, isEdit) {
                     click: () => goTo(getLinkPage('profile'))
                 })}
             </div>`
-        
         : html`
             <div>
                 ${html(Button, {

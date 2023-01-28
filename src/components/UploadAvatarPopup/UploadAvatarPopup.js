@@ -7,7 +7,6 @@ import styles from './UploadAvatarPopup.css';
 function UploadAvatarPopup({
     closePopup
 }) {
-
     return html`
 <div>
     <div class="${styles.field}">

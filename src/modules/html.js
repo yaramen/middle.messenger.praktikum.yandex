@@ -30,7 +30,7 @@ function html(parts, ...args) {
 
 function className(classObject) {
     return Object.keys(classObject).reduce((acc, curr) => {
-        if  (classObject[curr]) {
+        if (classObject[curr]) {
             acc += ' ' + curr
         }
         return acc.trim();
