@@ -2,7 +2,7 @@ import {html} from "../../modules/html";
 import styles from './Profile.css';
 import {Button} from "../../components/Button";
 import backIcon from "../../icons/back.svg";
-import {getLinkPage, goTo} from "../../router";
+import {getLinkPage, goTo} from "../../modules/router";
 import {ProfileForm} from "../../components/ProfileForm";
 import {ProfileLayout} from "../../layout/ProfileLayout/ProfileLayout";
 

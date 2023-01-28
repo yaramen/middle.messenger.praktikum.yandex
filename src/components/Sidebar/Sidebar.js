@@ -9,7 +9,7 @@ import {ActionList} from "../ActionList/ActionList";
 import {Popover} from "../Popover";
 import profileIcon from "../../icons/profile.svg";
 import exitAction from "../../icons/exit.svg";
-import {getLinkPage, goTo} from "../../router";
+import {getLinkPage, goTo} from "../../modules/router";
 
 function Sidebar(contactList) {
     return html`

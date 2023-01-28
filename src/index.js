@@ -1,10 +1,15 @@
 import {App} from "./App";
 import "./index.css"
-import {event} from "./router";
+import {store} from "./modules/store";
 
 const root = document.querySelector('#root');
-root.innerHTML = App()
-
-event.addEventListener('pageChange', () => {
+const render = () => {
     root.innerHTML = App()
+}
+
+store.subscribe((oldState, newState) => {
+    if (oldState.page !== newState.page) {
+        render()
+    }
 })
+render()

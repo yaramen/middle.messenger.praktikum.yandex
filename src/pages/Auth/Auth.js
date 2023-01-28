@@ -3,7 +3,7 @@ import {PopupFormLayout} from "../../layout/PopupFormLayout";
 import {Form} from "../../components/Form";
 import {authFormData} from "./data";
 import {actions, store} from "../../modules/store";
-import {goTo} from "../../router";
+import {goTo} from "../../modules/router";
 
 function Auth() {
     return html(PopupFormLayout, {

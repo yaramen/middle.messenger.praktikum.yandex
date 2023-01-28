@@ -1,23 +1,23 @@
 import {html} from "../../modules/html";
 import {Sidebar} from "../../components/Sidebar";
 import {Chat} from "../../components/Chat";
-import {event, getActiveRoute} from "../../router";
 import styles from "./Messenger.css";
 import {store} from "../../modules/store";
 import {getMessages} from "../../api/mockApi";
 
+const activeChatComputed = (state) => state.contactList.find(item => state.chatId === item.id)
+
+store.subscribe(async (oldState, newState) => {
+    if (oldState.chatId !== newState.chatId && newState.chatId) {
+        const messages = await getMessages(newState.chatId);
+        const chatDom = document.querySelector('[data-ref="chat"]')
+        chatDom.innerHTML = html(Chat, activeChatComputed(newState), messages)
+    }
+})
+
 function Messenger() {
     const contactList = store.getState().contactList
-
-    let activeChat = contactList.find(item => +getActiveRoute().id === item.id)
-    let messages = null
-
-    event.addEventListener('idChange', async () => {
-        activeChat = contactList.find(item => +getActiveRoute().id === item.id)
-        const messages = await getMessages(activeChat.id);
-        const chatDom = document.querySelector('[data-ref="chat"]')
-        chatDom.innerHTML = html(Chat, activeChat, messages)
-    })
+    const messages = null
 
     return html`
 <div class="${styles.container}">
@@ -25,7 +25,7 @@ function Messenger() {
         ${html(Sidebar, contactList)}
     </div>
     <div class="${styles.content}" data-ref="chat">
-        ${html(Chat, activeChat, messages)}
+        ${html(Chat, activeChatComputed(store.getState()), messages)}
     </div>
 </div>
 `

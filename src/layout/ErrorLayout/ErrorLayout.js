@@ -1,7 +1,7 @@
 import {html} from "../../modules/html";
 import {Button} from "../../components/Button";
 import styles from "./ErrorLayout.css";
-import {getLinkPage, goTo} from "../../router";
+import {getLinkPage, goTo} from "../../modules/router";
 
 function ErrorLayout({
     code,

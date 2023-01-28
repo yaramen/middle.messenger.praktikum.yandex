@@ -1,7 +1,7 @@
 import {html} from "../../modules/html";
 import {TextFieldLabel} from "../TextFieldLabel";
 import {Button} from "../Button";
-import {getLinkPage, goTo} from "../../router";
+import {getLinkPage, goTo} from "../../modules/router";
 import styles from './PasswordForm.css'
 
 function PasswordForm() {

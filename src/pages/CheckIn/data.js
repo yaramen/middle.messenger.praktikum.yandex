@@ -1,4 +1,4 @@
-import {getLinkPage} from "../../router";
+import {getLinkPage} from "../../modules/router";
 
 const checkInFormData = {
     fields: [

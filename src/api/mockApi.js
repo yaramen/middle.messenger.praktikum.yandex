@@ -1,22 +1,16 @@
 function auth(login, password) {
     console.log('Call API:  auth', {login, password})
-    if (login === 'admin' && password === 'admin') {
-        return Promise.resolve({
-            id: 1,
-            email: 'pochta@yandex.ru',
-            login: 'ivanivanov',
-            firstName: 'Иван',
-            fastName: 'Иванов',
-            nickName: 'Иван',
-            phone: '+7 (909) 967 30 30',
-            password: 'password',
-            avatar: 'http://dummyimage.com/148',
-        })
-    } else {
-        return Promise.reject({
-            error: 'Error auth',
-        })
-    }
+    return Promise.resolve({
+        id: 1,
+        email: 'pochta@yandex.ru',
+        login: 'ivanivanov',
+        firstName: 'Иван',
+        fastName: 'Иванов',
+        nickName: 'Иван',
+        phone: '+7 (909) 967 30 30',
+        password: 'password',
+        avatar: 'http://dummyimage.com/148',
+    })
 }
 
 function checkIn(newUser) {

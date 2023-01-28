@@ -2,7 +2,7 @@ import {html} from "../../modules/html";
 import styles from "./Form.css";
 import {TextField} from "../TextField";
 import {Button} from "../Button";
-import {goTo} from "../../router";
+import {goTo} from "../../modules/router";
 
 function Form({
     title,

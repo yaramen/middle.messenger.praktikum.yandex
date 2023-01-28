@@ -1,7 +1,7 @@
 import {html} from "../../modules/html";
 import styles from "./ChatItem.css"
 import {Avatar} from "../Avatar";
-import {getLinkPage, goTo} from "../../router";
+import {getLinkPage, goTo} from "../../modules/router";
 
 function ChatItem({
     id,
