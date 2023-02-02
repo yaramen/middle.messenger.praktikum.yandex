@@ -1,0 +1,16 @@
+.name {
+    padding: 0 0 30px 0;
+    text-align: center;
+}
+
+.pair {
+    display: flex;
+}
+
+.pair > *:first-child {
+    margin-right: 5px;
+}
+
+.pair > *:last-child {
+    margin-left: 5px;
+}

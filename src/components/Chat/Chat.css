@@ -1,0 +1,59 @@
+.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-washy);
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.header {
+    background-color: var(--background-first);
+    border-bottom: 1px solid var(--border-second);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    max-width: 648px;
+    min-height: 62px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.avatar {
+    margin-right: 14px;
+    border-radius: 50%;
+}
+
+.name {
+    font-weight: 500;
+}
+
+.action {
+    margin-left: auto;
+}
+
+.dots {
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dots:hover {
+    background-color: var(--border-first);
+}
+
+.content {
+    margin-top: auto;
+    overflow-y: auto;
+}
+
+.new-message {
+    width: 100%;
+}

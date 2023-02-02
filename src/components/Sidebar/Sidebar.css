@@ -1,0 +1,22 @@
+.sidebar {
+    display: block;
+    padding: 10px;
+    height: 100%;
+    background: var(--background-first);
+    border-right: 1px solid var(--border-first);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hamburger {
+    min-width: 62px;
+    margin-right: 12px;
+}
+
+.chat-list {
+
+}

@@ -1,0 +1,100 @@
+.container {
+    max-width: 648px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.dateline {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-washy);
+    height: 33px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.dateline::before, .dateline::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: var(--border-second);
+}
+
+.dateline::before {
+    margin-right: 4px;
+}
+
+.dateline::after {
+    margin-left: 4px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.message {
+    position: relative;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-message);
+    max-width: 420px;
+    padding: 20px;
+}
+
+.message p {
+    margin: 0;
+}
+
+.message p:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.message:not(:last-child) {
+    margin-bottom: 13px;
+}
+
+.message-contact {
+    border: 1px solid var(--border-message);
+}
+
+.message-html {
+    background-color: var(--message-background);
+}
+
+.message-my {
+    align-self: flex-end;
+    background-color: var(--my-message-background);
+    padding-right: 40px;
+}
+
+.message-my::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+    width: 10px;
+    height: 15px;
+    background: linear-gradient(45deg, #e4edfd 0, #e4edfd 50%, #ffffff 50%, #ffffff);
+}
+
+.status {
+    position: absolute;
+    right: 17px;
+    bottom: 22px;
+}
+
+.time {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 2px 7px;
+    font-size: 9px;
+}
+
+.message-image .time {
+    background-color: rgba(82, 82, 82, 0.5);
+}

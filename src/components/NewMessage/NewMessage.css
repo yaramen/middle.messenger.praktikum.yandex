@@ -1,0 +1,21 @@
+.form {
+    display: flex;
+    align-items: center;
+    max-width: 648px;
+    min-height: 62px;
+    margin: 0 auto;
+    padding: 0 10px;
+    border-top: 1px solid var(--border-second);
+}
+
+.attach {
+    padding: 0 10px;
+}
+
+.field {
+    flex-grow: 1;
+}
+
+.send {
+    margin-left: 4px;
+}
