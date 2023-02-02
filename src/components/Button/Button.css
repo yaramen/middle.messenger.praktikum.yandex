@@ -31,7 +31,7 @@
 .button-secondary,
 .button-icon {
     background: none;
-    color: var(--primary)
+    color: var(--primary);
 }
 
 .button-secondary:hover,

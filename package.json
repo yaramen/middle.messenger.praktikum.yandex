@@ -5,17 +5,26 @@
   "scripts": {
     "dev": "parcel index.html --no-cache",
     "build": "parcel build index.html",
-    "start": "npm run build && node server/index.js"
+    "start": "npm run build && node server/index.js",
+    "lint-fix:ts": "eslint ./src --fix",
+    "lint-fix:style": "stylelint ./src/**/*.css --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@parcel/transformer-postcss": "2.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
     "autoprefixer": "10.4.13",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "parcel": "2.8.3",
     "postcss": "8.4.21",
-    "postcss-modules": "4.3.1"
+    "postcss-modules": "4.3.1",
+    "stylelint": "^14.16.1",
+    "stylelint-config-standard": "^29.0.0"
   },
   "dependencies": {
     "express": "4.18.2"
