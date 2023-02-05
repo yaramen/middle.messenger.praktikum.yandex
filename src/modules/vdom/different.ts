@@ -69,6 +69,7 @@ function createDifferent(oldVNode1: VNode, newVNode2: VNode): VNodeUpdater {
             .reduce((acc, key) => ({ ...acc, [key]: newVNode2.props[key] }), {});
 
         // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         const children = createDifferentChildren(oldVNode1.children, newVNode2.children);
 
         return createUpdate(addVAttributes, removeAttributeKey, children);
@@ -77,14 +78,22 @@ function createDifferent(oldVNode1: VNode, newVNode2: VNode): VNodeUpdater {
     return createSkip();
 }
 
-const removeUntilkey = (operations: VNodeUpdater[], elems: [string | number, VNode][], key: string | number) => {
+const removeUntilkey = (
+    operations: VNodeUpdater[],
+    elems: [string | number, VNode][],
+    key: string | number,
+) => {
     while (elems[0] && elems[0][0] !== key) {
         operations.push(createRemove());
         elems.shift();
     }
 };
 
-const insertUntilKey = (operations: VNodeUpdater[], elems: [string | number, VNode][], key: string | number) => {
+const insertUntilKey = (
+    operations: VNodeUpdater[],
+    elems: [string | number, VNode][],
+    key: string | number,
+) => {
     while (elems[0] && elems[0][0] !== key) {
         // @ts-ignore
         operations.push(createInsert(elems.shift()[1]));

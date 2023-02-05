@@ -15,6 +15,7 @@
     }],
     "import/prefer-default-export": "off",
     "prefer-template": "off",
+    "import/no-cycle": "off",
     "template-curly-spacing": "off",
     "eol-last": ["error", "always"],
     "max-len": [2, 100],

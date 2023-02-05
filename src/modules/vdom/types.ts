@@ -1,3 +1,5 @@
+import { Component } from './Component';
+
 type VAttributes = Record<string, Object>;
 
 interface VElement {
@@ -8,13 +10,21 @@ interface VElement {
     children?: VNode[],
 }
 
+export interface VComponent<PROPS> {
+    type: 'component'
+    props: PROPS
+    component: { new(props: PROPS): Component<PROPS> }
+    key: string
+    children?: VNode[],
+}
+
 interface VText {
     type: 'text',
     key: string,
     value: string,
 }
 
-type VNode = VElement | VText;
+type VNode = VElement | VComponent<any> | VText;
 
 interface SkipOperation {
     type: 'skip';
@@ -50,6 +60,7 @@ type VNodeUpdater = SkipOperation
 export {
     VAttributes,
     VElement,
+    VComponent,
     VText,
     VNode,
 

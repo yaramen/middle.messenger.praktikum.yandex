@@ -1,5 +1,7 @@
+import { Component } from './Component';
 import {
     VAttributes,
+    VComponent,
     VElement,
     VNode,
     VText,
@@ -20,6 +22,20 @@ function createElement(tagName: string, props: VAttributes, ...children: VNode[]
     };
 }
 
+function createComponent<PROPS>(
+    component: { new(props1: PROPS): Component<PROPS> },
+    props: PROPS,
+    ...children: VNode[]
+): VComponent<PROPS> {
+    return {
+        type: 'component',
+        component,
+        props,
+        key: getKey(),
+        children,
+    };
+}
+
 function createText(value: string): VText {
     return {
         type: 'text',
@@ -30,5 +46,6 @@ function createText(value: string): VText {
 
 export {
     createElement,
+    createComponent,
     createText,
 };

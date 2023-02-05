@@ -13,7 +13,7 @@ function Message({
         [styles.message]: true,
         [styles['message-my']]: actor === 'my',
         [styles['message-contact']]: actor === 'contact',
-        [styles['message-html']]: isHtml,
+        [styles['message-vdom']]: isHtml,
         [styles['message-image']]: isImage,
     });
 

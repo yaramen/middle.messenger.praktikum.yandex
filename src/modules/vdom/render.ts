@@ -5,6 +5,13 @@ function render(root: VNode): HTMLElement | Text {
         return document.createTextNode(root.value);
     }
 
+    if (root.type === 'component') {
+        // eslint-disable-next-line new-cap
+        const component = new root.component(root.props);
+        const element = component.render();
+        return render(element);
+    }
+
     const { tagName, props = {}, children = [] } = root;
     const element = document.createElement(tagName);
 
@@ -12,7 +19,7 @@ function render(root: VNode): HTMLElement | Text {
         (element as any)[keyProp] = props[keyProp];
     });
 
-    children.forEach((child) => element.appendChild(render(child)));
+    children.forEach((child: any) => element.appendChild(render(child)));
 
     return element;
 }

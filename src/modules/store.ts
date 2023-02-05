@@ -3,7 +3,6 @@ import {
     ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER,
 } from './actions';
 import { auth, checkIn, getContactList } from '../api/mockApi';
-// eslint-disable-next-line import/no-cycle
 import { goTo } from './router';
 
 const initState = {
