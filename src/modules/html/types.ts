@@ -4,7 +4,7 @@ interface VElement {
     type: 'element',
     key: string
     tagName: string,
-    props?: VAttributes
+    props: VAttributes
     children?: VNode[],
 }
 
@@ -36,8 +36,8 @@ interface ReplaceOperation {
 
 interface UpdateOperation {
     type: 'update',
-    add: VAttributes,
-    remove: string[],
+    addVAttributes: VAttributes,
+    removeAttributeKey: string[],
     children: VNodeUpdater[]
 }
 
