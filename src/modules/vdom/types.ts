@@ -1,4 +1,4 @@
-import { Component } from './Component';
+import { FunctionComponent } from './Component';
 
 type VAttributes = Record<string, Object>;
 
@@ -13,7 +13,8 @@ interface VElement {
 export interface VComponent<PROPS> {
     type: 'component'
     props: PROPS
-    component: { new(props: PROPS): Component<PROPS> }
+    component: (props:PROPS) => VNode,
+    instance?: FunctionComponent<PROPS>,
     key: string
     children?: VNode[],
 }

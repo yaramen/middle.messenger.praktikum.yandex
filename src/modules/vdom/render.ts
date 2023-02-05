@@ -7,15 +7,22 @@ function render(root: VNode): HTMLElement | Text {
     }
 
     if (root.type === 'component') {
-        const component = new FunctionComponent(root.props);
-        // @ts-ignore
-        component.render = root.component;
-
-        const vNode = component.render();
-        const element = render(vNode);
+        let element: HTMLElement | Text;
+        if (!root.instance) {
+            // eslint-disable-next-line no-param-reassign
+            root.instance = new FunctionComponent(root.props);
+            // eslint-disable-next-line no-param-reassign
+            root.instance.render = root.component;
+            root.instance.init();
+            element = render(root.instance._render(root.props));
+            root.instance.setElement(element as HTMLElement);
+        } else {
+            root.instance._render(root.instance.getProps());
+            element = this.instance.getElement();
+        }
 
         if (root.children) {
-            root.children.forEach((child: any) => element.appendChild(render(child)));
+            root.children.forEach((child: any) => (element as HTMLElement).appendChild(render(child)));
         }
 
         return element;
@@ -43,18 +50,15 @@ function applyUpdate(element: HTMLElement | Text, delta: VNodeUpdater): HTMLElem
     }
 
     if (delta.type === 'update') {
-        // eslint-disable-next-line guard-for-in,no-restricted-syntax
         for (const att in delta.removeAttributeKey) {
             (element as HTMLElement).removeAttribute(att);
         }
 
-        // eslint-disable-next-line guard-for-in,no-restricted-syntax
         for (const att in delta.addVAttributes) {
             // eslint-disable-next-line no-param-reassign
             (element as any)[att] = delta.addVAttributes[att];
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         applyChildrenDiff(element, delta.children);
     }
 
@@ -67,7 +71,6 @@ const applyChildrenDiff = (elem: HTMLElement | Text, operations: VNodeUpdater[])
         const childUpdater = operations[i];
 
         if (childUpdater.type === 'skip') {
-            // eslint-disable-next-line no-continue
             continue;
         }
 
@@ -77,7 +80,6 @@ const applyChildrenDiff = (elem: HTMLElement | Text, operations: VNodeUpdater[])
             } else {
                 elem.appendChild(render(childUpdater.node));
             }
-            // eslint-disable-next-line no-continue
             continue;
         }
 
@@ -85,8 +87,7 @@ const applyChildrenDiff = (elem: HTMLElement | Text, operations: VNodeUpdater[])
 
         if (childUpdater.type === 'remove') {
             childElem.remove();
-            offset -= 1;
-            // eslint-disable-next-line no-continue
+            offset--;
             continue;
         }
 

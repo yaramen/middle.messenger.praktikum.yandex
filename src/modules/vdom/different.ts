@@ -101,8 +101,8 @@ const insertUntilKey = (
 };
 
 function createDifferentChildren(oldChilds: VNode[], newChilds: VNode[]): VNodeUpdater[] {
-    const remainingOldChilds: [string | number, VNode][] = oldChilds.map((c) => [c.key, c]);
-    const remainingNewChilds: [string | number, VNode][] = newChilds.map((c) => [c.key, c]);
+    const remainingOldChilds: [string | number, VNode][] = oldChilds.map((v) => [v.key, v]);
+    const remainingNewChilds: [string | number, VNode][] = newChilds.map((v) => [v.key, v]);
 
     const operations: VNodeUpdater[] = [];
 

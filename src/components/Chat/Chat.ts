@@ -5,7 +5,7 @@ import { ActionList } from '../ActionList';
 import { NewMessage } from '../NewMessage';
 import { MessageList } from '../MessageList';
 import { usePopup } from '../../modules/popup';
-import { Popup } from '../Popup/Popup';
+import { Popup } from '../Popup';
 import { AddUserPopup } from '../AddUserPopup';
 import { RemoveUserPopup } from '../RemoveUserPopup';
 import styles from './Chat.css';

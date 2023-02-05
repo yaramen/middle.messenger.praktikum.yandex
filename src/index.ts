@@ -1,31 +1,21 @@
+import { App } from './App';
 import './index.css';
-import { createComponent, createElement, createText } from './modules/vdom/createElement';
-import { renderDom } from './modules/vdom/render';
+import { store } from './modules/store';
 
 const root = document.querySelector('#root');
-function Button() {
-    return createElement('button', {
-        onclick: this.props.onclick,
-    }, createText(this.props.text));
+
+if (!root) {
+    throw new Error('Error root element not found');
 }
 
-const button1 = createComponent(Button, {
-    onclick: () => console.log('test 1'),
-    text: 'button 1',
-}, createText('span 1'));
+const render = () => {
+    root.innerHTML = App();
+};
 
-const button2 = createComponent(Button, {
-    onclick: () => console.log('test 2'),
-    text: 'button 2',
-}, createText('span 2'));
+store.subscribe((oldState, newState) => {
+    if (oldState.page !== newState.page) {
+        render();
+    }
+});
 
-const element1 = createElement(
-    'div',
-    {},
-    button1,
-    button2,
-);
-
-if (root) {
-    const element = renderDom(root, element1);
-}
+render();

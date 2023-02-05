@@ -1,21 +1,19 @@
-import { Component } from './Component';
 import {
-    VAttributes,
-    VComponent,
-    VElement,
-    VNode,
-    VText,
+    VAttributes, VComponent, VElement, VNode, VText,
 } from './types';
 
 let key = 1;
-function getKey() {
+function getKey(props?: any) {
+    if (props && 'key' in props && props.key) {
+        return props.key;
+    }
     return `key-${key++}`;
 }
 
 function createElement(tagName: string, props: VAttributes, ...children: VNode[]): VElement {
     return {
         type: 'element',
-        key: getKey(),
+        key: getKey(props),
         tagName,
         props,
         children,
@@ -23,7 +21,7 @@ function createElement(tagName: string, props: VAttributes, ...children: VNode[]
 }
 
 function createComponent<PROPS>(
-    component: () => VNode,
+    component: (props: PROPS) => VNode,
     props: PROPS,
     ...children: VNode[]
 ): VComponent<PROPS> {
@@ -31,7 +29,7 @@ function createComponent<PROPS>(
         type: 'component',
         component,
         props,
-        key: getKey(),
+        key: getKey(props),
         children,
     };
 }
