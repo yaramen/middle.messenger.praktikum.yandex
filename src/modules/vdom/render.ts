@@ -1,4 +1,5 @@
 import { VNode, VNodeUpdater } from './types';
+import { FunctionComponent } from './Component';
 
 function render(root: VNode): HTMLElement | Text {
     if (root.type === 'text') {
@@ -6,8 +7,9 @@ function render(root: VNode): HTMLElement | Text {
     }
 
     if (root.type === 'component') {
-        // eslint-disable-next-line new-cap
-        const component = new root.component(root.props);
+        const component = new FunctionComponent(root.props);
+        // @ts-ignore
+        component.render = root.component;
         const element = component.render();
         return render(element);
     }

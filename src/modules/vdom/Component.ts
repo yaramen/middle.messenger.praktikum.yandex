@@ -3,20 +3,19 @@ import { VNode } from './types';
 abstract class Component<PROPS> {
     protected props: PROPS;
 
-    private vNode: VNode;
-
     constructor(props: PROPS) {
         this.props = props;
-        this.vNode = this.render();
     }
 
-    public getVNode() {
-        return this.vNode;
-    }
+    // @ts-ignore
+    public render(): VNode;
+}
 
-    public abstract render(): VNode;
+// eslint-disable-next-line react/prefer-stateless-function
+class FunctionComponent<T> extends Component<T> {
 }
 
 export {
     Component,
+    FunctionComponent,
 };

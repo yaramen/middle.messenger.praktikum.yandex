@@ -60,7 +60,6 @@ type VNodeUpdater = SkipOperation
 export {
     VAttributes,
     VElement,
-    VComponent,
     VText,
     VNode,
 

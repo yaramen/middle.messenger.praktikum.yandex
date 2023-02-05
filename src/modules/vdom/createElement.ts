@@ -23,7 +23,7 @@ function createElement(tagName: string, props: VAttributes, ...children: VNode[]
 }
 
 function createComponent<PROPS>(
-    component: { new(props1: PROPS): Component<PROPS> },
+    component: () => VNode,
     props: PROPS,
     ...children: VNode[]
 ): VComponent<PROPS> {
