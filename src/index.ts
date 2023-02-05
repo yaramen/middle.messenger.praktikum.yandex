@@ -17,7 +17,7 @@ const button1 = createComponent(Button, {
 const button2 = createComponent(Button, {
     onclick: () => console.log('test 2'),
     text: 'button 2',
-}, createText('span 1'));
+}, createText('span 2'));
 
 const element1 = createElement(
     'div',

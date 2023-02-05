@@ -10,8 +10,15 @@ function render(root: VNode): HTMLElement | Text {
         const component = new FunctionComponent(root.props);
         // @ts-ignore
         component.render = root.component;
-        const element = component.render();
-        return render(element);
+
+        const vNode = component.render();
+        const element = render(vNode);
+
+        if (root.children) {
+            root.children.forEach((child: any) => element.appendChild(render(child)));
+        }
+
+        return element;
     }
 
     const { tagName, props = {}, children = [] } = root;
