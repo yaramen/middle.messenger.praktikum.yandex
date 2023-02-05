@@ -13,10 +13,9 @@ const element1 = createElement('button', {
 const element2 = createElement('button', {
     onclick: () => console.log('test 2'),
     bar: 'bar',
-}, createElement('span', {}, createText('span 1')));
+}, createElement('span', {}, createText('span 2')));
 
 const diff = createDifferent(element1, element2);
-
 console.log(diff);
 
 if (root) {

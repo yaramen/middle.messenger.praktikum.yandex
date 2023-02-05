@@ -68,10 +68,58 @@ function createDifferent(oldVNode1: VNode, newVNode2: VNode): VNodeUpdater {
             .filter((attrKey) => oldVNode1.props[attrKey] !== newVNode2.props[attrKey])
             .reduce((acc, key) => ({ ...acc, [key]: newVNode2.props[key] }), {});
 
-        return createUpdate(addVAttributes, removeAttributeKey, []);
+        // @ts-ignore
+        const children = createDifferentChildren(oldVNode1.children, newVNode2.children);
+
+        return createUpdate(addVAttributes, removeAttributeKey, children);
     }
 
     return createSkip();
+}
+
+const removeUntilkey = (operations: VNodeUpdater[], elems: [string | number, VNode][], key: string | number) => {
+    while (elems[0] && elems[0][0] !== key) {
+        operations.push(createRemove());
+        elems.shift();
+    }
+};
+
+const insertUntilKey = (operations: VNodeUpdater[], elems: [string | number, VNode][], key: string | number) => {
+    while (elems[0] && elems[0][0] !== key) {
+        // @ts-ignore
+        operations.push(createInsert(elems.shift()[1]));
+    }
+};
+
+function createDifferentChildren(oldChilds: VNode[], newChilds: VNode[]): VNodeUpdater[] {
+    const remainingOldChilds: [string | number, VNode][] = oldChilds.map((c) => [c.key, c]);
+    const remainingNewChilds: [string | number, VNode][] = newChilds.map((c) => [c.key, c]);
+
+    const operations: VNodeUpdater[] = [];
+
+    let [nextUpdateKey] = remainingOldChilds.find(
+        (k) => remainingNewChilds.map((v) => v[0]).indexOf(k[0]) !== -1,
+    ) || [null];
+
+    while (nextUpdateKey) {
+        removeUntilkey(operations, remainingOldChilds, nextUpdateKey);
+        insertUntilKey(operations, remainingNewChilds, nextUpdateKey);
+
+        operations.push(
+            // @ts-ignore
+            createDifferent(remainingOldChilds.shift()[1], remainingNewChilds.shift()[1]),
+        );
+
+        [nextUpdateKey] = remainingOldChilds
+            .find((k) => remainingNewChilds.map((v) => v[0]).indexOf(k[0]) !== -1) || [null];
+    }
+
+    // @ts-ignore
+    removeUntilkey(operations, remainingOldChilds, undefined);
+    // @ts-ignore
+    insertUntilKey(operations, remainingNewChilds, undefined);
+
+    return operations;
 }
 
 export {

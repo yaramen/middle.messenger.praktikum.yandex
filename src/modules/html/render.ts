@@ -37,10 +37,46 @@ function applyUpdate(element: HTMLElement | Text, delta: VNodeUpdater): HTMLElem
             // eslint-disable-next-line no-param-reassign
             (element as any)[att] = delta.addVAttributes[att];
         }
+
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        applyChildrenDiff(element, delta.children);
     }
 
     return element;
 }
+
+const applyChildrenDiff = (elem: HTMLElement | Text, operations: VNodeUpdater[]) => {
+    let offset = 0;
+    for (let i = 0; i < operations.length; i++) {
+        const childUpdater = operations[i];
+
+        if (childUpdater.type === 'skip') {
+            // eslint-disable-next-line no-continue
+            continue;
+        }
+
+        if (childUpdater.type === 'insert') {
+            if (elem.childNodes[i + offset - 1]) {
+                elem.childNodes[i + offset - 1].after(render(childUpdater.node));
+            } else {
+                elem.appendChild(render(childUpdater.node));
+            }
+            // eslint-disable-next-line no-continue
+            continue;
+        }
+
+        const childElem = elem.childNodes[i + offset];
+
+        if (childUpdater.type === 'remove') {
+            childElem.remove();
+            offset -= 1;
+            // eslint-disable-next-line no-continue
+            continue;
+        }
+
+        applyUpdate(childElem as HTMLElement, childUpdater);
+    }
+};
 
 function renderDom(rootElement: Element, root: VNode): HTMLElement | Text {
     const renderValue = render(root);
