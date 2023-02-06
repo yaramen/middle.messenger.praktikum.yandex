@@ -4,10 +4,11 @@ import styles from './Pages.css';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 import { ErrorLayout } from '../../layout/ErrorLayout';
 import { store } from '../../modules/store';
+import { CheckIn } from '../CheckIn';
 
 const pages = {
     auth: createComponent(Auth, { key: 'auth' }),
-    checkIn: createElement('div', {}, createText('checkIn')),
+    checkIn: createComponent(CheckIn, { key: 'CheckIn' }),
     messenger: createElement('div', {}, createText('messenger')),
     profile: createElement('div', {}, createText('profile')),
     profileEdit: createElement('div', {}, createText('profileEdit')),

@@ -1,6 +1,7 @@
 import { getLinkPage } from '../../modules/router';
+import { FormData } from '../../types/form';
 
-const checkInFormData = {
+const checkInFormData: FormData = {
     fields: [
         {
             type: 'email',
@@ -40,11 +41,13 @@ const checkInFormData = {
     ],
     buttons: [
         {
+            key: 'reg',
             label: 'Зарегистрироваться',
             action: 'submit',
             link: getLinkPage('auth'),
         },
         {
+            key: 'login',
             label: 'Войти',
             type: 'secondary',
             action: 'link',
