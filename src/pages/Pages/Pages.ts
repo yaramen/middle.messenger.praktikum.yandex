@@ -5,11 +5,12 @@ import { createComponent, createElement, createText } from '../../modules/vdom/c
 import { ErrorLayout } from '../../layout/ErrorLayout';
 import { store } from '../../modules/store';
 import { CheckIn } from '../CheckIn';
+import { Messenger } from '../Messenger';
 
 const pages = {
     auth: createComponent(Auth, { key: 'auth' }),
     checkIn: createComponent(CheckIn, { key: 'CheckIn' }),
-    messenger: createElement('div', {}, createText('messenger')),
+    messenger: createComponent(Messenger, { key: 'messenger' }),
     profile: createElement('div', {}, createText('profile')),
     profileEdit: createElement('div', {}, createText('profileEdit')),
     passwordEdit: createElement('div', {}, createText('passwordEdit')),

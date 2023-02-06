@@ -3,7 +3,7 @@ import styles from './Button.css';
 import { createElement, createText } from '../../modules/vdom/createElement';
 
 interface ButtonProps {
-    label: string,
+    label?: string,
     click?: (e: Event) => void,
     type?: 'primary' | 'secondary' | 'link' | 'action' | 'icon',
     icon?: string,
@@ -11,8 +11,8 @@ interface ButtonProps {
 }
 
 function Button({
-    label,
-    click,
+    label = '',
+    click = () => {},
     type = 'primary',
     icon = '',
     attr = {},
@@ -44,4 +44,5 @@ function Button({
 
 export {
     Button,
+    ButtonProps,
 };

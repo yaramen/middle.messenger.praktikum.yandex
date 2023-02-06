@@ -4,6 +4,7 @@ import { Chat } from '../../components/Chat';
 import { store } from '../../modules/store';
 import { getMessages } from '../../api/mockApi';
 import styles from './Messenger.css';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
 
 const activeChatComputed = (state) => state.contactList.find((item) => state.chatId === item.id);
 
@@ -17,7 +18,7 @@ store.subscribe(async (oldState, newState) => {
     }
 });
 
-function Messenger() {
+function _Messenger() {
     const { contactList } = store.getState();
     const messages = null;
 
@@ -31,6 +32,34 @@ function Messenger() {
     </div>
 </div>
 `;
+}
+
+function Messenger() {
+    const [contactList, setContactList] = this.useState([]);
+
+    this.useEffect(() => {
+        const unsubscribe = store.subscribe((oldState, newState) => {
+            if (oldState.contactList !== newState.contactList) {
+                setContactList(contactList);
+            }
+        });
+
+        return unsubscribe;
+    });
+
+    return createElement(
+        'div',
+        { className: styles.container },
+        createElement(
+            'div',
+            { className: styles.sidebar },
+            createComponent(Sidebar, { contactList }),
+        ),
+        createElement(
+            'div',
+            { className: styles.content },
+        ),
+    );
 }
 
 export {
