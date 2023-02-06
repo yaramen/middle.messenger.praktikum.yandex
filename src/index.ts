@@ -1,8 +1,6 @@
-import { App } from './App';
 import './index.css';
-import { store } from './modules/store';
 import { renderDom } from './modules/vdom/render';
-import { Auth } from './pages/Auth';
+import { Pages } from './pages/Pages';
 
 const root = document.querySelector('#root');
 
@@ -11,7 +9,7 @@ if (!root) {
 }
 
 const render = () => {
-    renderDom(root, Auth());
+    renderDom(root, Pages());
 };
 
 render();

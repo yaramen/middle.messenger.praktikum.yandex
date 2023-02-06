@@ -2,6 +2,7 @@ import { PopupFormLayout } from '../../layout/PopupFormLayout';
 import { Form } from '../../components/Form';
 import { authFormData } from './data';
 import { createComponent } from '../../modules/vdom/createElement';
+import { goTo } from '../../modules/router';
 
 // function Auth() {
 //     return html(PopupFormLayout, {
@@ -38,9 +39,18 @@ function Auth() {
                 key: 'form',
                 title: 'Вход',
                 formData: authFormData,
-                submit: (e, state) => {
+                submit: (e, button, state) => {
                     e.preventDefault();
-                    console.log('submit', state);
+                    console.log('submit', state, button);
+                    if (button.action === 'link') {
+                        goTo(button.link);
+                    } else {
+                        // store.dispatch(actions.auth({
+                        //     login: data.login,
+                        //     password: data.password,
+                        //     link: button.link,
+                        // }));
+                    }
                 },
             },
         ),

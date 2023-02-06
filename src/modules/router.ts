@@ -1,7 +1,9 @@
 import { store } from './store';
 import { actions } from './actions';
 
-function createRouterState(path) {
+type PageType = 'auth' | 'checkIn' | 'messenger' | 'profile' | 'profileEdit' | 'passwordEdit' | 'error404' | 'error500';
+
+function createRouterState(path: string) {
     const urlParams = new URLSearchParams(path);
     const page = urlParams.get('page');
     const id = urlParams.get('id');
@@ -17,12 +19,12 @@ function getActiveRoute() {
     return createRouterState(window.location.search);
 }
 
-function getLinkPage(page, id = 0) {
+function getLinkPage(page: PageType, id = 0) {
     const idQuery = id ? `&id=${id}` : '';
     return `?page=${page}${idQuery}`;
 }
 
-function goTo(path) {
+function goTo(path: string) {
     const newRouterState = createRouterState(path);
     const { page, id } = store.getState();
     const isPageChange = page !== newRouterState.page;
@@ -47,4 +49,5 @@ export {
     getActiveRoute,
     getLinkPage,
     goTo,
+    PageType,
 };

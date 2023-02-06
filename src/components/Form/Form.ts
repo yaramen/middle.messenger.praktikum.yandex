@@ -2,12 +2,12 @@ import { TextField } from '../TextField';
 import { Button } from '../Button';
 import styles from './Form.css';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
-import { FormData } from '../../types/form';
+import { FormData, FormButton } from '../../types/form';
 
 interface FormProps {
     title: string,
     formData: FormData,
-    submit: (e: Event, data: object) => void
+    submit: (e: Event, button: FormButton, data: object) => void
 }
 
 function Form({
@@ -68,7 +68,7 @@ function Form({
                 {
                     ...button,
                     click: (e: Event) => {
-                        submit(e, formState);
+                        submit(e, button, formState);
                     },
                 },
             ),
