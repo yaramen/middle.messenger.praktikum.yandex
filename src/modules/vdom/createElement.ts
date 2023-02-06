@@ -10,27 +10,31 @@ function getKey(props?: any) {
     return `key-${key++}`;
 }
 
-function createElement(tagName: string, props: VAttributes, ...children: VNode[]): VElement {
+function clearChildren(chs: (VNode | null)[]): VNode[] {
+    return chs.filter((v) => !!v) as VNode[];
+}
+
+function createElement(tagName: string, props: VAttributes, ...children: (VNode | null)[]): VElement {
     return {
         type: 'element',
         key: getKey(props),
         tagName,
         props,
-        children,
+        children: clearChildren(children),
     };
 }
 
 function createComponent<PROPS>(
     component: (props: PROPS) => VNode,
-    props: PROPS,
-    ...children: VNode[]
+    props: PROPS & { key: string },
+    ...children: (VNode | null)[]
 ): VComponent<PROPS> {
     return {
         type: 'component',
         component,
         props,
         key: getKey(props),
-        children,
+        children: clearChildren(children),
     };
 }
 

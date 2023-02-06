@@ -1,6 +1,6 @@
 import { FunctionComponent } from './Component';
 
-type VAttributes = Record<string, Object>;
+type VAttributes = Record<string, unknown>;
 
 interface VElement {
     type: 'element',

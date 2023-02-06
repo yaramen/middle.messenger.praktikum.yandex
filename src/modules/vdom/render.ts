@@ -9,9 +9,7 @@ function render(root: VNode): HTMLElement | Text {
     if (root.type === 'component') {
         let element: HTMLElement | Text;
         if (!root.instance) {
-            // eslint-disable-next-line no-param-reassign
             root.instance = new FunctionComponent(root.props);
-            // eslint-disable-next-line no-param-reassign
             root.instance.render = root.component;
             root.instance.init();
             element = render(root.instance._render(root.props));
@@ -30,32 +28,42 @@ function render(root: VNode): HTMLElement | Text {
 
     const { tagName, props = {}, children = [] } = root;
     const element = document.createElement(tagName);
+    element.dataset.key = root.key;
 
     Object.keys(props).forEach((keyProp) => {
+        if (keyProp === 'className') {
+            element.className = props.className instanceof Array
+                ? props.className.join(' ')
+                : props.className as string;
+            return;
+        }
         (element as any)[keyProp] = props[keyProp];
     });
 
-    children.forEach((child: any) => element.appendChild(render(child)));
+    children.forEach((child: any) => child && element.appendChild(render(child)));
 
     return element;
 }
 
 function applyUpdate(element: HTMLElement | Text, delta: VNodeUpdater): HTMLElement | Text {
-    if (delta.type === 'skip') return element;
-
     if (delta.type === 'replace') {
         const newElement = render(delta.node);
         element.replaceWith(newElement);
         return newElement;
     }
 
-    if (delta.type === 'update') {
+    if (delta.type === 'update' && element instanceof HTMLElement) {
         for (const att in delta.removeAttributeKey) {
             (element as HTMLElement).removeAttribute(att);
         }
 
         for (const att in delta.addVAttributes) {
-            // eslint-disable-next-line no-param-reassign
+            if (att === 'className') {
+                (element as any)[att] = delta.addVAttributes.className instanceof Array
+                    ? delta.addVAttributes.className.join(' ')
+                    : delta.addVAttributes.className;
+                continue;
+            }
             (element as any)[att] = delta.addVAttributes[att];
         }
 

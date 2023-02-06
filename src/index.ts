@@ -1,6 +1,8 @@
 import { App } from './App';
 import './index.css';
 import { store } from './modules/store';
+import { renderDom } from './modules/vdom/render';
+import { Auth } from './pages/Auth';
 
 const root = document.querySelector('#root');
 
@@ -9,13 +11,7 @@ if (!root) {
 }
 
 const render = () => {
-    root.innerHTML = App();
+    renderDom(root, Auth());
 };
-
-store.subscribe((oldState, newState) => {
-    if (oldState.page !== newState.page) {
-        render();
-    }
-});
 
 render();

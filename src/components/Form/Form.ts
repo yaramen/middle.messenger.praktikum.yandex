@@ -1,42 +1,79 @@
-import { html } from '../../modules/html';
 import { TextField } from '../TextField';
 import { Button } from '../Button';
 import styles from './Form.css';
+import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
+import { FormData } from '../../types/form';
+
+interface FormProps {
+    title: string,
+    formData: FormData,
+    submit: (e: Event, data: object) => void
+}
 
 function Form({
     title,
     formData,
     submit,
-}) {
-    const formState = formData.fields.reduce((acc, curr) => {
-        acc[curr.name] = '';
-        return acc;
-    }, {});
+}: FormProps) {
+    const [formState, setFormState] = this.useState(formData.fields.reduce((acc, curr) => ({
+        ...acc,
+        [curr.name]: '',
+    }), {}));
 
-    function updateFormState(value) {
-        // @ts-ignore
-        // eslint-disable-next-line no-restricted-globals
-        formState[event.target.name] = value;
-    }
+    const updateFormState = (e: InputEvent) => {
+        const target = e.target as HTMLInputElement;
+        const value = {
+            ...formState,
+            [target.name]: target.value,
+        };
+        setFormState(value);
+    };
 
-    return html`
-<form class="${styles.form}">
-    <h1 class="${styles.title}">${title}</h1>
-    ${formData.fields.map((field) => html`
-        <div class="${styles.item}">
-            ${html(TextField, {
-                ...field,
-                onChange: updateFormState,
-            })}
-        </div>
-    `)}
-    ${formData.buttons.map((button) => html`
-        <div class="${styles.item}" onclick="${submit.bind(this, this, button, formState)}">
-            ${html(Button, button)}
-        </div>
-    `)}
-</form>
-`;
+    return createElement(
+        'form',
+        {
+            className: styles.form,
+        },
+        createElement(
+            'h1',
+            {
+                key: 'h1',
+                className: styles.title,
+            },
+            createText(title),
+        ),
+        ...formData.fields.map((field) => createElement(
+            'div',
+            {
+                key: field.name,
+                className: styles.item,
+            },
+            createComponent(
+                TextField,
+                {
+                    key: field.name,
+                    ...field,
+                    onChange: updateFormState,
+                },
+            ),
+        )),
+        ...formData.buttons.map((button) => createElement(
+            'div',
+            {
+                className: styles.item,
+                key: button.key,
+            },
+            createComponent(
+                Button,
+                {
+                    ...button,
+                    click: (e: Event) => {
+                        submit(e, formState);
+                    },
+                },
+            ),
+        )),
+    );
 }
 
 export {

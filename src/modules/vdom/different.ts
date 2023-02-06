@@ -1,12 +1,13 @@
 import {
-    SkipOperation,
     InsertOperation,
     RemoveOperation,
     ReplaceOperation,
+    SkipOperation,
     UpdateOperation,
+    VAttributes,
+    VElement,
     VNode,
     VNodeUpdater,
-    VAttributes,
 } from './types';
 
 function createSkip(): SkipOperation {
@@ -49,6 +50,10 @@ function createUpdate(
 }
 
 function createDifferent(oldVNode1: VNode, newVNode2: VNode): VNodeUpdater {
+    if (!oldVNode1 || !newVNode2) {
+        return createSkip();
+    }
+
     if (oldVNode1.type === 'text'
         && newVNode2.type === 'text'
         && oldVNode1.value === newVNode2.value
@@ -60,22 +65,33 @@ function createDifferent(oldVNode1: VNode, newVNode2: VNode): VNodeUpdater {
         return createReplace(newVNode2);
     }
 
-    if (oldVNode1.type === 'element' && newVNode2.type === 'element') {
-        const removeAttributeKey = Object.keys(oldVNode1.props)
-            .filter((attrKey) => !Object.keys(newVNode2).includes(attrKey));
+    if (oldVNode1.type === 'component'
+        && newVNode2.type === 'component'
+        && oldVNode1.component === newVNode2.component
+        && oldVNode1.instance
+    ) {
+        const { instance } = oldVNode1;
+        const vNodeComponent = instance.getVNode();
+        const newRootNode = instance.render(newVNode2.props);
+        // eslint-disable-next-line no-param-reassign
+        newVNode2.instance = instance;
+        instance?.setVNode(newRootNode);
 
-        const addVAttributes = Object.keys(newVNode2.props)
-            .filter((attrKey) => oldVNode1.props[attrKey] !== newVNode2.props[attrKey])
-            .reduce((acc, key) => ({ ...acc, [key]: newVNode2.props[key] }), {});
-
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        const children = createDifferentChildren(oldVNode1.children, newVNode2.children);
-
-        return createUpdate(addVAttributes, removeAttributeKey, children);
+        const diff = createDifferent(vNodeComponent, newRootNode);
+        return diff;
     }
 
-    return createSkip();
+    const removeAttributeKey = Object.keys((oldVNode1 as VElement).props)
+        .filter((attrKey) => !Object.keys(newVNode2).includes(attrKey));
+
+    const addVAttributes = Object.keys((newVNode2 as VElement).props)
+        .filter((attrKey) => (oldVNode1 as VElement).props[attrKey] !== (newVNode2 as VElement).props[attrKey])
+        .reduce((acc, key) => ({ ...acc, [key]: (newVNode2 as VElement).props[key] }), {});
+
+    // @ts-ignore
+    const children = createDifferentChildren(oldVNode1.children, newVNode2.children);
+
+    return createUpdate(addVAttributes, removeAttributeKey, children);
 }
 
 const removeUntilkey = (

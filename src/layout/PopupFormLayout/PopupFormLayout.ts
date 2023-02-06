@@ -1,12 +1,10 @@
-import { html } from '../../modules/html';
 import styles from './PopupFormLayout.css';
+import { createElement } from '../../modules/vdom/createElement';
 
-function PopupFormLayout({ children }) {
-    return html`
-<div class="${styles.container}">
-    ${children}
-</div> 
-`;
+function PopupFormLayout() {
+    return createElement('div', {
+        className: styles.container,
+    });
 }
 
 export {

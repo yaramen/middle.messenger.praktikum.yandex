@@ -1,41 +1,56 @@
-import { className, html } from '../../modules/html';
+import { className } from '../../modules/html';
 import styles from './TextField.css';
+import { createElement } from '../../modules/vdom/createElement';
+
+interface TextFieldProps {
+    type?: string
+    name: string
+    placeholder: string
+    icon?: string
+    value?: string
+    readonly?: boolean
+    onChange?: (e: InputEvent) => void
+}
 
 function TextField({
     type = 'text',
     name,
     placeholder,
     icon,
-    value,
     readonly = false,
     onChange = () => {},
-}) {
+}: TextFieldProps) {
     const classes = className({
         [styles['text-field']]: true,
         [styles['text-field-icon']]: !!icon,
     });
 
-    function onInput(element) {
-        onChange(element.value);
-    }
-
-    return html`
-<div class="${classes}">
-    ${icon && html`
-        <img class="${styles.icon}" src="${icon}" alt="${placeholder}">
-    `}
-    <input 
-        type="${type}"
-        class="${styles.input}"
-        value="${value}"
-        type="text"
-        name="${name}"
-        placeholder="${placeholder}"
-        oninput="${onInput}"
-        ${readonly ? 'readonly' : ''}
-    />
-</div>
-`;
+    return createElement(
+        'div',
+        {
+            className: classes,
+        },
+        !icon ? null : createElement(
+            'img',
+            {
+                className: styles.icon,
+                src: icon,
+                alt: placeholder,
+            },
+        ),
+        createElement(
+            'input',
+            {
+                key: name,
+                className: styles.input,
+                name,
+                type,
+                placeholder,
+                readonly,
+                oninput: onChange,
+            },
+        ),
+    );
 }
 
 export {

@@ -1,6 +1,7 @@
 import { getLinkPage } from '../../modules/router';
+import { FormData } from '../../types/form';
 
-const authFormData = {
+const authFormData: FormData = {
     fields: [
         {
             type: 'text',
@@ -15,11 +16,13 @@ const authFormData = {
     ],
     buttons: [
         {
+            key: 'in',
             label: 'Вход',
             action: 'submit',
             link: getLinkPage('messenger'),
         },
         {
+            key: 'reg',
             label: 'Нет аккаунта?',
             type: 'secondary',
             action: 'link',
