@@ -7,7 +7,7 @@ abstract class Component<PROPS> {
 
     protected state: Array<any> = [];
 
-    protected stateIndex: number = 0;
+    protected hookIndex: number = 0;
 
     protected isInit: boolean = false;
 
@@ -47,12 +47,20 @@ abstract class Component<PROPS> {
                 this.state[index][0] = v;
                 this._render(this.props);
             };
-            const stateValue = [value, setValue(this.stateIndex++)];
+            const stateValue = [value, setValue(this.hookIndex++)];
             this.state.push(stateValue);
             return stateValue;
         }
-        const value = this.state[this.stateIndex++];
+        const value = this.state[this.hookIndex++];
         return value;
+    }
+
+    public useEffect(func: () => void) {
+        if (!this.isInit) {
+            func();
+            this.hookIndex++;
+        }
+        this.hookIndex++;
     }
 
     getProps() {
@@ -70,7 +78,7 @@ abstract class Component<PROPS> {
             const diff = createDifferent(oldVNode, newVNode);
             applyUpdate(this.element, diff);
         }
-        this.stateIndex = 0;
+        this.hookIndex = 0;
         return this.vNode;
     }
 }

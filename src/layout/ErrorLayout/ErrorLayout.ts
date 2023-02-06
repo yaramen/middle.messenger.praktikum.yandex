@@ -1,25 +1,44 @@
-import { html } from '../../modules/html';
 import { Button } from '../../components/Button';
 import { getLinkPage, goTo } from '../../modules/router';
 import styles from './ErrorLayout.css';
+import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
+
+interface ErrorLayoutProps {
+    code: number,
+    title: string,
+}
 
 function ErrorLayout({
     code,
     title,
-}) {
-    return html`
-<div class="${styles.main}">
-    <div class="${styles.container}">
-        <h2>${code}</h2>
-        <h1>${title}</h1> 
-        ${html(Button, {
-            label: 'На главную',
-            type: 'secondary',
-            click: () => goTo(getLinkPage('auth')),
-        })}
-    </div>
-</div>
-`;
+}: ErrorLayoutProps) {
+    return createElement(
+        'div',
+        { className: styles.main },
+        createElement(
+            'div',
+            { className: styles.container },
+            createElement(
+                'h2',
+                {},
+                createText(code.toString()),
+            ),
+            createElement(
+                'h1',
+                {},
+                createText(title),
+            ),
+            createComponent(
+                Button,
+                {
+                    key: 'button',
+                    label: 'На главную',
+                    type: 'secondary',
+                    click: () => goTo(getLinkPage('auth')),
+                },
+            ),
+        ),
+    );
 }
 
 export {

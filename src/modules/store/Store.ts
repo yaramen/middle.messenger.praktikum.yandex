@@ -26,6 +26,7 @@ class Store extends EventTarget {
 
     subscribe(handler) {
         this.handlers.push(handler);
+        return handler;
     }
 
     unsubscribe(handler) {

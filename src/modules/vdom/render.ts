@@ -15,8 +15,7 @@ function render(root: VNode): HTMLElement | Text {
             element = render(root.instance._render(root.props));
             root.instance.setElement(element as HTMLElement);
         } else {
-            root.instance._render(root.instance.getProps());
-            element = this.instance.getElement();
+            element = render(root.instance._render(root.instance.getProps()));
         }
 
         if (root.children) {
