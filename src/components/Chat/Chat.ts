@@ -18,7 +18,8 @@ import { Contact } from '../../types/model';
 
 function _Chat(chat, messages) {
     if (!messages) {
-        return html`<div class="${styles.empty}">Выберите чат, чтобы отправить сообщение</div>`;
+        return html`
+            <div class="${styles.empty}">Выберите чат, чтобы отправить сообщение</div>`;
     }
 
     const { id, name, avatar } = chat;
@@ -39,43 +40,6 @@ function _Chat(chat, messages) {
         }),
         close: () => popupRemove.close(),
     }));
-
-    return html`
-<div class="${styles.chat}">
-    <div class="${styles.header}">
-        <div class="${styles['header-content']}">
-            <div class="${styles.avatar}">
-                ${html(Avatar, avatar, name)}
-            </div>
-            <div class="${styles.name}">${name}</div>
-            <div class="${styles.action}">
-                ${html(Popover, {
-                    target: html`<img class="${styles.dots}" src="${dotsIcon}" alt="more" />`,
-                    content: html(ActionList, [{
-                        icon: addIcon,
-                        label: 'Добавить пользователя',
-                        click: () => popupAdd.show(),
-                    }, {
-                        icon: deleteIcon,
-                        label: 'Удалить пользователя',
-                        click: () => popupRemove.show(),
-                    }]),
-                    offset: {
-                        x: 0,
-                        y: 16,
-                    },
-                })}
-            </div>
-        </div>
-    </div>
-    <div class="${styles.content}">
-        ${html(MessageList, messages)}
-    </div>
-    <div class="${styles['new-message']}">
-        ${html(NewMessage)}
-    </div>
-</div>
-`;
 }
 
 function Chat() {
@@ -87,7 +51,6 @@ function Chat() {
             if (oldState.chatId !== newState.chatId) {
                 setChat(newState.contactList.find((v) => v.id === newState.chatId));
                 setMessages(newState.messages);
-                console.log(newState.messages);
             }
         });
 
@@ -187,6 +150,10 @@ function Chat() {
         createElement(
             'div',
             { className: styles['new-message'] },
+            createComponent(
+                NewMessage,
+                { key: 'new-message' },
+            ),
         ),
     );
 }

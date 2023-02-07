@@ -1,4 +1,3 @@
-import { html } from '../../modules/html';
 import { Popover } from '../Popover';
 import { Button } from '../Button';
 import { ActionList } from '../ActionList';
@@ -9,48 +8,80 @@ import fileIcon from '../../icons/file.svg';
 import locationIcon from '../../icons/location.svg';
 import sendIcon from '../../icons/send.svg';
 import styles from './NewMessage.css';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
 
 function NewMessage() {
-    return html`
- <div class="${styles.form}">
-    <div class="${styles.attach}">
-         ${html(Popover, {
-            target: html(Button, {
-                type: 'action',
-                icon: attachIcon,
-            }),
-            content: html(ActionList, [{
-                icon: photoIcon,
-                label: 'Фото или Видео',
-                click: () => {
+    const actionPopover = createComponent(
+        Popover,
+        {
+            key: 'popover',
+            target: createComponent(
+                Button,
+                {
+                    key: 'button',
+                    type: 'action',
+                    icon: attachIcon,
                 },
-            }, {
-                icon: fileIcon,
-                label: 'Файл',
-                click: () => {
+            ),
+            content: createComponent(
+                ActionList,
+                {
+                    key: 'action-list',
+                    actions: [{
+                        key: 'photoIcon',
+                        icon: photoIcon,
+                        label: 'Фото или Видео',
+                        click: () => {},
+                    }, {
+                        key: 'fileIcon',
+                        icon: fileIcon,
+                        label: 'Файл',
+                        click: () => {},
+                    }, {
+                        key: 'locationIcon',
+                        icon: locationIcon,
+                        label: 'Локация',
+                        click: () => {},
+                    }],
                 },
-            }, {
-                icon: locationIcon,
-                label: 'Локация',
-                click: () => {
-                },
-            }]),
+            ),
             type: 'top',
-        })}
-    </div>
-    <div class="${styles.field}">
-        ${html(TextField, {
-            name: 'message',
-            placeholder: 'Сообщение',
-        })}
-    </div>
-    <div class="${styles.send}">
-        ${html(Button, {
-            icon: sendIcon,
-        })}
-    </div>
-</div>    
-`;
+        },
+    );
+
+    return createElement(
+        'div',
+        { className: styles.form },
+        createElement(
+            'div',
+            { className: styles.attach },
+            actionPopover,
+        ),
+        createElement(
+            'div',
+            { className: styles.field },
+            createComponent(
+                TextField,
+                {
+                    key: 'text-field',
+                    name: 'message',
+                    placeholder: 'Сообщение',
+                },
+            ),
+        ),
+        createElement(
+            'div',
+            { className: styles.send },
+            createComponent(
+                Button,
+                {
+                    key: 'button',
+                    icon: sendIcon,
+                },
+            ),
+        ),
+
+    );
 }
 
 export {
