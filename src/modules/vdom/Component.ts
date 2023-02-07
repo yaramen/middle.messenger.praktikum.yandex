@@ -1,5 +1,5 @@
 import { VNode } from './types';
-import { createDifferent } from './different';
+import { createDifferent, unmountChildren } from './different';
 import { applyUpdate } from './render';
 
 abstract class Component<PROPS> {
@@ -40,7 +40,19 @@ abstract class Component<PROPS> {
         this.isInit = true;
     }
 
-    public useState(initValue: unknown) {
+    public unmount() {
+        if ('children' in this.vNode) {
+            unmountChildren(this.vNode.children);
+        }
+
+        this.state.forEach((v) => {
+            if (typeof v === 'function') {
+                v();
+            }
+        });
+    }
+
+    public useState<T>(initValue: T | null): [T, (v: T) => void] {
         if (!this.isInit) {
             const value = initValue;
             const setValue = (index: number) => (v: unknown) => {
@@ -49,17 +61,19 @@ abstract class Component<PROPS> {
             };
             const stateValue = [value, setValue(this.hookIndex++)];
             this.state.push(stateValue);
+            // @ts-ignore
             return stateValue;
         }
         const value = this.state[this.hookIndex++];
         return value;
     }
 
-    public useEffect(func: () => void) {
+    public useEffectOnce(func: () => void) {
         if (!this.isInit) {
-            func();
+            this.state.push(func());
             this.hookIndex++;
         }
+
         this.hookIndex++;
     }
 
@@ -76,6 +90,8 @@ abstract class Component<PROPS> {
         this.vNode = newVNode;
         if (oldVNode && newVNode && this.element) {
             const diff = createDifferent(oldVNode, newVNode);
+            // console.log(oldVNode, newVNode);
+            // console.log(diff);
             applyUpdate(this.element, diff);
         }
         this.hookIndex = 0;

@@ -1,12 +1,24 @@
-import { html } from '../../modules/html';
 import styles from './Avatar.css';
+import { createElement } from '../../modules/vdom/createElement';
 
-function Avatar(image, name) {
-    return html`
-<div class="${styles.avatar}">
-    <img src="${image}" alt="${name}" class="${styles.image}"/>
-</div>
-`;
+interface AvatarProps {
+    image: string,
+    name: string;
+}
+
+function Avatar({ image, name }: AvatarProps) {
+    return createElement(
+        'div',
+        { className: styles.avatar },
+        createElement(
+            'img',
+            {
+                className: styles.image,
+                src: image,
+                alt: name,
+            },
+        ),
+    );
 }
 
 export {

@@ -6,13 +6,23 @@ import { Popover } from '../Popover';
 import profileIcon from '../../icons/profile.svg';
 import exitAction from '../../icons/exit.svg';
 import { getLinkPage, goTo } from '../../modules/router';
-import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
+import { ChatList } from '../ChatList';
+import { store } from '../../modules/store';
 
-interface SidebarProps {
-    contentList: Contact[]
-}
+function Sidebar() {
+    const [contactList, setContactList] = this.useState([]);
 
-function Sidebar({ contactList }: SidebarProps) {
+    this.useEffectOnce(() => {
+        const unsubscribe = store.subscribe((_, newState) => {
+            if (contactList !== newState.contactList) {
+                setContactList(newState.contactList);
+            }
+        });
+
+        return unsubscribe;
+    });
+
     return createElement(
         'div',
         { className: styles.sidebar },
@@ -62,8 +72,13 @@ function Sidebar({ contactList }: SidebarProps) {
         createElement(
             'div',
             {},
-            createElement('div', {}, createText('chatList')),
-            // ${html(ChatList, contactList)}
+            createComponent(
+                ChatList,
+                {
+                    key: 'chat-list',
+                    contactList,
+                },
+            ),
         ),
     );
 }

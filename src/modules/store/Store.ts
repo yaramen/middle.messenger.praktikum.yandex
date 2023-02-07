@@ -27,7 +27,7 @@ class Store<T> extends EventTarget {
 
     subscribe(handler: (oldState: T, newState: T) => void) {
         this.handlers.push(handler);
-        return handler;
+        return () => this.unsubscribe(handler);
     }
 
     unsubscribe(handler: (oldState: T, newState: T) => void) {

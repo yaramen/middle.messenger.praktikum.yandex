@@ -1,14 +1,22 @@
-import { html } from '../../modules/html';
 import { ChatItem } from '../ChatItem';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
+import { Contact } from '../../types/model';
 
-function ChatList(list) {
-    return html`
-<ul>
-    ${list.map((chatInfo) => html`
-        <li>${html(ChatItem, chatInfo)}</li>
-    `)}
-</ul>
-`;
+function ChatList({ contactList }: { contactList: Contact }) {
+    return createElement(
+        'ul',
+        {},
+        ...contactList.map((chatInfo) => createElement(
+            'li',
+            {
+                key: chatInfo.key,
+            },
+            createComponent(
+                ChatItem,
+                chatInfo,
+            ),
+        )),
+    );
 }
 
 export {

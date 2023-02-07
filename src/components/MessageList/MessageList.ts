@@ -1,11 +1,19 @@
-import { className, html } from '../../modules/html';
+import { className } from '../../modules/html';
 import styles from './MessageList.css';
 import oneIcon from '../../icons/one-send.svg';
 import doubleIcon from '../../icons/double-send.svg';
+import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
+import { Chat, ChatMessage } from '../../types/model';
 
-function Message({
-    actor, time, messageType, content, status,
-}) {
+function Message({ message }: { message: ChatMessage }) {
+    const {
+        actor,
+        time,
+        messageType,
+        content,
+        status,
+    } = message;
+
     const isHtml = messageType === 'html';
     const isImage = messageType === 'image';
 
@@ -17,31 +25,51 @@ function Message({
         [styles['message-image']]: isImage,
     });
 
-    return html`
-<div class="${classes}">
-    ${isHtml && content}
-    ${isImage && html`<img src="${content}" alt="time" />`}
-    <time class="${styles.time}" datetime="${time}">${time.split(' ')[1]}</time>
-    ${status && html`<img 
-        class="${styles.status}"
-        src="${status === 'send' ? doubleIcon : oneIcon}" 
-        alt="send"
-    />`}
-</div>
-`;
+    return createElement(
+        'div',
+        { className: classes },
+        !isHtml ? null : createText(content),
+        !isImage ? null : createElement('img', { src: content, alt: 'time' }),
+        createElement(
+            'time',
+            {
+                className: styles.time,
+                datetime: time,
+            },
+            createText(time.split(' ')[1]),
+        ),
+        !status ? null : createElement(
+            'img',
+            {
+                className: styles.status,
+                src: status === 'send' ? doubleIcon : oneIcon,
+                alt: 'send',
+            },
+        ),
+    );
 }
 
-function MessageList(messages) {
-    return html`
-<div class="${styles.container}">
-    ${Object.keys(messages).map((date) => html`
-        <div class="${styles.wrapper}">
-            <div class="${styles.dateline}">${date}</div>
-            ${messages[date].map((message) => html(Message, message))}
-        </div>
-    `)}
-</div>
-`;
+function MessageList({ messages }: { messages: Chat }) {
+    return createElement(
+        'div',
+        { className: styles.container },
+        ...Object.keys(messages).map((date) => createElement(
+            'div',
+            { className: styles.wrapper },
+            createElement(
+                'div',
+                { className: styles.dateline },
+                createText(date),
+            ),
+            ...messages[date].map((message, index) => createComponent(
+                Message,
+                {
+                    key: `message-${index}`,
+                    message,
+                },
+            )),
+        )),
+    );
 }
 
 export {

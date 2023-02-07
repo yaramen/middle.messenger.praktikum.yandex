@@ -2,12 +2,15 @@ import { Store } from './store/Store';
 import {
     ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER,
 } from './actions';
-import { auth, checkIn, getContactList } from '../api/mockApi';
+import {
+    auth, checkIn, getContactList, getMessages,
+} from '../api/mockApi';
 import { goTo } from './router';
+import { Contact } from '../types/model';
 
 const initState = {
     user: null,
-    contactList: [],
+    contactList: [] as Contact[],
     messages: [],
     chatId: null,
     page: null,
@@ -22,10 +25,12 @@ store.addEventListener(PAGE_CHANGE, ({ detail: page }: CustomEvent) => {
     }));
 });
 
-store.addEventListener(CHAT_CHANGE, ({ detail: chatId }: CustomEvent) => {
+store.addEventListener(CHAT_CHANGE, async ({ detail: chatId }: CustomEvent) => {
+    const messages = await getMessages(chatId);
     store.setState((state) => ({
         ...state,
         chatId,
+        messages,
     }));
 });
 

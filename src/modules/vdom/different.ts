@@ -81,6 +81,12 @@ function createDifferent(oldVNode1: VNode, newVNode2: VNode): VNodeUpdater {
         return diff;
     }
 
+    if (oldVNode1.type === 'component' && oldVNode1.instance) {
+        oldVNode1.instance.unmount();
+        oldVNode1.instance = undefined;
+        return createReplace(newVNode2);
+    }
+
     const removeAttributeKey = Object.keys((oldVNode1 as VElement).props)
         .filter((attrKey) => !Object.keys(newVNode2).includes(attrKey));
 
@@ -94,12 +100,33 @@ function createDifferent(oldVNode1: VNode, newVNode2: VNode): VNodeUpdater {
     return createUpdate(addVAttributes, removeAttributeKey, children);
 }
 
+const unmountChildren = (children: VNode[] = []) => {
+    if (typeof children === 'object') {
+        children.forEach((v) => {
+            if (v.type === 'component' && v.instance) {
+                v.instance.unmount();
+                v.instance = undefined;
+            }
+            if ('children' in v) {
+                unmountChildren(v.children);
+            }
+        });
+    }
+};
+
 const removeUntilkey = (
     operations: VNodeUpdater[],
     elems: [string | number, VNode][],
     key: string | number,
 ) => {
     while (elems[0] && elems[0][0] !== key) {
+        if (elems[0][1].type === 'component') {
+            // @ts-ignore
+            elems[0][1].instance.unmount();
+            // @ts-ignore
+            elems[0][1].instance = null;
+        }
+
         operations.push(createRemove());
         elems.shift();
     }
@@ -149,4 +176,5 @@ function createDifferentChildren(oldChilds: VNode[], newChilds: VNode[]): VNodeU
 
 export {
     createDifferent,
+    unmountChildren,
 };

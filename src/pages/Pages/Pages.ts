@@ -30,7 +30,7 @@ function Pages() {
     const [page, setPage] = this.useState(getActiveRoute().page ? getActiveRoute().page : 'auth');
     const componentPage = pages[page as PageType] ?? pages.error404;
 
-    this.useEffect(() => {
+    this.useEffectOnce(() => {
         const unsubscribe = store.subscribe((oldState, newState) => {
             if (oldState.page !== newState.page) {
                 setPage(newState.page);
