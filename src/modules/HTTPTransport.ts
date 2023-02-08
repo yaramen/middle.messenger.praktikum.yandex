@@ -53,7 +53,7 @@ class HTTPTransport {
             xhr.timeout = timeout;
 
             const urlPath = method === Method.GET && data
-                ? url + queryStringify(data)
+                ? url + queryStringify(data as Record<string, string>)
                 : url;
 
             xhr.open(method, urlPath);
