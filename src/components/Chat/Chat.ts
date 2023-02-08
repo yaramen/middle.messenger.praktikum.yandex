@@ -1,4 +1,3 @@
-import { html } from '../../modules/html';
 import { Avatar } from '../Avatar';
 import { Popover } from '../Popover';
 import { ActionList } from '../ActionList';
@@ -7,7 +6,6 @@ import { MessageList } from '../MessageList';
 import { usePopup } from '../../modules/popup';
 import { Popup } from '../Popup';
 import { AddUserPopup } from '../AddUserPopup';
-import { RemoveUserPopup } from '../RemoveUserPopup';
 import styles from './Chat.css';
 import addIcon from '../../icons/add.svg';
 import deleteIcon from '../../icons/delete.svg';
@@ -15,32 +13,7 @@ import dotsIcon from '../../icons/dots.svg';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
 import { Contact } from '../../types/model';
-
-function _Chat(chat, messages) {
-    if (!messages) {
-        return html`
-            <div class="${styles.empty}">Выберите чат, чтобы отправить сообщение</div>`;
-    }
-
-    const { id, name, avatar } = chat;
-    const popupAdd = usePopup(html(Popup, {
-        title: 'Добавить пользователя',
-        content: html(AddUserPopup, {
-            closePopup: () => popupAdd.close(),
-        }),
-        close: () => popupAdd.close(),
-    }));
-
-    const popupRemove = usePopup(html(Popup, {
-        title: 'Удалить пользователя',
-        content: html(RemoveUserPopup, {
-            id,
-            name,
-            closePopup: () => popupRemove.close(),
-        }),
-        close: () => popupRemove.close(),
-    }));
-}
+import { RemoveUserPopup } from '../RemoveUserPopup';
 
 function Chat() {
     const [chat, setChat] = this.useState<Contact>(null);
@@ -65,7 +38,29 @@ function Chat() {
         );
     }
 
-    const { avatar, name } = (chat as Contact);
+    const { avatar, name, id } = (chat as Contact);
+
+    const popupAdd = usePopup(createComponent(Popup, {
+        key: 'popup',
+        title: 'Добавить пользователя',
+        content: createComponent(AddUserPopup, {
+            key: 'addUser',
+            closePopup: () => popupAdd.close(),
+        }),
+        close: () => popupAdd.close(),
+    }));
+
+    const popupRemove = usePopup(createComponent(Popup, {
+        key: 'popup',
+        title: 'Удалить пользователя',
+        content: createComponent(RemoveUserPopup, {
+            key: 'remove',
+            id,
+            name,
+            closePopup: () => popupRemove.close(),
+        }),
+        close: () => popupRemove.close(),
+    }));
 
     const actionPopover = createComponent(
         Popover,
@@ -87,12 +82,15 @@ function Chat() {
                         key: 'addd',
                         icon: addIcon,
                         label: 'Добавить пользователя',
-                        click: () => console.log('popupAdd.show()'),
+                        click: () => {
+                            console.log('!!!show');
+                            popupAdd.show();
+                        },
                     }, {
                         key: 'delete',
                         icon: deleteIcon,
                         label: 'Удалить пользователя',
-                        click: () => console.log('popupRemove.show()'),
+                        click: () => popupRemove.show(),
                     }],
                 },
             ),

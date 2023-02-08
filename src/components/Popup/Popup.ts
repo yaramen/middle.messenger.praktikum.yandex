@@ -1,20 +1,33 @@
-import { html } from '../../modules/html';
 import styles from './Popup.css';
+import { createElement, createText } from '../../modules/vdom/createElement';
 
 function Popup({
     title,
     content,
     close,
 }) {
-    return html`
-<div class="${styles.container}">
-    <div class="${styles.overlay}" onclick="${close}"></div>
-    <div class="${styles.popup}">
-        <h2 class="${styles.title}">${title}</h2>
-        <div>${content}</div>
-    </div>
-</div>
-`;
+    return createElement(
+        'div',
+        { className: styles.container },
+        createElement(
+            'div',
+            { className: styles.overlay, onclick: close },
+        ),
+        createElement(
+            'div',
+            { className: styles.popup },
+            createElement(
+                'h2',
+                { className: styles.title },
+                createText(title),
+            ),
+            createElement(
+                'div',
+                {},
+                content,
+            ),
+        ),
+    );
 }
 
 export {

@@ -1,10 +1,20 @@
-const getPopupRef = () => document.querySelector('[data-ref="overlay"]') as HTMLElement | null;
+import { VNode } from './vdom/types';
+import { renderDom } from './vdom/render';
+import styles from '../pages/Pages/Pages.css';
+import { unmountChildren } from './vdom/different';
 
-function usePopup(component) {
+const getPopupRef = () => document.querySelector(`.${styles.overlay}`) as HTMLElement | null;
+
+function usePopup(component: VNode) {
     return {
+        component,
         close: () => {
             const popupRef = getPopupRef();
             if (popupRef) {
+                if (component.type === 'component' && component.instance) {
+                    component.instance.unmount();
+                    unmountChildren(component.children);
+                }
                 popupRef.innerHTML = '';
                 popupRef.style.display = 'none';
             }
@@ -12,7 +22,8 @@ function usePopup(component) {
         show: () => {
             const popupRef = getPopupRef();
             if (popupRef) {
-                popupRef.innerHTML = component;
+                const dom = renderDom(popupRef, component);
+                popupRef.appendChild(dom);
                 popupRef.style.display = 'block';
             }
         },

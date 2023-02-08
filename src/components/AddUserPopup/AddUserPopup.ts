@@ -4,8 +4,9 @@ import { Button } from '../Button';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
 import styles from './AddUserPopup.css';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
 
-function AddUserPopup({
+function _AddUserPopup({
     closePopup,
 }) {
     let userName = '';
@@ -29,6 +30,50 @@ function AddUserPopup({
     })}
 </div>
         `;
+}
+
+function AddUserPopup({
+    closePopup,
+}) {
+    const [userName, setUserName] = this.useState('');
+
+    return createElement(
+        'div',
+        {
+            key: 'add-user-popup',
+        },
+        createElement(
+            'div',
+            {
+                key: 'textField',
+                className: styles.field,
+            },
+            createComponent(
+                TextField,
+                {
+                    key: 'field',
+                    name: 'name',
+                    placeholder: 'Имя пользователя',
+                    onChange: (e: InputEvent) => {
+                        console.log(e.target);
+                        setUserName((e.target as HTMLInputElement).value);
+                    },
+                },
+            ),
+        ),
+        createComponent(
+            Button,
+            {
+                key: 'button',
+                label: 'Добавить',
+                click: () => {
+                    console.log('add', userName);
+                    store.dispatch(actions.removeUser(userName));
+                    closePopup();
+                },
+            },
+        ),
+    );
 }
 
 export {
