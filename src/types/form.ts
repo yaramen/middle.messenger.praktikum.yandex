@@ -4,6 +4,16 @@ type FormField = {
     placeholder?: string,
     value?:string,
     label?:string
+    validation?: {
+        length?: {
+            min: number,
+            max: number
+        };
+        pattern?: {
+            reg: RegExp,
+            message: string,
+        },
+    }
 };
 
 type FormButton = {

@@ -6,12 +6,32 @@ const authFormData: FormData = {
         {
             type: 'text',
             name: 'login',
-            placeholder: 'Login',
+            placeholder: 'Логин',
+            validation: {
+                length: {
+                    min: 3,
+                    max: 20,
+                },
+                pattern: {
+                    reg: /^[a-zA-Z_-][a-zA-Z_\-0-9]+/,
+                    message: 'Ошибка логина',
+                },
+            },
         },
         {
             type: 'password',
             name: 'password',
-            placeholder: 'Password',
+            placeholder: 'Пароль',
+            validation: {
+                length: {
+                    min: 8,
+                    max: 40,
+                },
+                pattern: {
+                    reg: /^.*[A-Z]+.*$/,
+                    message: 'Должна быть хотя бы отдна заглавная буква',
+                },
+            },
         },
     ],
     buttons: [

@@ -1,6 +1,6 @@
 import { className } from '../../modules/html';
 import styles from './TextField.css';
-import { createElement } from '../../modules/vdom/createElement';
+import { createElement, createText } from '../../modules/vdom/createElement';
 
 interface TextFieldProps {
     type?: string
@@ -10,6 +10,9 @@ interface TextFieldProps {
     value?: string
     readonly?: boolean
     onChange?: (e: InputEvent) => void
+    onFocus?: (e: InputEvent) => void
+    onBlur?: (e: InputEvent) => void
+    errors?: string
 }
 
 function TextField({
@@ -19,7 +22,10 @@ function TextField({
     icon,
     readonly = false,
     onChange = () => {},
+    onFocus = () => {},
+    onBlur = () => {},
     value = '',
+    errors = '',
 }: TextFieldProps) {
     const classes = className({
         [styles['text-field']]: true,
@@ -49,8 +55,18 @@ function TextField({
                 placeholder,
                 readOnly: readonly,
                 oninput: onChange,
+                onfocus: onFocus,
+                onblur: onBlur,
                 value,
             },
+        ),
+        createElement(
+            'div',
+            {
+                className: styles.error,
+                title: errors,
+            },
+            createText(errors),
         ),
     );
 }
