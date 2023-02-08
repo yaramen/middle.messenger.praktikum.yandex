@@ -3,11 +3,6 @@ import { Profile } from '../../types/model';
 
 function createProfileFormData(profile: Profile): FormField[] {
     return [{
-        name: 'avatar',
-        value: profile.avatar,
-        label: profile.nickName,
-        type: 'image',
-    }, {
         name: 'email',
         value: profile.email,
         label: 'Email',

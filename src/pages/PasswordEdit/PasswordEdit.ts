@@ -1,6 +1,8 @@
 import { ProfileLayout } from '../../layout/ProfileLayout';
-import { PasswordForm } from '../../components/PasswordForm';
 import { createComponent } from '../../modules/vdom/createElement';
+import { passwordFormData } from './data';
+import { getLinkPage, goTo } from '../../modules/router';
+import { FormEdit } from '../../components/FormEdit';
 
 function PasswordEdit() {
     return createComponent(
@@ -8,9 +10,12 @@ function PasswordEdit() {
         {
             key: 'password',
             content: createComponent(
-                PasswordForm,
+                FormEdit,
                 {
+                    fields: passwordFormData,
                     key: 'form',
+                    submit: () => goTo(getLinkPage('profile')),
+                    cancel: () => goTo(getLinkPage('profile')),
                 },
             ),
         },
