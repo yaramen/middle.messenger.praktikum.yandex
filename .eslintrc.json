@@ -16,6 +16,7 @@
       "ignoredNodes": ["TemplateLiteral *"]
     }],
     "import/prefer-default-export": "off",
+    "no-useless-escape": "off",
     "prefer-template": "off",
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",
