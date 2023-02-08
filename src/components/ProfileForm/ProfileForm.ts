@@ -4,6 +4,7 @@ import { FormField } from '../../types/form';
 import styles from './ProfileForm.css';
 import { Button } from '../Button';
 import { getLinkPage, goTo } from '../../modules/router';
+import { AvatarEdit } from '../AvatarEdit';
 
 function ProfileForm({ data, isEdit }: { data: FormField[], isEdit: boolean }) {
     return createElement(
@@ -18,7 +19,7 @@ function ProfileForm({ data, isEdit }: { data: FormField[], isEdit: boolean }) {
                     key: 'text-field',
                 },
             )
-            : createElement('div', {})
+            : createComponent(AvatarEdit, { key: 'avatar', value })
         )),
         isEdit
             ? createElement(

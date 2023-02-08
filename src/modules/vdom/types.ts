@@ -1,6 +1,7 @@
 import { FunctionComponent } from './Component';
 
-type VAttributes = Record<string, unknown>;
+type PropsKey = 'className' | 'onclick' | string;
+type VAttributes = Record<PropsKey, unknown>;
 
 interface VElement {
     type: 'element',

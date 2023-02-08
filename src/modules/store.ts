@@ -1,5 +1,6 @@
 import { Store } from './store/Store';
 import {
+    actions,
     ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER,
 } from './actions';
 import {
@@ -73,6 +74,8 @@ store.addEventListener(AVATAR_UPDATE, ({ detail: userId }: CustomEvent) => {
     // eslint-disable-next-line no-console
     console.log('avatar update', userId);
 });
+
+store.dispatch(actions.auth({}));
 
 export {
     store,
