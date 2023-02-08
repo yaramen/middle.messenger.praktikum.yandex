@@ -58,6 +58,11 @@ function Form({
                 return acc;
             }
 
+            if ('equal' in validation && validation.equal && value !== formState[validation.equal]) {
+                acc[field.name] = 'Поля не совпадают';
+                return acc;
+            }
+
             acc[field.name] = '';
             return acc;
         }, {} as Record<string, string>);

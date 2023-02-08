@@ -13,6 +13,7 @@ type FormField = {
             reg: RegExp,
             message: string,
         },
+        equal?: string
     }
 };
 
