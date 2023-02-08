@@ -1,11 +1,11 @@
 {
   "extends": "stylelint-config-standard",
+  "ignoreFiles": [
+    "dist/*"
+  ],
   "rules": {
     "color-hex-case": "lower",
     "indentation": 4,
     "color-hex-length": "long",
-    "ignoreFiles": [
-      "dist/*"
-    ]
   }
 }
