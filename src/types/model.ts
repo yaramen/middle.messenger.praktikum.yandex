@@ -15,10 +15,22 @@ type ChatMessage = {
     content: string,
 };
 
+type Profile = {
+    email: string,
+    login: string,
+    firstName: string,
+    fastName: string,
+    nickName: string,
+    phone: string,
+    password: string,
+    avatar: string,
+};
+
 type Chat = Record<string, ChatMessage[]>;
 
 export {
     Contact,
     ChatMessage,
     Chat,
+    Profile,
 };

@@ -1,54 +1,69 @@
-import { html } from '../../modules/html';
 import { TextFieldLabel } from '../TextFieldLabel';
-import { AvatarEdit } from '../AvatarEdit';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
+import { FormField } from '../../types/form';
+import styles from './ProfileForm.css';
 import { Button } from '../Button';
 import { getLinkPage, goTo } from '../../modules/router';
-import styles from './ProfileForm.css';
 
-function ProfileForm(profileForm, isEdit) {
-    return html`
-<form>
-    ${profileForm.map(({
-        type, name, label, value,
-    }) => (type === 'text'
-        ? html(TextFieldLabel, {
-            type,
-            name,
-            label,
-            value,
-            isEdit,
-        })
-        : html(AvatarEdit, value, label)))}
-    ${isEdit
-        ? html`
-            <div class="${styles.pair}">
-                ${html(Button, {
-                    label: 'Сохранить',
-                    click: () => {
-                        goTo(getLinkPage('profile'));
+function ProfileForm({ data, isEdit }: { data: FormField[], isEdit: boolean }) {
+    return createElement(
+        'form',
+        {},
+        ...data.map((value) => (value.type === 'text'
+            ? createComponent(
+                TextFieldLabel,
+                {
+                    ...value,
+                    readonly: isEdit,
+                    key: 'text-field',
+                },
+            )
+            : createElement('div', {})
+        )),
+        isEdit
+            ? createElement(
+                'div',
+                { className: styles.pair },
+                createComponent(
+                    Button,
+                    {
+                        key: 'save',
+                        label: 'Сохранить',
+                        click: () => goTo(getLinkPage('profile')),
                     },
-                })}
-                ${html(Button, {
-                    label: 'Отмена',
-                    click: () => goTo(getLinkPage('profile')),
-                })}
-            </div>`
-        : html`
-            <div>
-                ${html(Button, {
-                    label: 'Изменить данные',
-                    type: 'link',
-                    click: () => goTo(getLinkPage('profileEdit')),
-                })}
-                ${html(Button, {
-                    label: 'Изменить пароль',
-                    type: 'link',
-                    click: () => goTo(getLinkPage('passwordEdit')),
-                })}
-            </div>`
-}
-</form>
-`;
+                ),
+                createComponent(
+                    Button,
+                    {
+                        key: 'cansel',
+                        label: 'Отмена',
+                        click: () => goTo(getLinkPage('profile')),
+                    },
+                ),
+            )
+            : createElement(
+                'div',
+                {},
+                createComponent(
+                    Button,
+                    {
+                        key: 'data',
+                        label: 'Изменить данные',
+                        type: 'link',
+                        click: () => goTo(getLinkPage('profileEdit')),
+                    },
+                ),
+                createComponent(
+                    Button,
+                    {
+                        key: 'password',
+                        label: 'Изменить пароль',
+                        type: 'link',
+                        click: () => goTo(getLinkPage('passwordEdit')),
+                    },
+                ),
+            ),
+    );
 }
 
 export {

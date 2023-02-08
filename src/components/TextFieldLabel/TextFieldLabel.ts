@@ -1,19 +1,28 @@
-import { html } from '../../modules/html';
-import { TextField } from '../TextField';
+import { TextField, TextFieldProps } from '../TextField';
 import styles from './TextFieldLabel.css';
+import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 
 function TextFieldLabel({
     label,
     ...props
-}) {
-    return html`
-<label class="${styles.row}">
-    <div class="${styles.label}">${label}</div>
-    <div>
-        ${html(TextField, props)}
-    </div>
-</label>
-`;
+}: TextFieldProps & { label?: string }) {
+    return createElement(
+        'div',
+        { className: styles.row },
+        createElement(
+            'div',
+            { className: styles.label },
+            createText(label || ''),
+        ),
+        createElement(
+            'div',
+            { className: styles.label },
+            createComponent(
+                TextField,
+                { ...props, key: 'field' },
+            ),
+        ),
+    );
 }
 
 export {

@@ -16,7 +16,7 @@ import { Contact } from '../../types/model';
 import { RemoveUserPopup } from '../RemoveUserPopup';
 
 function Chat() {
-    const [chat, setChat] = this.useState<Contact>(null);
+    const [chat, setChat] = this.useState(null);
     const [messages, setMessages] = this.useState(null);
 
     this.useEffectOnce(() => {

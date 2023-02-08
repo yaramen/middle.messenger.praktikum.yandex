@@ -1,26 +1,40 @@
-import { html } from '../../modules/html';
 import styles from './ProfileLayout.css';
 import { Button } from '../../components/Button';
 import backIcon from '../../icons/back.svg';
 import { getLinkPage, goTo } from '../../modules/router';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
+import { VNode } from '../../modules/vdom/types';
 
-function ProfileLayout(children) {
-    return html`
-<div class="${styles.container}">
-    <div class="${styles.panel}">
-        ${html(Button, {
-            icon: backIcon,
-            type: 'secondary',
-            click: () => goTo(getLinkPage('messenger')),
-        })}
-    </div>
-    <div class="${styles.content}">
-        <div class="${styles.wrapper}">
-            ${children} 
-        </div>
-    </div>
-</div>
-`;
+function ProfileLayout({ content }: { content: VNode }) {
+    return createElement(
+        'div',
+        {
+            key: 'layout',
+            className: styles.container,
+        },
+        createElement(
+            'div',
+            { className: styles.panel },
+            createComponent(
+                Button,
+                {
+                    key: 'button',
+                    icon: backIcon,
+                    type: 'secondary',
+                    click: () => goTo(getLinkPage('messenger')),
+                },
+            ),
+        ),
+        createElement(
+            'div',
+            { className: styles.content },
+            createElement(
+                'div',
+                { className: styles.wrapper },
+                content,
+            ),
+        ),
+    );
 }
 
 export {

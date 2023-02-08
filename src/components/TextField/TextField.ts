@@ -5,7 +5,7 @@ import { createElement } from '../../modules/vdom/createElement';
 interface TextFieldProps {
     type?: string
     name: string
-    placeholder: string
+    placeholder?: string
     icon?: string
     value?: string
     readonly?: boolean
@@ -15,10 +15,11 @@ interface TextFieldProps {
 function TextField({
     type = 'text',
     name,
-    placeholder,
+    placeholder = '',
     icon,
     readonly = false,
     onChange = () => {},
+    value = '',
 }: TextFieldProps) {
     const classes = className({
         [styles['text-field']]: true,
@@ -48,6 +49,7 @@ function TextField({
                 placeholder,
                 readonly,
                 oninput: onChange,
+                value,
             },
         ),
     );
@@ -55,4 +57,5 @@ function TextField({
 
 export {
     TextField,
+    TextFieldProps,
 };

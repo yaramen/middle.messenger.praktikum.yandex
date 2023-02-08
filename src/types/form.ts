@@ -1,7 +1,9 @@
 type FormField = {
     type: string,
     name: string,
-    placeholder: string,
+    placeholder?: string,
+    value?:string,
+    label?:string
 };
 
 type FormButton = {
