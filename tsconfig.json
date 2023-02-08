@@ -9,6 +9,6 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "typeRoots": ["./declaration.d.ts"],
+    "typeRoots": ["./declaration.d.ts"]
   }
 }
