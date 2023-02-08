@@ -11,18 +11,6 @@ import { ChatList } from '../ChatList';
 import { store } from '../../modules/store';
 
 function Sidebar() {
-    const [contactList, setContactList] = this.useState([]);
-
-    this.useEffectOnce(() => {
-        const unsubscribe = store.subscribe((_, newState) => {
-            if (contactList !== newState.contactList) {
-                setContactList(newState.contactList);
-            }
-        });
-
-        return unsubscribe;
-    });
-
     return createElement(
         'div',
         { className: styles.sidebar },
@@ -76,7 +64,7 @@ function Sidebar() {
                 ChatList,
                 {
                     key: 'chat-list',
-                    contactList,
+                    contactList: store.getState().contactList,
                 },
             ),
         ),

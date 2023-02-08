@@ -13,17 +13,7 @@ function Load() {
 }
 
 function Profile({ isEdit }: { isEdit: boolean }) {
-    const [user, setUser] = this.useState(null);
-
-    this.useEffectOnce(() => {
-        const unsubscribe = store.subscribe((oldState, newState) => {
-            if (oldState.user !== newState.user || (!user && newState.user)) {
-                setUser(newState.user);
-            }
-        });
-
-        return unsubscribe;
-    });
+    const { user } = store.getState();
 
     if (!user) {
         return createComponent(Load, { key: 'load' });

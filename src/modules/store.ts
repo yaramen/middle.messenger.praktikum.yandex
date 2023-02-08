@@ -1,16 +1,17 @@
 import { Store } from './store/Store';
 import {
-    actions, ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER,
+    ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER,
 } from './actions';
 import {
     auth, checkIn, getContactList, getMessages,
 } from '../api/mockApi';
 import { goTo, PageType } from './router';
 import { ChatMessage, Contact, Profile } from '../types/model';
+import { contacts, profile } from '../api/mockData';
 
 const initState = {
-    user: null,
-    contactList: [] as Contact[],
+    user: profile,
+    contactList: contacts,
     messages: {},
     chatId: null,
     page: null,
@@ -78,8 +79,6 @@ store.addEventListener(REMOVE_USER, ({ detail: userId }: CustomEvent) => {
 store.addEventListener(AVATAR_UPDATE, ({ detail: userId }: CustomEvent) => {
     console.log('avatar update', userId);
 });
-
-store.dispatch(actions.auth({}));
 
 export {
     store,
