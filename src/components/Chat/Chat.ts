@@ -144,10 +144,14 @@ function Chat() {
         ),
         createElement(
             'div',
-            { className: styles['new-message'] },
+            {
+                className: styles['new-message'],
+            },
             createComponent(
                 NewMessage,
-                { key: 'new-message' },
+                {
+                    key: 'message',
+                },
             ),
         ),
     );

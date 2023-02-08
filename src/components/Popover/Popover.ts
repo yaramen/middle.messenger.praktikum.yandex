@@ -33,6 +33,7 @@ function Popover({
     return createElement(
         'div',
         {
+            key: 'popover',
             className: classes,
             onclick: () => {
                 setOpen(!isOpen);

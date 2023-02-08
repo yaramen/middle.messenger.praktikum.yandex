@@ -35,6 +35,7 @@ function TextField({
     return createElement(
         'div',
         {
+            key: name,
             className: classes,
         },
         !icon ? null : createElement(

@@ -7,6 +7,7 @@ const REMOVE_USER = 'REMOVE_USER';
 const AVATAR_UPDATE = 'AVATAR_UPDATE';
 const PROFILE_UPDATE = 'PROFILE_UPDATE';
 const PASSWORD_UPDATE = 'PASSWORD_UPDATE';
+const NEW_MESSAGE = 'NEW_MESSAGE';
 
 const createAction = (name: string) => (payload: object | string) => new CustomEvent(name, { detail: payload });
 
@@ -20,6 +21,7 @@ const actions = {
     avatarUpdate: createAction(AVATAR_UPDATE),
     profileUpdate: createAction(PROFILE_UPDATE),
     passwordUpdate: createAction(PASSWORD_UPDATE),
+    newMessage: createAction(NEW_MESSAGE),
 };
 
 export {
@@ -33,4 +35,5 @@ export {
     AVATAR_UPDATE,
     PROFILE_UPDATE,
     PASSWORD_UPDATE,
+    NEW_MESSAGE,
 };

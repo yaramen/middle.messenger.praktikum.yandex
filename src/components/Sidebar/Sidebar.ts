@@ -5,10 +5,12 @@ import { ActionList } from '../ActionList';
 import { Popover } from '../Popover';
 import profileIcon from '../../icons/profile.svg';
 import exitAction from '../../icons/exit.svg';
+import searchIcon from '../../icons/search.svg';
 import { getLinkPage, goTo } from '../../modules/router';
 import { createComponent, createElement } from '../../modules/vdom/createElement';
 import { ChatList } from '../ChatList';
 import { store } from '../../modules/store';
+import { TextField } from '../TextField';
 
 function Sidebar() {
     return createElement(
@@ -55,6 +57,15 @@ function Sidebar() {
                         },
                     },
                 ),
+            ),
+            createComponent(
+                TextField,
+                {
+                    key: 'search',
+                    name: 'search',
+                    placeholder: 'Поиск',
+                    icon: searchIcon,
+                },
             ),
         ),
         createElement(

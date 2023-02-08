@@ -1,6 +1,15 @@
 import { Store } from './store/Store';
 import {
-    ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER, PROFILE_UPDATE, PASSWORD_UPDATE,
+    ADD_USER,
+    AUTH,
+    AVATAR_UPDATE,
+    CHAT_CHANGE,
+    CHECK_IN,
+    PAGE_CHANGE,
+    REMOVE_USER,
+    PROFILE_UPDATE,
+    PASSWORD_UPDATE,
+    NEW_MESSAGE,
 } from './actions';
 import {
     auth, checkIn, getContactList, getMessages,
@@ -88,6 +97,10 @@ store.addEventListener(PROFILE_UPDATE, ({ detail: data }: CustomEvent) => {
 store.addEventListener(PASSWORD_UPDATE, ({ detail: data }: CustomEvent) => {
     console.log('profile update', data);
     goTo(getLinkPage('profile'));
+});
+
+store.addEventListener(NEW_MESSAGE, ({ detail: data }: CustomEvent) => {
+    console.log('new message: ', data);
 });
 
 export {
