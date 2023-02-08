@@ -13,7 +13,7 @@ function queryStringify(data: Record<string, string>) {
 type Options = {
     timeout?: number,
     method?: Method,
-    data?: Document | XMLHttpRequestBodyInit | null,
+    data?: Document | XMLHttpRequestBodyInit | Record<string, string> | null,
     headers?: Record<string, string>,
 };
 
@@ -72,7 +72,7 @@ class HTTPTransport {
             if (method === Method.GET) {
                 xhr.send();
             } else {
-                xhr.send(data);
+                xhr.send(data as Document | XMLHttpRequestBodyInit | null);
             }
         });
     };
