@@ -8,18 +8,30 @@ function TextFieldLabel({
 }: TextFieldProps & { label?: string }) {
     return createElement(
         'div',
-        { className: styles.row },
+        {
+            key: props.name,
+            className: styles.row,
+        },
         createElement(
             'div',
-            { className: styles.label },
+            {
+                key: `label-${props.name}`,
+                className: styles.label,
+            },
             createText(label || ''),
         ),
         createElement(
             'div',
-            { className: styles.label },
+            {
+                className: styles.label,
+                key: `field-${props.name}`,
+            },
             createComponent(
                 TextField,
-                { ...props, key: 'field' },
+                {
+                    ...props,
+                    key: props.name,
+                },
             ),
         ),
     );

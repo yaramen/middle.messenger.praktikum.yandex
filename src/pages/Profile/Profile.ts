@@ -27,7 +27,7 @@ function Profile({ isEdit }: { isEdit: boolean }) {
                 ProfileForm,
                 {
                     key: 'ProfileForm',
-                    data: createProfileFormData(user),
+                    fields: createProfileFormData(user),
                     isEdit,
                 },
             ),

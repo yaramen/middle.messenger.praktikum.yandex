@@ -1,11 +1,11 @@
 import { Store } from './store/Store';
 import {
-    ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER,
+    ADD_USER, AUTH, AVATAR_UPDATE, CHAT_CHANGE, CHECK_IN, PAGE_CHANGE, REMOVE_USER, PROFILE_UPDATE, PASSWORD_UPDATE,
 } from './actions';
 import {
     auth, checkIn, getContactList, getMessages,
 } from '../api/mockApi';
-import { goTo, PageType } from './router';
+import { getLinkPage, goTo, PageType } from './router';
 import { ChatMessage, Contact, Profile } from '../types/model';
 import { contacts, profile } from '../api/mockData';
 
@@ -78,6 +78,16 @@ store.addEventListener(REMOVE_USER, ({ detail: userId }: CustomEvent) => {
 
 store.addEventListener(AVATAR_UPDATE, ({ detail: userId }: CustomEvent) => {
     console.log('avatar update', userId);
+});
+
+store.addEventListener(PROFILE_UPDATE, ({ detail: data }: CustomEvent) => {
+    console.log('profile update', data);
+    goTo(getLinkPage('profile'));
+});
+
+store.addEventListener(PASSWORD_UPDATE, ({ detail: data }: CustomEvent) => {
+    console.log('profile update', data);
+    goTo(getLinkPage('profile'));
 });
 
 export {

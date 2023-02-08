@@ -27,10 +27,6 @@ const authFormData: FormData = {
                     min: 8,
                     max: 40,
                 },
-                pattern: {
-                    reg: /^.*[A-Z]+.*$/,
-                    message: 'Должна быть хотя бы отдна заглавная буква',
-                },
             },
         },
     ],

@@ -7,7 +7,7 @@ const profile = {
     firstName: 'Иван',
     fastName: 'Иванов',
     nickName: 'Иван',
-    phone: '+7 (909) 967 30 30',
+    phone: '+79099673030',
     password: 'password',
     avatar: 'http://dummyimage.com/148',
 };

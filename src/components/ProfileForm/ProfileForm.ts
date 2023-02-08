@@ -5,32 +5,82 @@ import styles from './ProfileForm.css';
 import { Button } from '../Button';
 import { getLinkPage, goTo } from '../../modules/router';
 import { AvatarEdit } from '../AvatarEdit';
+import { formValidation, isValid } from '../../modules/validation';
+import { store } from '../../modules/store';
+import { actions } from '../../modules/actions';
 
-function ProfileForm({ data, isEdit }: { data: FormField[], isEdit: boolean }) {
+function ProfileForm({ fields, isEdit }: { fields: FormField[], isEdit: boolean }) {
+    const [formState, setFormState] = this.useState(fields.reduce((acc, curr) => ({
+        ...acc,
+        [curr.name]: curr.value,
+    }), {}));
+
+    const [errors, setErrors] = this.useState(fields.reduce((acc, curr) => ({
+        ...acc,
+        [curr.name]: '',
+    }), {}));
+
+    const updateFormState = (e: InputEvent) => {
+        const target = e.target as HTMLInputElement;
+        const value = {
+            ...formState,
+            [target.name]: target.value,
+        };
+        setFormState(value);
+    };
+
+    const validation = () => {
+        const newErrors = formValidation(fields, formState);
+        setErrors(newErrors);
+        return newErrors;
+    };
+
     return createElement(
         'form',
-        {},
-        ...data.map((value) => (value.type === 'text'
-            ? createComponent(
-                TextFieldLabel,
-                {
-                    ...value,
-                    readonly: !isEdit,
-                    key: 'text-field',
-                },
+        {
+            key: 'form',
+        },
+        ...fields.map((field) => (field.type === 'text'
+            ? createElement(
+                'div',
+                { key: field.name },
+                createComponent(
+                    TextFieldLabel,
+                    {
+                        ...field,
+                        readonly: !isEdit,
+                        key: field.name,
+                        value: formState[field.name],
+                        errors: errors[field.name],
+                        onChange: updateFormState,
+                        onFocus: validation,
+                        onBlur: validation,
+                    },
+                ),
             )
-            : createComponent(AvatarEdit, { key: 'avatar', value })
+            : createComponent(AvatarEdit, { key: 'avatar', value: field })
         )),
         isEdit
             ? createElement(
                 'div',
-                { className: styles.pair },
+                {
+                    key: 'pair',
+                    className: styles.pair,
+                },
                 createComponent(
                     Button,
                     {
                         key: 'save',
                         label: 'Сохранить',
-                        click: () => goTo(getLinkPage('profile')),
+                        click: (e: Event) => {
+                            console.log('click');
+                            const newErrors = validation();
+                            if (isValid(newErrors)) {
+                                store.dispatch(actions.profileUpdate(formState));
+                            } else {
+                                e.preventDefault();
+                            }
+                        },
                     },
                 ),
                 createComponent(
@@ -44,7 +94,9 @@ function ProfileForm({ data, isEdit }: { data: FormField[], isEdit: boolean }) {
             )
             : createElement(
                 'div',
-                {},
+                {
+                    key: 'action-list',
+                },
                 createComponent(
                     Button,
                     {
