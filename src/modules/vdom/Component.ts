@@ -90,8 +90,6 @@ abstract class Component<PROPS> {
         this.vNode = newVNode;
         if (oldVNode && newVNode && this.element) {
             const diff = createDifferent(oldVNode, newVNode);
-            // console.log(oldVNode, newVNode);
-            // console.log(diff);
             applyUpdate(this.element, diff);
         }
         this.hookIndex = 0;

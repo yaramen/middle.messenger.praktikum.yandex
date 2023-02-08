@@ -1,4 +1,3 @@
-import { html } from '../../modules/html';
 import { Button } from '../Button';
 import { File } from '../File';
 import { store } from '../../modules/store';
@@ -8,7 +7,7 @@ import { createComponent, createElement } from '../../modules/vdom/createElement
 
 function UploadAvatarPopup({
     closePopup,
-}) {
+}: { closePopup: () => void }) {
     return createElement(
         'div',
         {},
@@ -28,7 +27,7 @@ function UploadAvatarPopup({
                 key: 'button',
                 label: 'Поменять',
                 click: () => {
-                    store.dispatch(actions.avatarUpdate());
+                    store.dispatch(actions.avatarUpdate(1));
                     closePopup();
                 },
             },

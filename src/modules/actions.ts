@@ -6,7 +6,7 @@ const ADD_USER = 'ADD_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const AVATAR_UPDATE = 'AVATAR_UPDATE';
 
-const createAction = (name: string) => (payload: object | number) => new CustomEvent(name, { detail: payload });
+const createAction = (name: string) => (payload: object | number | string) => new CustomEvent(name, { detail: payload });
 
 const actions = {
     pageChange: createAction(PAGE_CHANGE),

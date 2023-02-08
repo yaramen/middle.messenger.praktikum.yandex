@@ -3,15 +3,15 @@ import { actions } from './actions';
 
 type PageType = 'auth' | 'checkIn' | 'messenger' | 'profile' | 'profileEdit' | 'passwordEdit' | 'error404' | 'error500';
 
-function createRouterState(path: string) {
+function createRouterState(path: string): { path: string, page:string, id: string } {
     const urlParams = new URLSearchParams(path);
     const page = urlParams.get('page');
     const id = urlParams.get('id');
 
     return {
         path,
-        page,
-        id,
+        page: page || '',
+        id: id || '',
     };
 }
 
@@ -26,9 +26,9 @@ function getLinkPage(page: PageType, id = 0) {
 
 function goTo(path: string) {
     const newRouterState = createRouterState(path);
-    const { page, id } = store.getState();
+    const { page, chatId } = store.getState();
     const isPageChange = page !== newRouterState.page;
-    const isChatChange = id !== newRouterState.id;
+    const isChatChange = chatId !== +newRouterState.id;
 
     if (isPageChange || isChatChange) {
         window.history.pushState({}, Date.now().toString(), path);

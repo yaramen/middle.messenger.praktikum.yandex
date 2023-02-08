@@ -4,11 +4,17 @@ import { actions } from '../../modules/actions';
 import styles from './RemoveUserPopup.css';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 
+interface RemoveUserPopupProps {
+    id: number,
+    name: string,
+    closePopup: () => void
+}
+
 function RemoveUserPopup({
     id,
     name,
     closePopup,
-}) {
+}: RemoveUserPopupProps) {
     return createElement(
         'div',
         {},

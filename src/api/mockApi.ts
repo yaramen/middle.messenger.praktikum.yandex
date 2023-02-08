@@ -1,5 +1,6 @@
-function auth(login, password) {
-    // eslint-disable-next-line no-console
+import { ChatMessage, Contact, Profile } from '../types/model';
+
+function auth(login: string, password: string): Promise<Profile> {
     console.log('Call API:  auth', { login, password });
     return Promise.resolve({
         id: 1,
@@ -14,18 +15,16 @@ function auth(login, password) {
     });
 }
 
-function checkIn(newUser) {
-    // eslint-disable-next-line no-console
+function checkIn(newUser: Profile) {
     console.log('Call API:  checkIn ', newUser);
     return Promise.resolve({
         status: 'Ok',
     });
 }
 
-function getContactList(id) {
-    // eslint-disable-next-line no-console
+function getContactList(id: number): Promise<Contact[]> {
     console.log('Call API:  getContactList', { id });
-    const contacts = [{
+    const contacts: Contact[] = [{
         id: 1,
         name: 'Андрей',
         lastMessage: 'Изображение',
@@ -72,10 +71,9 @@ function getContactList(id) {
     return Promise.resolve(contacts);
 }
 
-function getMessages(id) {
-    // eslint-disable-next-line no-console
+function getMessages(id: number): Promise<Record<string, ChatMessage[]>> {
     console.log('Call API:  getMessages', { id });
-    const messageList = {
+    const messageList: Record<number, Record<string, ChatMessage[]>> = {
         1: {
             '25:01.2023': [{
                 actor: 'contact',

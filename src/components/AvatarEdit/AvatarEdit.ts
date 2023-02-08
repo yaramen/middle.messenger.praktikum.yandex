@@ -1,22 +1,9 @@
-import { html } from '../../modules/html';
 import { usePopup } from '../../modules/popup';
-import { Popup } from '../Popup/Popup';
+import { Popup } from '../Popup';
 import { UploadAvatarPopup } from '../UploadAvatarPopup';
 import styles from './AvatarEdit.css';
 import { FormField } from '../../types/form';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
-
-function _AvatarEdit(image, name) {
-    return html`
-<div class="${styles.avatar}" onclick="${() => popupUpload.show()}">
-    <div class="${styles.image}">
-        <img src="${image}" alt="${name}" />
-        <div class="${styles.overlay}">Поменять аватар</div>
-    </div>
-    <h1 class="${styles.name}">${name}</h1>
-</div>
-`;
-}
 
 function AvatarEdit({ value }: { value: FormField }) {
     const popupUpload = usePopup(createComponent(Popup, {
@@ -60,7 +47,7 @@ function AvatarEdit({ value }: { value: FormField }) {
             {
                 className: styles.name,
             },
-            createText(value.label),
+            createText(value.label || ''),
         ),
     );
 }

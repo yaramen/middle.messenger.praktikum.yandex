@@ -82,10 +82,7 @@ function Chat() {
                         key: 'addd',
                         icon: addIcon,
                         label: 'Добавить пользователя',
-                        click: () => {
-                            console.log('!!!show');
-                            popupAdd.show();
-                        },
+                        click: () => popupAdd.show(),
                     }, {
                         key: 'delete',
                         icon: deleteIcon,
