@@ -6,6 +6,6 @@
   "rules": {
     "color-hex-case": "lower",
     "indentation": 4,
-    "color-hex-length": "long",
+    "color-hex-length": "long"
   }
 }
