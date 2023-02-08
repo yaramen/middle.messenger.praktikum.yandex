@@ -1,9 +1,20 @@
-import { html } from '../../modules/html';
 import { ProfileLayout } from '../../layout/ProfileLayout';
 import { PasswordForm } from '../../components/PasswordForm';
+import { createComponent } from '../../modules/vdom/createElement';
 
 function PasswordEdit() {
-    return html(ProfileLayout, html(PasswordForm));
+    return createComponent(
+        ProfileLayout,
+        {
+            key: 'password',
+            content: createComponent(
+                PasswordForm,
+                {
+                    key: 'form',
+                },
+            ),
+        },
+    );
 }
 
 export {

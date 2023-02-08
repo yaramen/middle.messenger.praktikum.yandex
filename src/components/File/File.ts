@@ -4,9 +4,10 @@ import { createElement } from '../../modules/vdom/createElement';
 
 function File() {
     function fileChange() {
-        const label = document.querySelector(`.${styles.container}`);
-        const image = label.querySelector('img');
-        const input = label.querySelector('input');
+        const label = document.querySelector(`.${styles.container}`) as HTMLElement;
+        const image = label.querySelector('img') as HTMLElement;
+        const input = label.querySelector('input') as HTMLInputElement;
+        // @ts-ignore
         const fileName = input.files[0].name;
         const fileElement = document.createElement('div');
         fileElement.innerText = fileName;

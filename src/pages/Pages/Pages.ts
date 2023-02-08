@@ -7,6 +7,7 @@ import { store } from '../../modules/store';
 import { CheckIn } from '../CheckIn';
 import { Messenger } from '../Messenger';
 import { Profile } from '../Profile';
+import { PasswordEdit } from '../PasswordEdit';
 
 const pages = {
     auth: createComponent(Auth, { key: 'auth' }),
@@ -14,7 +15,7 @@ const pages = {
     messenger: createComponent(Messenger, { key: 'messenger' }),
     profile: createComponent(Profile, { key: 'profile', isEdit: false }),
     profileEdit: createComponent(Profile, { key: 'profile', isEdit: true }),
-    passwordEdit: createElement('div', {}, createText('passwordEdit')),
+    passwordEdit: createComponent(PasswordEdit, { key: 'passwordEdit' }),
     error404: createComponent(ErrorLayout, {
         key: 'error404',
         title: 'Страница не найдена',
