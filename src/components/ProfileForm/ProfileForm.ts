@@ -6,9 +6,15 @@ import { AvatarEdit } from '../AvatarEdit';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
 import { FormEdit } from '../FormEdit';
-import { profile } from '../../api/mockData';
+import { Profile } from '../../types/model';
 
-function ProfileForm({ fields, isEdit }: { fields: FormField[], isEdit: boolean }) {
+interface ProfileFormProps {
+    fields: FormField[],
+    isEdit: boolean,
+    profile: Profile,
+}
+
+function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
     return createElement(
         'div',
         {},

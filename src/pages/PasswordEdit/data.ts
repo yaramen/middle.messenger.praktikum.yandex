@@ -1,5 +1,4 @@
-import { FormData, FormField } from '../../types/form';
-import { getLinkPage } from '../../modules/router';
+import { FormField } from '../../types/form';
 
 const passwordFormData: FormField[] = [
     {
