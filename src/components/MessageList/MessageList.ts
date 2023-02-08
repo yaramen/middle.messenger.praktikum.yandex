@@ -28,7 +28,7 @@ function Message({ message }: { message: ChatMessage }) {
     return createElement(
         'div',
         { className: classes },
-        !isHtml ? null : createText(content),
+        !isHtml ? null : createElement('div', { innerHTML: content }),
         !isImage ? null : createElement('img', { src: content, alt: 'time' }),
         createElement(
             'time',

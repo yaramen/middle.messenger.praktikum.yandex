@@ -47,7 +47,7 @@ function TextField({
                 name,
                 type,
                 placeholder,
-                readonly,
+                readOnly: readonly,
                 oninput: onChange,
                 value,
             },

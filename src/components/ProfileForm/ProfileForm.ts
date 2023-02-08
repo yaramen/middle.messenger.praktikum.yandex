@@ -15,7 +15,7 @@ function ProfileForm({ data, isEdit }: { data: FormField[], isEdit: boolean }) {
                 TextFieldLabel,
                 {
                     ...value,
-                    readonly: isEdit,
+                    readonly: !isEdit,
                     key: 'text-field',
                 },
             )

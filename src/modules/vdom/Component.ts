@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { VNode } from './types';
 import { createDifferent, unmountChildren } from './different';
 import { applyUpdate } from './render';
