@@ -17,28 +17,30 @@ type Options = {
     headers?: Record<string, string>,
 };
 
+type HTTPMethod = (url: string, options: Options) => Promise<unknown>;
+
 class HTTPTransport {
-    static get = (url: string, options: Options = {}) => HTTPTransport.request(url, {
+    static get: HTTPMethod = (url, options = {}) => HTTPTransport.request(url, {
         ...options,
         method: Method.GET,
     }, options.timeout);
 
-    static post = (url: string, options: Options = {}) => HTTPTransport.request(url, {
+    static post: HTTPMethod = (url, options = {}) => HTTPTransport.request(url, {
         ...options,
         method: Method.POST,
     }, options.timeout);
 
-    static put = (url: string, options: Options = {}) => HTTPTransport.request(url, {
+    static put: HTTPMethod = (url, options = {}) => HTTPTransport.request(url, {
         ...options,
         method: Method.PUT,
     }, options.timeout);
 
-    static patch = (url: string, options: Options = {}) => HTTPTransport.request(url, {
+    static patch: HTTPMethod = (url, options = {}) => HTTPTransport.request(url, {
         ...options,
         method: Method.PATCH,
     }, options.timeout);
 
-    static delete = (url: string, options: Options = {}) => HTTPTransport.request(url, {
+    static delete: HTTPMethod = (url, options = {}) => HTTPTransport.request(url, {
         ...options,
         method: Method.DELETE,
     }, options.timeout);
