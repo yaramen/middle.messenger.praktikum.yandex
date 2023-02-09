@@ -20,13 +20,13 @@ function CheckIn() {
                 formData: checkInFormData,
                 submit: (e, button, data) => {
                     e.preventDefault();
-                    if (button.action === 'link') {
-                        goTo(button.link);
-                    } else {
+                    if (button.type === 'submit') {
                         store.dispatch(actions.checkIn({
                             link: button.link,
                             ...data,
                         }));
+                    } else {
+                        goTo(button.link);
                     }
                 },
             },
