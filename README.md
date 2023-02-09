@@ -24,4 +24,3 @@ Linting TypeScript and Style
 ```
 npm run lint
 ```
-
