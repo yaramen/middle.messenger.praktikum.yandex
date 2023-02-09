@@ -18,7 +18,7 @@ function Messenger() {
             ),
         ),
         createElement(
-            'div',
+            'main',
             { className: styles.content },
             createComponent(
                 Chat,

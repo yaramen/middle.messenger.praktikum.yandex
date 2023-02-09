@@ -26,7 +26,7 @@ function ProfileLayout({ content }: { content: VNode }) {
             ),
         ),
         createElement(
-            'div',
+            'main',
             { className: styles.content },
             createElement(
                 'div',

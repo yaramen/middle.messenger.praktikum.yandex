@@ -13,7 +13,7 @@ function ErrorLayout({
     title,
 }: ErrorLayoutProps) {
     return createElement(
-        'div',
+        'main',
         { className: styles.main },
         createElement(
             'div',
