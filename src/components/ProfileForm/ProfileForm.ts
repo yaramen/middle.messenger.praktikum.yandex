@@ -50,7 +50,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                 {
                     key: 'data',
                     label: 'Изменить данные',
-                    type: 'link',
+                    style: 'link',
                     click: () => goTo(getLinkPage('profileEdit')),
                 },
             ),
@@ -59,7 +59,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                 {
                     key: 'password',
                     label: 'Изменить пароль',
-                    type: 'link',
+                    style: 'link',
                     click: () => goTo(getLinkPage('passwordEdit')),
                 },
             ),

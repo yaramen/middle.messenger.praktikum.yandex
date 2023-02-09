@@ -9,7 +9,7 @@ const PROFILE_UPDATE = 'PROFILE_UPDATE';
 const PASSWORD_UPDATE = 'PASSWORD_UPDATE';
 const NEW_MESSAGE = 'NEW_MESSAGE';
 
-const createAction = (name: string) => (payload: object | string) => new CustomEvent(name, { detail: payload });
+const createAction = (name: string) => (payload: object | number | string) => new CustomEvent(name, { detail: payload });
 
 const actions = {
     pageChange: createAction(PAGE_CHANGE),

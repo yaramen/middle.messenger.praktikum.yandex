@@ -20,8 +20,8 @@ type FormField = {
 type FormButton = {
     key: string,
     label: string,
-    action: string,
-    type?: 'primary' | 'secondary' | 'link' | 'action' | 'icon'
+    style?: 'primary' | 'secondary' | 'link' | 'action' | 'icon'
+    type?: 'button' | 'reset' | 'submit'
     link: string,
 };
 

@@ -76,6 +76,7 @@ function FormEdit({
                 {
                     key: 'save',
                     label: 'Сохранить',
+                    type: 'submit',
                     click: (e: Event) => {
                         const newErrors = validation();
                         if (isValid(newErrors)) {

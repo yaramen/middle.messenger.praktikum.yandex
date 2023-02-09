@@ -20,7 +20,7 @@ const AttachPopover = createComponent(
             Button,
             {
                 key: 'button',
-                type: 'action',
+                style: 'action',
                 icon: attachIcon,
             },
         ),

@@ -5,7 +5,8 @@ import { createElement, createText } from '../../modules/vdom/createElement';
 interface ButtonProps {
     label?: string,
     click?: (e: Event) => void,
-    type?: 'primary' | 'secondary' | 'link' | 'action' | 'icon',
+    style?: 'primary' | 'secondary' | 'link' | 'action' | 'icon',
+    type?: 'button' | 'reset' | 'submit';
     icon?: string,
     attr?: Record<string, string>,
 }
@@ -13,16 +14,17 @@ interface ButtonProps {
 function Button({
     label = '',
     click = () => {},
-    type = 'primary',
+    style = 'primary',
+    type = 'button',
     icon = '',
     attr = {},
 }: ButtonProps) {
     const classes = className({
         [styles.button]: true,
-        [styles['button-secondary']]: type === 'secondary',
-        [styles['button-link']]: type === 'link',
-        [styles['button-action']]: type === 'action',
-        [styles['button-icon']]: type === 'icon',
+        [styles['button-secondary']]: style === 'secondary',
+        [styles['button-link']]: style === 'link',
+        [styles['button-action']]: style === 'action',
+        [styles['button-icon']]: style === 'icon',
         [styles['button-icon-text']]: !!(icon && label),
     });
 
@@ -31,6 +33,7 @@ function Button({
         {
             className: classes,
             onclick: click,
+            type,
             ...attr,
         },
         !icon ? null : createElement('img', {

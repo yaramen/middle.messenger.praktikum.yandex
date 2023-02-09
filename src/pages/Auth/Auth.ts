@@ -20,13 +20,13 @@ function Auth() {
                 formData: authFormData,
                 submit: (e, button, data) => {
                     e.preventDefault();
-                    if (button.action === 'link') {
-                        goTo(button.link);
-                    } else {
+                    if (button.type === 'submit') {
                         store.dispatch(actions.auth({
                             ...data,
                             link: button.link,
                         }));
+                    } else {
+                        goTo(button.link);
                     }
                 },
             },

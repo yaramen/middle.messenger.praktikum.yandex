@@ -84,7 +84,7 @@ function Form({
                 {
                     ...button,
                     click: (e: Event) => {
-                        if (button.action === 'submit') {
+                        if (button.type === 'submit') {
                             const newErrors = validation();
                             if (isValid(newErrors)) {
                                 submit(e, button, formState);

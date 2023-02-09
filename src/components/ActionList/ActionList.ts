@@ -20,7 +20,7 @@ function ActionList({ actions }: ActionListProps) {
                 Button,
                 {
                     key,
-                    type: 'action',
+                    style: 'action',
                     label,
                     icon,
                     click,

@@ -33,7 +33,7 @@ function ErrorLayout({
                 {
                     key: 'button',
                     label: 'На главную',
-                    type: 'secondary',
+                    style: 'secondary',
                     click: () => goTo(getLinkPage('auth')),
                 },
             ),

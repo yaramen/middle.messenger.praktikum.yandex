@@ -34,14 +34,14 @@ const authFormData: FormData = {
         {
             key: 'in',
             label: 'Вход',
-            action: 'submit',
+            type: 'submit',
             link: getLinkPage('messenger'),
         },
         {
             key: 'reg',
             label: 'Нет аккаунта?',
-            type: 'secondary',
-            action: 'link',
+            style: 'secondary',
+            type: 'button',
             link: getLinkPage('checkIn'),
         },
     ],

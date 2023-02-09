@@ -94,14 +94,14 @@ const checkInFormData: FormData = {
         {
             key: 'reg',
             label: 'Зарегистрироваться',
-            action: 'submit',
+            type: 'submit',
             link: getLinkPage('auth'),
         },
         {
             key: 'login',
             label: 'Войти',
-            type: 'secondary',
-            action: 'link',
+            style: 'secondary',
+            type: 'button',
             link: getLinkPage('auth'),
         },
     ],

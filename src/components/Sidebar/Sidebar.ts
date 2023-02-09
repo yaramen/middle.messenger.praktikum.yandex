@@ -30,7 +30,7 @@ function Sidebar() {
                             Button,
                             {
                                 key: 'button',
-                                type: 'icon',
+                                style: 'icon',
                                 icon: hamburgerIcon,
                             },
                         ),

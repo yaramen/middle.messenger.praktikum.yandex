@@ -20,7 +20,7 @@ function ProfileLayout({ content }: { content: VNode }) {
                 {
                     key: 'button',
                     icon: backIcon,
-                    type: 'secondary',
+                    style: 'secondary',
                     click: () => goTo(getLinkPage('messenger')),
                 },
             ),
