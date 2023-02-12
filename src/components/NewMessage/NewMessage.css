@@ -14,6 +14,11 @@
 
 .field {
     flex-grow: 1;
+    display: flex;
+}
+
+.wrap {
+    flex-grow: 1;
 }
 
 .send {

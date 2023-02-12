@@ -2,6 +2,17 @@
     position: relative;
 }
 
+.content {
+    position: absolute;
+    left: 50%;
+    display: none;
+    background: var(--popup-background);
+    padding: 12px;
+    border: 1px solid var(--border-second);
+    box-shadow: 0 0 10px 4px rgb(0 0 0 / 5%);
+    transform: translateX(-50%);
+}
+
 .popover-top .content {
     bottom: 100%;
 }
@@ -10,18 +21,6 @@
     top: 100%;
 }
 
-.content {
-    position: absolute;
-    left: 50%;
-    display: none;
-    background: var(--popup-background);
-    padding: 12px;
-    border: 1px solid var(--border-second);
-    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.05);
-    transform: translateX(-50%);
-}
-
-
 .open .popover {
     overflow: auto;
 }
@@ -29,4 +28,3 @@
 .open .content {
     display: block;
 }
-

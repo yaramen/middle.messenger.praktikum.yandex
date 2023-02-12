@@ -1,5 +1,5 @@
 ## Ссылка на pull request
-[PR](https://github.com/PR-1)
+[PR](https://github.com/PR-2)
 
 ## Netlify
 [ссылка](https://spontaneous-dusk-0ddb0e.netlify.app/)
@@ -19,4 +19,8 @@ npm run dev
 Server
 ```
 npm run server
+```
+Linting TypeScript and Style
+```
+npm run lint
 ```

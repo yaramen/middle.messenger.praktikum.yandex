@@ -3,16 +3,19 @@ html {
     font-family: Inter, sans-serif;
 }
 
-*, *:before, *:after {
+*,
+*::before,
+*::after {
     box-sizing: inherit;
 }
 
 body {
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
-ul, li {
+ul,
+li {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -29,7 +32,7 @@ ul, li {
     --border-first: #d4d4d4;
     --border-second: #e9e9e9;
     --border-message: #eaeaea;
-    --background-first: #fcfcfC;
+    --background-first: #fcfcfc;
     --message-background: #f6f8fa;
     --my-message-background: #e4edfd;
     --active-chat-backround: #f6f5ff;

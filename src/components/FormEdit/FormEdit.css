@@ -1,0 +1,11 @@
+.pair {
+    display: flex;
+}
+
+.pair > *:first-child {
+    margin-right: 5px;
+}
+
+.pair > *:last-child {
+    margin-left: 5px;
+}
