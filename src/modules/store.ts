@@ -5,21 +5,24 @@ import {
     AVATAR_UPDATE,
     CHAT_CHANGE,
     CHECK_IN,
-    PAGE_CHANGE,
-    REMOVE_USER,
-    PROFILE_UPDATE,
-    PASSWORD_UPDATE,
+    INIT_ACTION, LOGOUT,
     NEW_MESSAGE,
+    PAGE_CHANGE,
+    PASSWORD_UPDATE,
+    PROFILE_UPDATE,
+    REMOVE_USER,
 } from './actions';
-import {
-    auth, checkIn, getContactList, getMessages,
-} from '../api/mockApi';
+import { checkIn, getMessages } from '../api/mockApi';
 import { getLinkPage, goTo, PageType } from './router';
-import { ChatMessage, Contact, Profile } from '../types/model';
+import {
+    ChatMessage, Contact, Profile, User,
+} from '../types/model';
 import { contacts, profile } from '../api/mockData';
+import { AuthService } from '../api/AuthApi';
 
 const initState = {
-    user: profile,
+    isInit: false,
+    user: null,
     contactList: contacts,
     messages: {},
     chatId: null,
@@ -27,7 +30,8 @@ const initState = {
 };
 
 type StoreType = {
-    user: Profile | null,
+    isInit: boolean,
+    user: User | null,
     contactList: Contact[],
     messages: Record<string, ChatMessage[]>,
     chatId: number | null,
@@ -35,6 +39,24 @@ type StoreType = {
 };
 
 const store = new Store<StoreType>(initState);
+
+store.addEventListener(INIT_ACTION, async () => {
+    try {
+        const user = await AuthService.user();
+        store.setState((state) => ({
+            ...state,
+            user,
+            isInit: true,
+        }));
+        goTo(getLinkPage('messenger'));
+    } catch (e) {
+        store.setState((state) => ({
+            ...state,
+            isInit: true,
+        }));
+        goTo(getLinkPage('auth'));
+    }
+});
 
 store.addEventListener(PAGE_CHANGE, ({ detail: page }: CustomEvent) => {
     store.setState((state) => ({
@@ -52,18 +74,14 @@ store.addEventListener(CHAT_CHANGE, async ({ detail: chatId }: CustomEvent) => {
     }));
 });
 
-store.addEventListener(AUTH, async ({ detail: { login, password, link } }: CustomEvent) => {
-    const user = await auth(login, password);
+store.addEventListener(AUTH, async ({ detail: payload }: CustomEvent) => {
+    const { link, login, password } = payload;
+    await AuthService.login(login, password);
+    const user = await AuthService.user();
+
     store.setState((state) => ({
         ...state,
         user,
-    }));
-
-    const contactList = await getContactList(user.id);
-
-    store.setState((state) => ({
-        ...state,
-        contactList,
     }));
 
     goTo(link);
@@ -71,8 +89,13 @@ store.addEventListener(AUTH, async ({ detail: { login, password, link } }: Custo
 
 store.addEventListener(CHECK_IN, async ({ detail: payload }: CustomEvent) => {
     const { link, ...newUser } = payload;
+    await AuthService.signup(newUser);
 
-    await checkIn(newUser);
+    const user = await AuthService.user();
+    store.setState((state) => ({
+        ...state,
+        user,
+    }));
 
     goTo(link);
 });
@@ -101,6 +124,11 @@ store.addEventListener(PASSWORD_UPDATE, ({ detail: data }: CustomEvent) => {
 
 store.addEventListener(NEW_MESSAGE, ({ detail: data }: CustomEvent) => {
     console.log('new message: ', data);
+});
+
+store.addEventListener(LOGOUT, async () => {
+    await AuthService.logout();
+    goTo(getLinkPage('auth'));
 });
 
 export {

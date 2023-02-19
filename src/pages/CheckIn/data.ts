@@ -95,7 +95,7 @@ const checkInFormData: FormData = {
             key: 'reg',
             label: 'Зарегистрироваться',
             type: 'submit',
-            link: getLinkPage('auth'),
+            link: getLinkPage('messenger'),
         },
         {
             key: 'login',

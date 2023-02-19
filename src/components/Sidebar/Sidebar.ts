@@ -11,6 +11,7 @@ import { createComponent, createElement } from '../../modules/vdom/createElement
 import { ChatList } from '../ChatList';
 import { store } from '../../modules/store';
 import { TextField } from '../TextField';
+import { actions } from '../../modules/actions';
 
 function Sidebar() {
     return createElement(
@@ -47,7 +48,7 @@ function Sidebar() {
                                     key: 'exit',
                                     icon: exitAction,
                                     label: 'Выйти',
-                                    click: () => goTo(getLinkPage('auth')),
+                                    click: () => store.dispatch(actions.logout({})),
                                 }],
                             },
                         ),

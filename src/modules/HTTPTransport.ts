@@ -53,6 +53,7 @@ class HTTPTransport {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.timeout = timeout;
+            xhr.withCredentials = true;
 
             const urlPath = method === Method.GET && data
                 ? url + queryStringify(data as Record<string, string>)
@@ -64,7 +65,11 @@ class HTTPTransport {
             }
 
             xhr.onload = () => {
-                resolve(xhr);
+                if (xhr.status >= 400) {
+                    reject();
+                } else {
+                    resolve(xhr);
+                }
             };
 
             xhr.onabort = reject;
@@ -74,7 +79,8 @@ class HTTPTransport {
             if (method === Method.GET) {
                 xhr.send();
             } else {
-                xhr.send(data as Document | XMLHttpRequestBodyInit | null);
+                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                xhr.send(JSON.stringify(data));
             }
         });
     };

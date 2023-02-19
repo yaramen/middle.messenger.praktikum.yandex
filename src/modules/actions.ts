@@ -1,3 +1,4 @@
+const INIT_ACTION = 'INIT_ACTION';
 const PAGE_CHANGE = 'PAGE_CHANGE';
 const CHAT_CHANGE = 'CHAT_CHANGE';
 const AUTH = 'AUTH';
@@ -8,10 +9,12 @@ const AVATAR_UPDATE = 'AVATAR_UPDATE';
 const PROFILE_UPDATE = 'PROFILE_UPDATE';
 const PASSWORD_UPDATE = 'PASSWORD_UPDATE';
 const NEW_MESSAGE = 'NEW_MESSAGE';
+const LOGOUT = 'LOGOUT';
 
 const createAction = (name: string) => (payload: object | number | string) => new CustomEvent(name, { detail: payload });
 
 const actions = {
+    initAction: createAction(INIT_ACTION),
     pageChange: createAction(PAGE_CHANGE),
     chatChange: createAction(CHAT_CHANGE),
     auth: createAction(AUTH),
@@ -22,10 +25,12 @@ const actions = {
     profileUpdate: createAction(PROFILE_UPDATE),
     passwordUpdate: createAction(PASSWORD_UPDATE),
     newMessage: createAction(NEW_MESSAGE),
+    logout: createAction(LOGOUT),
 };
 
 export {
     actions,
+    INIT_ACTION,
     PAGE_CHANGE,
     CHAT_CHANGE,
     AUTH,
@@ -36,4 +41,5 @@ export {
     PROFILE_UPDATE,
     PASSWORD_UPDATE,
     NEW_MESSAGE,
+    LOGOUT,
 };
