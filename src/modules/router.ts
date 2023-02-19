@@ -30,14 +30,16 @@ function getLinkPage(page: PageType, id = 0) {
     return `/${page}${idQuery}`;
 }
 
-function goTo(path: string) {
+function goTo(path: string, skipHistory: boolean = false) {
     const { page, chatId } = store.getState();
     const newRouterState = createRouterState(path);
     const isPageChange = page !== newRouterState.page;
     const isChatChange = chatId !== +newRouterState.id;
 
     if (isPageChange || isChatChange) {
-        window.history.pushState({ page, chatId }, Date.now().toString(), path);
+        if (!skipHistory) {
+            window.history.pushState({ ...newRouterState }, Date.now().toString(), path);
+        }
         if (isPageChange) {
             store.dispatch(actions.pageChange(newRouterState.page));
         }
@@ -49,7 +51,7 @@ function goTo(path: string) {
 
 window.addEventListener('popstate', (event) => {
     if (event.currentTarget && 'location' in event.currentTarget) {
-        goTo((event.currentTarget.location as Location).pathname);
+        goTo((event.currentTarget.location as Location).pathname, true);
     }
 });
 
