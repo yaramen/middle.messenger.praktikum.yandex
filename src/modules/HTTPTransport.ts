@@ -66,7 +66,7 @@ class HTTPTransport {
 
             xhr.onload = () => {
                 if (xhr.status >= 400) {
-                    reject();
+                    reject(xhr);
                 } else {
                     resolve(xhr);
                 }

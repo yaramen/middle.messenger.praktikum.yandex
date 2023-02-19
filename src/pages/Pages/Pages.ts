@@ -1,7 +1,7 @@
 import { Auth } from '../Auth';
 import { getActiveRoute, PageType } from '../../modules/router';
 import styles from './Pages.css';
-import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
+import { createComponent, createElement } from '../../modules/vdom/createElement';
 import { ErrorLayout } from '../../layout/ErrorLayout';
 import { store } from '../../modules/store';
 import { CheckIn } from '../CheckIn';
@@ -10,6 +10,7 @@ import { Profile } from '../Profile';
 import { PasswordEdit } from '../PasswordEdit';
 import { actions } from '../../modules/actions';
 import { Loading } from '../../components/Loading';
+import { showMessage } from '../../modules/messageBox';
 
 const pages = {
     auth: createComponent(Auth, { key: 'auth' }),
@@ -47,7 +48,7 @@ function Pages() {
                 setIsInit(newState.isInit);
             }
         });
-
+        showMessage('test');
         return unsubscribe;
     });
 
@@ -60,6 +61,12 @@ function Pages() {
             {
                 className: styles.overlay,
                 'data-ref': 'overlay',
+            },
+        ),
+        createElement(
+            'div',
+            {
+                className: styles.messages,
             },
         ),
     );

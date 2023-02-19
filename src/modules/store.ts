@@ -5,20 +5,20 @@ import {
     AVATAR_UPDATE,
     CHAT_CHANGE,
     CHECK_IN,
-    INIT_ACTION, LOGOUT,
+    INIT_ACTION,
+    LOGOUT,
     NEW_MESSAGE,
     PAGE_CHANGE,
     PASSWORD_UPDATE,
     PROFILE_UPDATE,
     REMOVE_USER,
 } from './actions';
-import { checkIn, getMessages } from '../api/mockApi';
+import { getMessages } from '../api/mockApi';
 import { getLinkPage, goTo, PageType } from './router';
-import {
-    ChatMessage, Contact, Profile, User,
-} from '../types/model';
-import { contacts, profile } from '../api/mockData';
+import { ChatMessage, Contact, User } from '../types/model';
+import { contacts } from '../api/mockData';
 import { AuthService } from '../api/AuthApi';
+import { showMessage } from './messageBox';
 
 const initState = {
     isInit: false,
@@ -75,29 +75,38 @@ store.addEventListener(CHAT_CHANGE, async ({ detail: chatId }: CustomEvent) => {
 });
 
 store.addEventListener(AUTH, async ({ detail: payload }: CustomEvent) => {
-    const { link, login, password } = payload;
-    await AuthService.login(login, password);
-    const user = await AuthService.user();
+    const { link, login, password } = payload; 3;
+    try {
+        await AuthService.login(login, password);
+        const user = await AuthService.user();
 
-    store.setState((state) => ({
-        ...state,
-        user,
-    }));
+        store.setState((state) => ({
+            ...state,
+            user,
+        }));
 
-    goTo(link);
+        goTo(link);
+    } catch (xhr) {
+        showMessage(JSON.parse(xhr.responseText).reason);
+    }
 });
 
 store.addEventListener(CHECK_IN, async ({ detail: payload }: CustomEvent) => {
     const { link, ...newUser } = payload;
-    await AuthService.signup(newUser);
 
-    const user = await AuthService.user();
-    store.setState((state) => ({
-        ...state,
-        user,
-    }));
+    try {
+        await AuthService.signup(newUser);
 
-    goTo(link);
+        const user = await AuthService.user();
+        store.setState((state) => ({
+            ...state,
+            user,
+        }));
+
+        goTo(link);
+    } catch (xhr) {
+        showMessage(JSON.parse(xhr.responseText).reason);
+    }
 });
 
 store.addEventListener(ADD_USER, ({ detail: userName }: CustomEvent) => {

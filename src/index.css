@@ -37,4 +37,5 @@ li {
     --my-message-background: #e4edfd;
     --active-chat-backround: #f6f5ff;
     --popup-background: #ffffff;
+    --message-error: darkred;
 }
