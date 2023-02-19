@@ -39,10 +39,10 @@ function Sidebar() {
                             {
                                 key: 'action-list',
                                 actions: [{
-                                    key: 'profile',
+                                    key: 'settings',
                                     icon: profileIcon,
                                     label: 'Профиль',
-                                    click: () => goTo(getLinkPage('profile')),
+                                    click: () => goTo(getLinkPage('settings')),
                                 }, {
                                     key: 'exit',
                                     icon: exitAction,

@@ -91,12 +91,12 @@ store.addEventListener(AVATAR_UPDATE, ({ detail: userId }: CustomEvent) => {
 
 store.addEventListener(PROFILE_UPDATE, ({ detail: data }: CustomEvent) => {
     console.log('profile update', data);
-    goTo(getLinkPage('profile'));
+    goTo(getLinkPage('settings'));
 });
 
 store.addEventListener(PASSWORD_UPDATE, ({ detail: data }: CustomEvent) => {
     console.log('profile update', data);
-    goTo(getLinkPage('profile'));
+    goTo(getLinkPage('settings'));
 });
 
 store.addEventListener(NEW_MESSAGE, ({ detail: data }: CustomEvent) => {

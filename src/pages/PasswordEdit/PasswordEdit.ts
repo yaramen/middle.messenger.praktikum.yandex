@@ -14,8 +14,8 @@ function PasswordEdit() {
                 {
                     fields: passwordFormData,
                     key: 'form',
-                    submit: () => goTo(getLinkPage('profile')),
-                    cancel: () => goTo(getLinkPage('profile')),
+                    submit: () => goTo(getLinkPage('settings')),
+                    cancel: () => goTo(getLinkPage('settings')),
                 },
             ),
         },

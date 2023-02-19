@@ -37,7 +37,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                 fields,
                 isEdit,
                 submit: (data) => store.dispatch(actions.profileUpdate(data)),
-                cancel: () => goTo(getLinkPage('profile')),
+                cancel: () => goTo(getLinkPage('settings')),
             },
         ),
         isEdit ? null : createElement(
@@ -51,7 +51,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                     key: 'data',
                     label: 'Изменить данные',
                     style: 'link',
-                    click: () => goTo(getLinkPage('profileEdit')),
+                    click: () => goTo(getLinkPage('settings-edit')),
                 },
             ),
             createComponent(
@@ -60,7 +60,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                     key: 'password',
                     label: 'Изменить пароль',
                     style: 'link',
-                    click: () => goTo(getLinkPage('passwordEdit')),
+                    click: () => goTo(getLinkPage('settings-password-edit')),
                 },
             ),
         ),

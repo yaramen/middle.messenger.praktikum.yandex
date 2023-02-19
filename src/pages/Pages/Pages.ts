@@ -11,11 +11,11 @@ import { PasswordEdit } from '../PasswordEdit';
 
 const pages = {
     auth: createComponent(Auth, { key: 'auth' }),
-    checkIn: createComponent(CheckIn, { key: 'CheckIn' }),
+    'sign-up': createComponent(CheckIn, { key: 'sign-up' }),
     messenger: createComponent(Messenger, { key: 'messenger' }),
-    profile: createComponent(Profile, { key: 'profile', isEdit: false }),
-    profileEdit: createComponent(Profile, { key: 'profile', isEdit: true }),
-    passwordEdit: createComponent(PasswordEdit, { key: 'passwordEdit' }),
+    settings: createComponent(Profile, { key: 'settings ', isEdit: false }),
+    'settings-edit': createComponent(Profile, { key: 'settings-edit', isEdit: true }),
+    'settings-password-edit': createComponent(PasswordEdit, { key: 'settings-password-edit' }),
     error404: createComponent(ErrorLayout, {
         key: 'error404',
         title: 'Страница не найдена',
