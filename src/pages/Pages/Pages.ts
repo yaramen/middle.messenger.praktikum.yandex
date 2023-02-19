@@ -28,14 +28,16 @@ const pages = {
     }),
 };
 
+const defaultPage: PageType = 'auth';
+
 function Pages() {
-    const [page, setPage] = this.useState(getActiveRoute().page ? getActiveRoute().page : 'auth');
+    const [page, setPage] = this.useState(getActiveRoute().page ? getActiveRoute().page : defaultPage);
     const componentPage = pages[page as PageType] ?? pages.error404;
 
     this.useEffectOnce(() => {
         const unsubscribe = store.subscribe((oldState, newState) => {
             if (oldState.page !== newState.page) {
-                setPage(newState.page);
+                setPage(newState.page || defaultPage);
             }
         });
 
