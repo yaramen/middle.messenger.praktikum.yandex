@@ -1,5 +1,7 @@
 import styles from './Avatar.css';
 import { createElement } from '../../modules/vdom/createElement';
+import avatarIcon from '../../icons/avatar.svg';
+import { resourceUrl } from '../../api/baseUrl';
 
 interface AvatarProps {
     image: string,
@@ -14,7 +16,7 @@ function Avatar({ image, name }: AvatarProps) {
             'img',
             {
                 className: styles.image,
-                src: image,
+                src: image ? resourceUrl + image : avatarIcon,
                 alt: name,
             },
         ),

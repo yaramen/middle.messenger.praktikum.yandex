@@ -4,8 +4,12 @@ import { UploadAvatarPopup } from '../UploadAvatarPopup';
 import styles from './AvatarEdit.css';
 import { FormField } from '../../types/form';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
+import avatarIcon from '../../icons/avatar.svg';
+import { resourceUrl } from '../../api/baseUrl';
+import { store } from '../../modules/store';
+import { actions } from '../../modules/actions';
 
-function AvatarEdit({ value }: { value: FormField }) {
+function AvatarEdit({ value: user }: { value: FormField }) {
     const popupUpload = usePopup(createComponent(Popup, {
         key: 'popup',
         title: 'Загрузите файл',
@@ -30,8 +34,10 @@ function AvatarEdit({ value }: { value: FormField }) {
             createElement(
                 'img',
                 {
-                    src: value.value,
-                    alt: value.label,
+                    key: user.value,
+                    className: styles.image,
+                    src: user.value ? resourceUrl + user.value : avatarIcon,
+                    alt: user.label,
                 },
             ),
             createElement(
@@ -47,7 +53,7 @@ function AvatarEdit({ value }: { value: FormField }) {
             {
                 className: styles.name,
             },
-            createText(value.label || ''),
+            createText(user.label || ''),
         ),
     );
 }

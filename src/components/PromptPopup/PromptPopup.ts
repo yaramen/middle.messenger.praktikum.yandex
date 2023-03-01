@@ -1,14 +1,13 @@
 import { TextField } from '../TextField';
 import { Button } from '../Button';
-import { store } from '../../modules/store';
-import { actions } from '../../modules/actions';
-import styles from './AddUserPopup.css';
+import styles from './PromptPopup.css';
 import { createComponent, createElement } from '../../modules/vdom/createElement';
 
-function AddUserPopup({
+function PromptPopup({
     closePopup,
-}: { closePopup: () => void }) {
-    const [userName, setUserName] = this.useState('');
+    send,
+}: { closePopup: () => void, send: (text: string) => void }) {
+    const [text, setText] = this.useState('');
 
     return createElement(
         'div',
@@ -26,9 +25,9 @@ function AddUserPopup({
                 {
                     key: 'field',
                     name: 'name',
-                    placeholder: 'Имя пользователя',
+                    placeholder: '',
                     onChange: (e: InputEvent) => {
-                        setUserName((e.target as HTMLInputElement).value);
+                        setText((e.target as HTMLInputElement).value);
                     },
                 },
             ),
@@ -39,7 +38,7 @@ function AddUserPopup({
                 key: 'button',
                 label: 'Добавить',
                 click: () => {
-                    store.dispatch(actions.removeUser(userName));
+                    send(text);
                     closePopup();
                 },
             },
@@ -48,5 +47,5 @@ function AddUserPopup({
 }
 
 export {
-    AddUserPopup,
+    PromptPopup,
 };

@@ -6,18 +6,20 @@ import { AvatarEdit } from '../AvatarEdit';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
 import { FormEdit } from '../FormEdit';
-import { Profile } from '../../types/model';
+import { User } from '../../types/model';
 
 interface ProfileFormProps {
     fields: FormField[],
     isEdit: boolean,
-    profile: Profile,
+    profile: User,
 }
 
 function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
     return createElement(
         'div',
-        {},
+        {
+            key: 'ProfileForm',
+        },
         createComponent(
             AvatarEdit,
             {
@@ -25,7 +27,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                 value: {
                     name: 'avatar',
                     value: profile.avatar,
-                    label: profile.nickName,
+                    label: profile.display_name,
                     type: 'image',
                 },
             },

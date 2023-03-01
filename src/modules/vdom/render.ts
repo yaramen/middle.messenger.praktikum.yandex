@@ -93,7 +93,7 @@ const applyChildrenDiff = (elem: HTMLElement | Text, operations: VNodeUpdater[])
         const childElem = elem.childNodes[i + offset];
 
         if (childUpdater.type === 'remove') {
-            childElem.remove();
+            childElem && childElem.remove();
             offset--;
             continue;
         }

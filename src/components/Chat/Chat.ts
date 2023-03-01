@@ -5,15 +5,17 @@ import { NewMessage } from '../NewMessage';
 import { MessageList } from '../MessageList';
 import { usePopup } from '../../modules/popup';
 import { Popup } from '../Popup';
-import { AddUserPopup } from '../AddUserPopup';
+import { PromptPopup } from '../PromptPopup';
 import styles from './Chat.css';
 import addIcon from '../../icons/add.svg';
 import deleteIcon from '../../icons/delete.svg';
+import deleteChatIcon from '../../icons/delete-chat.svg';
 import dotsIcon from '../../icons/dots.svg';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
 import { Contact } from '../../types/model';
-import { RemoveUserPopup } from '../RemoveUserPopup';
+import { ConfirmPopup } from '../ConfirmPopup';
+import { actions } from '../../modules/actions';
 
 function Chat() {
     const [chat, setChat] = this.useState(null);
@@ -22,15 +24,16 @@ function Chat() {
     this.useEffectOnce(() => {
         const unsubscribe = store.subscribe((oldState, newState) => {
             if (oldState.chatId !== newState.chatId) {
-                setChat(newState.contactList.find((v) => v.id === newState.chatId));
-                setMessages(newState.messages);
+                const activeChat = newState.chatList.find((v) => v.id === newState.chatId);
+                setChat(activeChat);
+                setMessages({});
             }
         });
 
         return unsubscribe;
     });
 
-    if (!chat || !messages) {
+    if (!chat) {
         return createElement(
             'div',
             { className: styles.empty },
@@ -38,28 +41,42 @@ function Chat() {
         );
     }
 
-    const { avatar, name, id } = (chat as Contact);
+    const { avatar, title, id } = (chat as Contact);
 
     const popupAdd = usePopup(createComponent(Popup, {
         key: 'popup',
         title: 'Добавить пользователя',
-        content: createComponent(AddUserPopup, {
+        content: createComponent(PromptPopup, {
             key: 'addUser',
             closePopup: () => popupAdd.close(),
+            send: (name) => store.dispatch((actions.addUser(name))),
         }),
         close: () => popupAdd.close(),
     }));
 
-    const popupRemove = usePopup(createComponent(Popup, {
+    const popupRemoveUser = usePopup(createComponent(Popup, {
         key: 'popup',
         title: 'Удалить пользователя',
-        content: createComponent(RemoveUserPopup, {
+        content: createComponent(ConfirmPopup, {
             key: 'remove',
             id,
-            name,
-            closePopup: () => popupRemove.close(),
+            text: title,
+            closePopup: () => popupRemoveUser.close(),
+            confirm: () => store.dispatch(actions.removeUser(id)),
         }),
-        close: () => popupRemove.close(),
+        close: () => popupRemoveUser.close(),
+    }));
+
+    const popupRemoveChat = usePopup(createComponent(Popup, {
+        key: 'popup',
+        title: 'Удалить чат',
+        content: createComponent(ConfirmPopup, {
+            key: 'remove-chat',
+            id,
+            closePopup: () => popupRemoveChat.close(),
+            confirm: () => store.dispatch(actions.removeChat(chat.id)),
+        }),
+        close: () => popupRemoveChat.close(),
     }));
 
     const actionPopover = createComponent(
@@ -79,15 +96,20 @@ function Chat() {
                 {
                     key: 'action-list',
                     actions: [{
-                        key: 'addd',
+                        key: 'add',
                         icon: addIcon,
                         label: 'Добавить пользователя',
                         click: () => popupAdd.show(),
                     }, {
-                        key: 'delete',
+                        key: 'delete-users',
                         icon: deleteIcon,
                         label: 'Удалить пользователя',
-                        click: () => popupRemove.show(),
+                        click: () => popupRemoveUser.show(),
+                    }, {
+                        key: 'delete-chat',
+                        icon: deleteChatIcon,
+                        label: 'Удалить чат',
+                        click: () => popupRemoveChat.show(),
                     }],
                 },
             ),
@@ -115,14 +137,14 @@ function Chat() {
                         {
                             key: 'avatar',
                             image: avatar,
-                            name,
+                            name: chat.title,
                         },
                     ),
                 ),
                 createElement(
                     'div',
                     { className: styles.name },
-                    createText(name),
+                    createText(title),
                 ),
                 createElement(
                     'div',

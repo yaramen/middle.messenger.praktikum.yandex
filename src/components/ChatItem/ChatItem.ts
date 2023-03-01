@@ -3,24 +3,20 @@ import styles from './ChatItem.css';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
-import { Contact } from '../../types/model';
+import { ChatItemType } from '../../types/model';
 
 function ChatItem({
     id,
-    name,
-    time,
-    unread,
+    title,
+    unread_count,
+    last_message,
     avatar,
-}: Contact) {
-    function click(messageId: number) {
-        store.dispatch(actions.chatChange(messageId));
-    }
-
+}: ChatItemType) {
     return createElement(
         'div',
         {
             className: styles.item,
-            onclick: () => click(id),
+            onclick: () => store.dispatch(actions.chatChange(id)),
         },
         createElement(
             'div',
@@ -28,7 +24,7 @@ function ChatItem({
             createComponent(Avatar, {
                 key: 'avatar',
                 image: avatar,
-                name,
+                name: title,
             }),
         ),
         createElement(
@@ -40,13 +36,15 @@ function ChatItem({
                 createElement(
                     'div',
                     {},
-                    createText(name),
+                    createText(title),
                 ),
-                createElement(
-                    'time',
-                    { className: styles.time },
-                    createText(time),
-                ),
+                !last_message
+                    ? null
+                    : createElement(
+                        'time',
+                        { className: styles.time },
+                        createText(last_message.time),
+                    ),
             ),
             createElement(
                 'div',
@@ -54,12 +52,12 @@ function ChatItem({
                 createElement(
                     'div',
                     { className: styles.message },
-                    !unread
+                    !unread_count
                         ? null
                         : createElement(
                             'div',
                             { className: styles.unread },
-                            createText(unread.toString()),
+                            createText(unread_count.toString()),
                         ),
                 ),
             ),

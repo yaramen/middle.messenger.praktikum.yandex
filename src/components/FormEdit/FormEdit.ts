@@ -78,11 +78,10 @@ function FormEdit({
                     label: 'Сохранить',
                     type: 'submit',
                     click: (e: Event) => {
+                        e.preventDefault();
                         const newErrors = validation();
                         if (isValid(newErrors)) {
                             submit(formState);
-                        } else {
-                            e.preventDefault();
                         }
                     },
                 },

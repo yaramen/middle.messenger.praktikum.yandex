@@ -5,7 +5,7 @@ import { getLinkPage, goTo } from '../../modules/router';
 import { createComponent, createElement } from '../../modules/vdom/createElement';
 import { VNode } from '../../modules/vdom/types';
 
-function ProfileLayout({ content }: { content: VNode }) {
+function ProfileLayout({ content }: { content: VNode, key: string }) {
     return createElement(
         'div',
         {

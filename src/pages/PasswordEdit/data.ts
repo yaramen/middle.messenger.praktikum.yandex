@@ -3,7 +3,7 @@ import { FormField } from '../../types/form';
 const passwordFormData: FormField[] = [
     {
         type: 'password',
-        name: 'password',
+        name: 'oldPassword',
         label: 'Старый пароль',
     },
     {

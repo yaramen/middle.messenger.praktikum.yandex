@@ -17,7 +17,10 @@ function File() {
 
     return createElement(
         'label',
-        { className: styles.container },
+        {
+            key: 'label',
+            className: styles.container,
+        },
         createElement(
             'img',
             {

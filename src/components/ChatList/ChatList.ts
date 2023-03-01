@@ -1,12 +1,30 @@
 import { ChatItem } from '../ChatItem';
 import { createComponent, createElement } from '../../modules/vdom/createElement';
-import { Contact } from '../../types/model';
+import { store } from '../../modules/store';
+import { actions } from '../../modules/actions';
 
-function ChatList({ contactList }: { contactList: Contact[] }) {
+function ChatList() {
+    const [chatList, setChatList] = this.useState([]);
+
+    this.useEffectOnce(() => {
+        store.dispatch(actions.initMessagePage({}));
+
+        const unsubscribe = store.subscribe((oldState, newState) => {
+            if (oldState.chatList !== newState.chatList) {
+                setChatList(newState.chatList);
+            }
+        });
+        return unsubscribe;
+    });
+
+    const key = 'chat-list' + chatList.length;
+
     return createElement(
         'ul',
-        {},
-        ...contactList.map((chatInfo) => createElement(
+        {
+            key,
+        },
+        ...chatList.map((chatInfo) => createElement(
             'li',
             {
                 key: chatInfo.id,
@@ -15,7 +33,7 @@ function ChatList({ contactList }: { contactList: Contact[] }) {
                 ChatItem,
                 {
                     ...chatInfo,
-                    key: chatInfo.id.toString(),
+                    key: chatInfo.id,
                 },
             ),
         )),

@@ -1,11 +1,15 @@
-type Contact = {
+type ChatItemType = {
     id: number
-    name: string
-    lastMessage: string
-    time: string
-    unread: number,
+    title: string
     avatar: string
+    last_message: {
+        time: string,
+        content: string
+    },
+    unread_count: number,
 };
+
+type ChatListType = ChatItemType[];
 
 type ChatMessage = {
     actor: 'contact' | 'my',
@@ -38,9 +42,9 @@ type NewUser = {
 
 type User = {
     id: number,
-    firstName: string,
-    secondName: string,
-    displayName: string,
+    first_name: string,
+    second_name: string,
+    display_name: string,
     login: string,
     email: string,
     phone: string,
@@ -50,7 +54,8 @@ type User = {
 type Chat = Record<string, ChatMessage[]>;
 
 export {
-    Contact,
+    ChatItemType,
+    ChatListType,
     ChatMessage,
     Chat,
     Profile,

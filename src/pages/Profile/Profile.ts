@@ -3,6 +3,7 @@ import { ProfileLayout } from '../../layout/ProfileLayout';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
 import { createProfileFormData } from './data';
+import { actions } from '../../modules/actions';
 
 function Load() {
     return createElement(
@@ -13,7 +14,17 @@ function Load() {
 }
 
 function Profile({ isEdit }: { isEdit: boolean }) {
-    const { user } = store.getState();
+    const [user, setUser] = this.useState(null);
+
+    this.useEffectOnce(() => {
+        store.dispatch(actions.initAction({}));
+        const unsubscribe = store.subscribe((oldState, newState) => {
+            if (oldState.user !== newState.user) {
+                setUser(newState.user);
+            }
+        });
+        return unsubscribe;
+    });
 
     if (!user) {
         return createComponent(Load, { key: 'load' });
@@ -27,7 +38,7 @@ function Profile({ isEdit }: { isEdit: boolean }) {
                 ProfileForm,
                 {
                     key: 'ProfileForm',
-                    fields: createProfileFormData(user),
+                    fields: createProfileFormData(user, isEdit),
                     profile: user,
                     isEdit,
                 },

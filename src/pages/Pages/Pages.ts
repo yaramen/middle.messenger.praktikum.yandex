@@ -10,7 +10,6 @@ import { Profile } from '../Profile';
 import { PasswordEdit } from '../PasswordEdit';
 import { actions } from '../../modules/actions';
 import { Loading } from '../../components/Loading';
-import { showMessage } from '../../modules/messageBox';
 
 const pages = {
     auth: createComponent(Auth, { key: 'auth' }),
@@ -43,12 +42,10 @@ function Pages() {
         const unsubscribe = store.subscribe((oldState, newState) => {
             if (oldState.page !== newState.page) {
                 setPage(newState.page || defaultPage);
-            }
-            if (oldState.isInit !== newState.isInit) {
+            } else if (oldState.isInit !== newState.isInit) {
                 setIsInit(newState.isInit);
             }
         });
-        showMessage('test');
         return unsubscribe;
     });
 

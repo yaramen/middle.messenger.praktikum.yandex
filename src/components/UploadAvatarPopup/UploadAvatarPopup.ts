@@ -9,7 +9,7 @@ function UploadAvatarPopup({
     closePopup,
 }: { closePopup: () => void }) {
     return createElement(
-        'div',
+        'form',
         {},
         createElement(
             'div',
@@ -27,7 +27,8 @@ function UploadAvatarPopup({
                 key: 'button',
                 label: 'Поменять',
                 click: () => {
-                    store.dispatch(actions.avatarUpdate(1));
+                    const file = document.querySelector('[type="file"]') as HTMLInputElement;
+                    store.dispatch(actions.avatarUpdate(file.files[0]));
                     closePopup();
                 },
             },
