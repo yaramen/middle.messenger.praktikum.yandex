@@ -6,8 +6,6 @@ import { FormField } from '../../types/form';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 import avatarIcon from '../../icons/avatar.svg';
 import { resourceUrl } from '../../api/baseUrl';
-import { store } from '../../modules/store';
-import { actions } from '../../modules/actions';
 
 function AvatarEdit({ value: user }: { value: FormField }) {
     const popupUpload = usePopup(createComponent(Popup, {
