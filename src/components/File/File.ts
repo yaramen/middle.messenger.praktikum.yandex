@@ -1,19 +1,17 @@
 import uploadIcon from '../../icons/upload.svg';
 import styles from './File.css';
-import { createElement } from '../../modules/vdom/createElement';
+import { createElement, createText } from '../../modules/vdom/createElement';
 
 function File() {
-    function fileChange() {
-        const label = document.querySelector(`.${styles.container}`) as HTMLElement;
-        const image = label.querySelector('img') as HTMLElement;
-        const input = label.querySelector('input') as HTMLInputElement;
-        // @ts-ignore
-        const fileName = input.files[0].name;
-        const fileElement = document.createElement('div');
-        fileElement.innerText = fileName;
-        label.appendChild(fileElement);
-        image.style.display = 'none';
-    }
+    const [file, setFile] = this.useState('');
+
+    const fileChange = () => {
+        const element = this.getElement();
+        if (element) {
+            const input = element.querySelector('input');
+            input && setFile(input.files[0].name);
+        }
+    };
 
     return createElement(
         'label',
@@ -21,17 +19,24 @@ function File() {
             key: 'label',
             className: styles.container,
         },
-        createElement(
-            'img',
-            {
-                className: styles.image,
-                src: uploadIcon,
-                alt: 'file',
-            },
-        ),
+        file()
+            ? createElement(
+                'div',
+                { className: 'foo' },
+                createText(file()),
+            )
+            : createElement(
+                'img',
+                {
+                    className: styles.image,
+                    src: uploadIcon,
+                    alt: 'file',
+                },
+            ),
         createElement(
             'input',
             {
+                key: 'file',
                 className: styles.file,
                 type: 'file',
                 onchange: fileChange,

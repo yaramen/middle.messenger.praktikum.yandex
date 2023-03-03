@@ -5,6 +5,9 @@ type ChatItemType = {
     last_message: {
         time: string,
         content: string
+        user: {
+            avatar: string,
+        }
     },
     unread_count: number,
 };
@@ -12,12 +15,31 @@ type ChatItemType = {
 type ChatListType = ChatItemType[];
 
 type ChatMessage = {
+    id: number,
+    user_id: number,
     actor: 'contact' | 'my',
     time: string,
-    messageType: 'html' | 'image',
-    status?: 'send' | 'sending',
+    type: 'message' | 'file',
+    is_read: true,
     content: string,
+    file?: {
+        id: string,
+        path: string,
+        filename: string,
+        content_type: string
+    }
 };
+
+// const v = {
+//     id: 1,
+//     user_id: 533404,
+//     chat_id: 5791,
+//     type: 'message',
+//     time: '2023-03-01T14:38:33+00:00',
+//     content: 'test',
+//     is_read: true,
+//     file: null,
+// };
 
 type Profile = {
     id: number,

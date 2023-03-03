@@ -14,6 +14,8 @@ abstract class Component<PROPS> {
 
     protected vNode: VNode;
 
+    protected mountFn: () => void;
+
     protected element: HTMLElement | null = null;
 
     constructor(props: PROPS) {
@@ -22,6 +24,11 @@ abstract class Component<PROPS> {
 
     public setElement(element: HTMLElement) {
         this.element = element;
+        this.mountFn && setTimeout(() => this.mountFn(), 0);
+    }
+
+    public onMount(func: () => void) {
+        this.mountFn = func;
     }
 
     public getElement() {
@@ -46,6 +53,7 @@ abstract class Component<PROPS> {
             unmountChildren(this.vNode.children);
         }
 
+        this.element = null;
         this.state.forEach((v) => {
             if (typeof v === 'function') {
                 v();
@@ -53,14 +61,14 @@ abstract class Component<PROPS> {
         });
     }
 
-    public useState<T>(initValue: T | null): [T, (v: T) => void] {
+    public useState<T>(initValue: T | null): [(v: T) => void, (v: T) => void] {
         if (!this.isInit) {
-            const value = initValue;
             const setValue = (index: number) => (v: unknown) => {
-                this.state[index][0] = v;
+                this.state[index][2] = v;
                 this._render(this.props);
             };
-            const stateValue = [value, setValue(this.hookIndex++)];
+            const index = this.hookIndex;
+            const stateValue = [() => this.state[index][2], setValue(this.hookIndex++), initValue];
             this.state.push(stateValue);
             // @ts-ignore
             return stateValue;
@@ -80,6 +88,10 @@ abstract class Component<PROPS> {
 
     getProps() {
         return this.props;
+    }
+
+    public forceUpdate() {
+        this.render(this.getProps());
     }
 
     public abstract render(props: PROPS): VNode;

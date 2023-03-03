@@ -35,15 +35,17 @@ const defaultPage: PageType = 'auth';
 function Pages() {
     const [page, setPage] = this.useState(getActiveRoute().page ? getActiveRoute().page : defaultPage);
     const [isInit, setIsInit] = this.useState(false);
-    const componentPage = pages[page as PageType] ?? pages.error404;
+    const componentPage = pages[page() as PageType] ?? pages.error404;
 
     this.useEffectOnce(() => {
         store.dispatch(actions.initAction({}));
         const unsubscribe = store.subscribe((oldState, newState) => {
             if (oldState.page !== newState.page) {
-                setPage(newState.page || defaultPage);
+                setPage(newState.page);
             } else if (oldState.isInit !== newState.isInit) {
                 setIsInit(newState.isInit);
+            } else if (page() && oldState.force !== newState.force) {
+                setPage(page());
             }
         });
         return unsubscribe;
@@ -52,7 +54,7 @@ function Pages() {
     return createElement(
         'div',
         { className: styles.page },
-        isInit ? componentPage : createComponent(Loading, { key: 'loading' }),
+        isInit() ? componentPage : createComponent(Loading, { key: 'loading' }),
         createElement(
             'div',
             {

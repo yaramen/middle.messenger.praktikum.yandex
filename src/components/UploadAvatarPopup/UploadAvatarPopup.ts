@@ -10,10 +10,10 @@ function UploadAvatarPopup({
 }: { closePopup: () => void }) {
     return createElement(
         'form',
-        {},
+        { key: 'form' },
         createElement(
             'div',
-            { className: styles.field },
+            { key: 'file', className: styles.field },
             createComponent(
                 File,
                 {
@@ -27,7 +27,8 @@ function UploadAvatarPopup({
                 key: 'button',
                 label: 'Поменять',
                 click: () => {
-                    const file = document.querySelector('[type="file"]') as HTMLInputElement;
+                    const file = this.getElement().querySelector('[type="file"]') as HTMLInputElement;
+                    // @ts-ignore
                     store.dispatch(actions.avatarUpdate(file.files[0]));
                     closePopup();
                 },

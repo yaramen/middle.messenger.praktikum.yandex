@@ -1,11 +1,13 @@
 import { Store } from './store/Store';
 import {
+    actions,
     ADD_CHAT,
     ADD_USER,
     AUTH,
     AVATAR_UPDATE,
     CHAT_CHANGE,
     CHECK_IN,
+    FORCE,
     INIT_ACTION,
     INIT_MESSAGE_PAGE,
     LOGOUT,
@@ -15,8 +17,10 @@ import {
     PROFILE_UPDATE,
     REMOVE_CHAT,
     REMOVE_USER,
+    RESPONSE_MESSAGE,
+    RESPONSE_MESSAGE_LIST,
+    SEND_FILE,
 } from './actions';
-import { getMessages } from '../api/mockApi';
 import {
     getActiveRoute, getLinkPage, goTo, PageType,
 } from './router';
@@ -25,15 +29,17 @@ import { AuthService } from '../api/AuthService';
 import { showMessage } from './messageBox';
 import { ChatService } from '../api/ChatService';
 import { UserService } from '../api/UserService';
+import { WebSocketService } from '../api/WebSocketService';
 
 const initState = {
     isInit: false,
     isLoading: false,
     user: null,
     chatList: [],
-    messages: {},
+    messages: [],
     chatId: null,
     page: null,
+    force: false,
 };
 
 type StoreType = {
@@ -41,9 +47,10 @@ type StoreType = {
     isLoading: boolean,
     user: User | null,
     chatList: ChatListType,
-    messages: Record<string, ChatMessage[]>,
+    messages: ChatMessage[],
     chatId: number | null,
     page: PageType | null,
+    force: boolean,
 };
 
 const store = new Store<StoreType>(initState);
@@ -57,7 +64,7 @@ store.addEventListener(INIT_ACTION, async () => {
             isInit: true,
         }));
         const currentPage = getActiveRoute().page;
-        if (currentPage === 'auth') {
+        if (currentPage === 'auth' || !currentPage) {
             goTo(getLinkPage('messenger'));
         }
     } catch (e) {
@@ -84,6 +91,13 @@ store.addEventListener(INIT_MESSAGE_PAGE, async () => {
     }));
 });
 
+store.addEventListener(FORCE, async () => {
+    store.setState((state) => ({
+        ...state,
+        force: !state.force,
+    }));
+});
+
 store.addEventListener(PAGE_CHANGE, ({ detail: page }: CustomEvent) => {
     store.setState((state) => ({
         ...state,
@@ -92,13 +106,42 @@ store.addEventListener(PAGE_CHANGE, ({ detail: page }: CustomEvent) => {
 });
 
 store.addEventListener(CHAT_CHANGE, async ({ detail: chatId }: CustomEvent) => {
-    // const messages = await getMessages(chatId);
-
+    if (store.getState().chatId === chatId) {
+        return;
+    }
     store.setState((state) => ({
         ...state,
         chatId,
-        messages: {},
+        messages: [],
     }));
+});
+
+store.addEventListener(RESPONSE_MESSAGE_LIST, async ({ detail: messageList }: CustomEvent) => {
+    const newMessages = (messageList as ChatMessage[]).map((v) => ({
+        ...v,
+        actor: v.user_id === store.getState().user?.id ? 'my' : 'contact',
+    })) as ChatMessage[];
+    newMessages.reverse();
+
+    store.setState((state) => ({
+        ...state,
+        messages: [...newMessages, ...state.messages],
+    }));
+});
+
+store.addEventListener(RESPONSE_MESSAGE, async ({ detail: message }: CustomEvent) => {
+    store.setState((state) => ({
+        ...state,
+        messages: [...state.messages, {
+            ...message,
+            actor: message.user_id === store.getState().user?.id ? 'my' : 'contact',
+        }],
+    }));
+});
+
+store.addEventListener(SEND_FILE, async ({ detail: file }: CustomEvent) => {
+    const { id } = await ChatService.sendResource(file);
+    WebSocketService.getInstance()?.sendFile(id.toString());
 });
 
 store.addEventListener(AUTH, async ({ detail: payload }: CustomEvent) => {
@@ -137,28 +180,39 @@ store.addEventListener(CHECK_IN, async ({ detail: payload }: CustomEvent) => {
     }
 });
 
-store.addEventListener(ADD_USER, ({ detail: userName }: CustomEvent) => {
-    console.log('add user', userName);
+store.addEventListener(ADD_USER, async ({ detail: userName }: CustomEvent) => {
+    const userList = await UserService.search(userName);
+    const user = userList.find((user) => user.login === userName);
+
+    if (!user) {
+        showMessage('Пользователь не найден');
+        return;
+    }
+
+    const { chatId } = store.getState();
+    if (!chatId) {
+        showMessage('Чат не выбран');
+        return;
+    }
+    await ChatService.addUser(chatId, user.id);
 });
 
-store.addEventListener(REMOVE_USER, ({ detail: userId }: CustomEvent) => {
-    console.log('remove user', userId);
+store.addEventListener(REMOVE_USER, async ({ detail: { userId, chatId } }: CustomEvent) => {
+    await ChatService.removeUser(chatId, userId);
 });
 
-store.addEventListener(NEW_MESSAGE, ({ detail: data }: CustomEvent) => {
-    console.log('new message: ', data);
+store.addEventListener(NEW_MESSAGE, ({ detail: message }: CustomEvent) => {
+    WebSocketService.getInstance()?.sendMessage(message);
 });
 
 store.addEventListener(AVATAR_UPDATE, async ({ detail: file }: CustomEvent) => {
-    const { avatar } = await UserService.updateAvatar(file);
+    const user = await UserService.updateAvatar(file);
 
     store.setState((state) => ({
         ...state,
-        user: {
-            ...state.user as User,
-            avatar,
-        },
+        user,
     }));
+    store.dispatch(actions.force({}));
 });
 
 store.addEventListener(PROFILE_UPDATE, async ({ detail: data }: CustomEvent) => {
@@ -196,6 +250,8 @@ store.addEventListener(ADD_CHAT, async ({ detail: title }: CustomEvent) => {
         ...state,
         chatList,
     }));
+
+    store.dispatch(actions.force({}));
 });
 
 export {

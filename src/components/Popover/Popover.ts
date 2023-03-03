@@ -24,7 +24,7 @@ function Popover({
     const offsetStyle = offset && `margin-left: ${offset.x}px; margin-top: ${offset.y}px`;
 
     const classes = className({
-        [styles.open]: isOpen,
+        [styles.open]: isOpen(),
         [styles.popover]: true,
         [styles['popover-top']]: type === 'top',
         [styles['popover-bottom']]: type === 'bottom',
@@ -36,10 +36,17 @@ function Popover({
             key: 'popover',
             className: classes,
             onclick: () => {
-                setOpen(!isOpen);
+                setOpen(!isOpen());
             },
         },
         target,
+        !isOpen() ? null : createElement(
+            'div',
+            {
+                className: styles.overlay,
+                onclick: () => isOpen(false),
+            },
+        ),
         createElement(
             'div',
             {

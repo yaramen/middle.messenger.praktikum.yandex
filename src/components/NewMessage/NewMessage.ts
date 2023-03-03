@@ -1,54 +1,11 @@
-import { Popover } from '../Popover';
 import { Button } from '../Button';
-import { ActionList } from '../ActionList';
 import { TextField } from '../TextField';
 import attachIcon from '../../icons/attach.svg';
-import photoIcon from '../../icons/photo.svg';
-import fileIcon from '../../icons/file.svg';
-import locationIcon from '../../icons/location.svg';
 import sendIcon from '../../icons/send.svg';
 import styles from './NewMessage.css';
 import { createComponent, createElement } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
-
-const AttachPopover = createComponent(
-    Popover,
-    {
-        key: 'popover',
-        target: createComponent(
-            Button,
-            {
-                key: 'button',
-                style: 'action',
-                icon: attachIcon,
-            },
-        ),
-        content: createComponent(
-            ActionList,
-            {
-                key: 'action-list',
-                actions: [{
-                    key: 'photoIcon',
-                    icon: photoIcon,
-                    label: 'Фото или Видео',
-                    click: () => {},
-                }, {
-                    key: 'fileIcon',
-                    icon: fileIcon,
-                    label: 'Файл',
-                    click: () => {},
-                }, {
-                    key: 'locationIcon',
-                    icon: locationIcon,
-                    label: 'Локация',
-                    click: () => {},
-                }],
-            },
-        ),
-        type: 'top',
-    },
-);
 
 function Message() {
     const [message, setMessage] = this.useState('');
@@ -91,7 +48,7 @@ function Message() {
                 {
                     key: 'button',
                     icon: sendIcon,
-                    click: () => message && store.dispatch(actions.newMessage(message)),
+                    click: () => message() && store.dispatch(actions.newMessage(message())),
                 },
             ),
         ),
@@ -99,21 +56,42 @@ function Message() {
 }
 
 function NewMessage() {
+    const attachChange = (e: InputEvent) => {
+        const input = e.target;
+        // @ts-ignore
+        store.dispatch(actions.sendFile((input as HTMLInputElement).files[0]));
+    };
+
     return createElement(
         'div',
         {
-            key: 'block',
+            key: 'NewMessage',
             className: styles.form,
         },
         createElement(
-            'div',
+            'label',
             {
                 key: 'attach',
                 className: styles.attach,
             },
-            AttachPopover,
+            createElement(
+                'img',
+                {
+                    src: attachIcon,
+                    alt: 'attach',
+                },
+            ),
+            createElement(
+                'input',
+                {
+                    key: 'file',
+                    className: styles.file,
+                    id: 'attach',
+                    type: 'file',
+                    onchange: attachChange,
+                },
+            ),
         ),
-
         createComponent(
             Message,
             {

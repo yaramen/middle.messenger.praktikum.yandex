@@ -14,7 +14,7 @@ function ProfileLayout({ content }: { content: VNode, key: string }) {
         },
         createElement(
             'div',
-            { className: styles.panel },
+            { key: 'button', className: styles.panel },
             createComponent(
                 Button,
                 {

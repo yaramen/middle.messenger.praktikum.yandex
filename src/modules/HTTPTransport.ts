@@ -13,7 +13,7 @@ function queryStringify(data: Record<string, string>) {
 type Options = {
     timeout?: number,
     method?: Method,
-    data?: Document | XMLHttpRequestBodyInit | Record<string, string | number> | null,
+    data?: Document | XMLHttpRequestBodyInit | Record<string, string | number> | Object | null,
     headers?: Record<string, string>,
 };
 

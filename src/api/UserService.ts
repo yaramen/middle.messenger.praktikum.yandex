@@ -26,6 +26,14 @@ class UserService {
             data: formData,
         }) as Promise<User>;
     }
+
+    public static search(login: string): Promise<User[]> {
+        return HTTPTransport.post(baseUrl + '/user/search', {
+            data: {
+                login,
+            },
+        }) as Promise<User[]>;
+    }
 }
 
 export {

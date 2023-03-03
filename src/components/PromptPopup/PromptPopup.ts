@@ -38,7 +38,7 @@ function PromptPopup({
                 key: 'button',
                 label: 'Добавить',
                 click: () => {
-                    send(text);
+                    send(text());
                     closePopup();
                 },
             },

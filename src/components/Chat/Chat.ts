@@ -2,7 +2,6 @@ import { Avatar } from '../Avatar';
 import { Popover } from '../Popover';
 import { ActionList } from '../ActionList';
 import { NewMessage } from '../NewMessage';
-import { MessageList } from '../MessageList';
 import { usePopup } from '../../modules/popup';
 import { Popup } from '../Popup';
 import { PromptPopup } from '../PromptPopup';
@@ -13,27 +12,40 @@ import deleteChatIcon from '../../icons/delete-chat.svg';
 import dotsIcon from '../../icons/dots.svg';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
-import { Contact } from '../../types/model';
+import { ChatItemType, User } from '../../types/model';
 import { ConfirmPopup } from '../ConfirmPopup';
 import { actions } from '../../modules/actions';
+import { WebSocketService } from '../../api/WebSocketService';
+import { MessageList } from '../MessageList';
+import { RemoveUserChat } from '../RemoveUserChat';
 
 function Chat() {
     const [chat, setChat] = this.useState(null);
-    const [messages, setMessages] = this.useState(null);
+    const [messages, setMessages] = this.useState([]);
+    const [ws, setWs] = this.useState(null);
 
     this.useEffectOnce(() => {
-        const unsubscribe = store.subscribe((oldState, newState) => {
+        const unsubscribe = store.subscribe(((oldState, newState) => {
             if (oldState.chatId !== newState.chatId) {
                 const activeChat = newState.chatList.find((v) => v.id === newState.chatId);
                 setChat(activeChat);
-                setMessages({});
+                if (activeChat && activeChat.id) {
+                    ws() && ws().disconnect();
+                    setWs(WebSocketService.createInstance((store.getState().user as User).id, activeChat.id));
+                }
             }
-        });
+            if (oldState.messages !== newState.messages) {
+                setMessages(newState.messages);
+            }
+        }));
 
-        return unsubscribe;
+        return () => {
+            ws() && ws().disconnect();
+            unsubscribe();
+        };
     });
 
-    if (!chat) {
+    if (!chat()) {
         return createElement(
             'div',
             { className: styles.empty },
@@ -41,7 +53,7 @@ function Chat() {
         );
     }
 
-    const { avatar, title, id } = (chat as Contact);
+    const { avatar, title, id } = (chat() as ChatItemType);
 
     const popupAdd = usePopup(createComponent(Popup, {
         key: 'popup',
@@ -57,12 +69,10 @@ function Chat() {
     const popupRemoveUser = usePopup(createComponent(Popup, {
         key: 'popup',
         title: 'Удалить пользователя',
-        content: createComponent(ConfirmPopup, {
+        content: createComponent(RemoveUserChat, {
             key: 'remove',
             id,
-            text: title,
             closePopup: () => popupRemoveUser.close(),
-            confirm: () => store.dispatch(actions.removeUser(id)),
         }),
         close: () => popupRemoveUser.close(),
     }));
@@ -74,7 +84,7 @@ function Chat() {
             key: 'remove-chat',
             id,
             closePopup: () => popupRemoveChat.close(),
-            confirm: () => store.dispatch(actions.removeChat(chat.id)),
+            confirm: () => store.dispatch(actions.removeChat(chat().id)),
         }),
         close: () => popupRemoveChat.close(),
     }));
@@ -160,7 +170,7 @@ function Chat() {
                 MessageList,
                 {
                     key: 'messages',
-                    messages,
+                    messages: messages(),
                 },
             ),
         ),

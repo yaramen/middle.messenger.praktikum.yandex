@@ -1,17 +1,10 @@
 import { ProfileForm } from '../../components/ProfileForm';
 import { ProfileLayout } from '../../layout/ProfileLayout';
-import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
+import { createComponent } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
 import { createProfileFormData } from './data';
 import { actions } from '../../modules/actions';
-
-function Load() {
-    return createElement(
-        'div',
-        {},
-        createText('loading'),
-    );
-}
+import { Loading } from '../../components/Loading';
 
 function Profile({ isEdit }: { isEdit: boolean }) {
     const [user, setUser] = this.useState(null);
@@ -26,20 +19,20 @@ function Profile({ isEdit }: { isEdit: boolean }) {
         return unsubscribe;
     });
 
-    if (!user) {
-        return createComponent(Load, { key: 'load' });
+    if (!user()) {
+        return createComponent(Loading, { key: 'load' });
     }
 
     return createComponent(
         ProfileLayout,
         {
-            key: 'ProfileLayout',
+            key: 'ProfileLayout' + user().avatar,
             content: createComponent(
                 ProfileForm,
                 {
-                    key: 'ProfileForm',
-                    fields: createProfileFormData(user, isEdit),
-                    profile: user,
+                    key: 'ProfileForm' + user().avatar,
+                    fields: createProfileFormData(user(), isEdit),
+                    profile: user(),
                     isEdit,
                 },
             ),

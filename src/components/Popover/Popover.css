@@ -1,5 +1,6 @@
 .popover {
     position: relative;
+    z-index: 1;
 }
 
 .content {
@@ -11,6 +12,14 @@
     border: 1px solid var(--border-second);
     box-shadow: 0 0 10px 4px rgb(0 0 0 / 5%);
     transform: translateX(-50%);
+}
+
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
 }
 
 .popover-top .content {

@@ -4,13 +4,13 @@ import { createComponent, createElement, createText } from '../../modules/vdom/c
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
 import { ChatItemType } from '../../types/model';
+import { formatTime } from '../../modules/date';
 
 function ChatItem({
     id,
     title,
     unread_count,
     last_message,
-    avatar,
 }: ChatItemType) {
     return createElement(
         'div',
@@ -23,7 +23,7 @@ function ChatItem({
             { className: styles.avatar },
             createComponent(Avatar, {
                 key: 'avatar',
-                image: avatar,
+                image: last_message ? last_message.user.avatar : undefined,
                 name: title,
             }),
         ),
@@ -43,7 +43,7 @@ function ChatItem({
                     : createElement(
                         'time',
                         { className: styles.time },
-                        createText(last_message.time),
+                        createText(formatTime(new Date(last_message.time))),
                     ),
             ),
             createElement(

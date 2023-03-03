@@ -13,6 +13,10 @@ const NEW_MESSAGE = 'NEW_MESSAGE';
 const LOGOUT = 'LOGOUT';
 const REMOVE_CHAT = 'REMOVE_CHAT';
 const ADD_CHAT = 'ADD_CHAT';
+const RESPONSE_MESSAGE_LIST = 'RESPONSE_MESSAGE_LIST';
+const RESPONSE_MESSAGE = 'RESPONSE_MESSAGE';
+const FORCE = 'FORCE';
+const SEND_FILE = 'SEND_FILE';
 
 const createAction = (name: string) => (payload: object | number | string) => new CustomEvent(name, { detail: payload });
 
@@ -32,6 +36,10 @@ const actions = {
     passwordUpdate: createAction(PASSWORD_UPDATE),
     newMessage: createAction(NEW_MESSAGE),
     logout: createAction(LOGOUT),
+    responseMessageList: createAction(RESPONSE_MESSAGE_LIST),
+    responseMessage: createAction(RESPONSE_MESSAGE),
+    force: createAction(FORCE),
+    sendFile: createAction(SEND_FILE),
 };
 
 export {
@@ -51,4 +59,8 @@ export {
     LOGOUT,
     REMOVE_CHAT,
     ADD_CHAT,
+    RESPONSE_MESSAGE_LIST,
+    RESPONSE_MESSAGE,
+    FORCE,
+    SEND_FILE,
 };

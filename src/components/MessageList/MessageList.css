@@ -4,6 +4,11 @@
     padding: 0 10px;
 }
 
+.image {
+    max-width: 100%;
+    object-fit: contain;
+}
+
 .dateline {
     display: flex;
     align-items: center;
@@ -44,6 +49,7 @@
     color: var(--text-message);
     max-width: 420px;
     padding: 20px;
+    min-width: 150px;
 }
 
 .message p {

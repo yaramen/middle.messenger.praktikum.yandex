@@ -4,7 +4,7 @@ import avatarIcon from '../../icons/avatar.svg';
 import { resourceUrl } from '../../api/baseUrl';
 
 interface AvatarProps {
-    image: string,
+    image?: string,
     name: string;
 }
 

@@ -2,29 +2,32 @@ import { ChatItem } from '../ChatItem';
 import { createComponent, createElement } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
+import { ChatListType } from '../../types/model';
 
 function ChatList() {
-    const [chatList, setChatList] = this.useState([]);
+    const [chatList, setChatList] = this.useState([]) as [() => ChatListType, (chatList: ChatListType) => void];
 
     this.useEffectOnce(() => {
         store.dispatch(actions.initMessagePage({}));
-
         const unsubscribe = store.subscribe((oldState, newState) => {
             if (oldState.chatList !== newState.chatList) {
                 setChatList(newState.chatList);
             }
         });
-        return unsubscribe;
+        return () => {
+            unsubscribe();
+        };
     });
 
-    const key = 'chat-list' + chatList.length;
+    const key = 'chat-list' + chatList().length;
+    console.log(chatList());
 
     return createElement(
         'ul',
         {
             key,
         },
-        ...chatList.map((chatInfo) => createElement(
+        ...chatList().map((chatInfo) => createElement(
             'li',
             {
                 key: chatInfo.id,
@@ -33,7 +36,7 @@ function ChatList() {
                 ChatItem,
                 {
                     ...chatInfo,
-                    key: chatInfo.id,
+                    key: chatInfo.id.toString(),
                 },
             ),
         )),

@@ -44,7 +44,7 @@ function goTo(path: string, skipHistory: boolean = false) {
             store.dispatch(actions.pageChange(newRouterState.page));
         }
         if (isChatChange) {
-            store.dispatch(actions.chatChange(Number(newRouterState.id)));
+            // store.dispatch(actions.chatChange(Number(newRouterState.id)));
         }
     }
 }
