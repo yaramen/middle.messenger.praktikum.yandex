@@ -58,7 +58,7 @@ function FormEdit({
                     readonly: !isEdit,
                     key: field.name,
                     value: formState()[field.name],
-                    errors: errors[field.name],
+                    errors: errors()[field.name],
                     onChange: updateFormState,
                     onFocus: validation,
                     onBlur: validation,
