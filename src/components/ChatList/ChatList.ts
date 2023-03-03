@@ -20,7 +20,6 @@ function ChatList() {
     });
 
     const key = 'chat-list' + chatList().length;
-    console.log(chatList());
 
     return createElement(
         'ul',

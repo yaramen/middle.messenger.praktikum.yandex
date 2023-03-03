@@ -30,29 +30,6 @@ type ChatMessage = {
     }
 };
 
-// const v = {
-//     id: 1,
-//     user_id: 533404,
-//     chat_id: 5791,
-//     type: 'message',
-//     time: '2023-03-01T14:38:33+00:00',
-//     content: 'test',
-//     is_read: true,
-//     file: null,
-// };
-
-type Profile = {
-    id: number,
-    email: string,
-    login: string,
-    firstName: string,
-    fastName: string,
-    nickName: string,
-    phone: string,
-    password: string,
-    avatar: string,
-};
-
 type NewUser = {
     first_name: string,
     second_name: string,
@@ -73,14 +50,10 @@ type User = {
     avatar: string,
 };
 
-type Chat = Record<string, ChatMessage[]>;
-
 export {
     ChatItemType,
     ChatListType,
     ChatMessage,
-    Chat,
-    Profile,
     NewUser,
     User,
 };
