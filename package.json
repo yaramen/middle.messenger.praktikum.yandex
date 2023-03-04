@@ -6,7 +6,8 @@
     "dev": "webpack serve",
     "build": "webpack",
     "start": "npm run build && node server/index.js",
-    "lint": "npm run lint-fix:ts && npm run lint-fix:style",
+    "lint": "eslint ./src && stylelint ./src/**/*.css",
+    "lint-fix": "npm run lint-fix:ts && npm run lint-fix:style",
     "lint-fix:ts": "eslint ./src --fix",
     "lint-fix:style": "stylelint ./src/**/*.css --fix",
     "prepare": "npm run lint"

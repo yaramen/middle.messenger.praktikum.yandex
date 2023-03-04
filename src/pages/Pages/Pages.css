@@ -32,7 +32,7 @@
 }
 
 .message_show {
-    transform: translateY(0px);
+    transform: translateY(0);
 }
 
 .message_hidden {
