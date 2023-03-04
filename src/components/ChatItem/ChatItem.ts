@@ -9,6 +9,7 @@ import { formatTime } from '../../modules/date';
 function ChatItem({
     id,
     title,
+    avatar,
     unread_count,
     last_message,
 }: ChatItemType) {
@@ -23,7 +24,7 @@ function ChatItem({
             { className: styles.avatar },
             createComponent(Avatar, {
                 key: 'avatar',
-                image: last_message ? last_message.user.avatar : undefined,
+                image: avatar || undefined,
                 name: title,
             }),
         ),
