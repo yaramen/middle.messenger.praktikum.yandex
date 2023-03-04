@@ -67,20 +67,24 @@ class WebSocketService {
     private addListener() {
         this.ws.addEventListener('message', (event) => {
             const { data: dataString } = event;
-            const data = JSON.parse(dataString);
+            try {
+                const data = JSON.parse(dataString);
 
-            if (typeof data === 'object') {
-                if (data instanceof Array) {
-                    const last = store.getState().messages[0];
-                    if (data.length) {
-                        store.dispatch(actions.responseMessageList(data));
-                        last && scrollToMessage(last.id);
+                if (typeof data === 'object') {
+                    if (data instanceof Array) {
+                        const last = store.getState().messages[0];
+                        if (data.length) {
+                            store.dispatch(actions.responseMessageList(data));
+                            last && scrollToMessage(last.id);
+                        }
+                    }
+                    if (data instanceof Object && (data.type === 'message' || data.type === 'file')) {
+                        store.dispatch(actions.responseMessage(data));
+                        scrollChatToBottom();
                     }
                 }
-                if (data instanceof Object && (data.type === 'message' || data.type === 'file')) {
-                    store.dispatch(actions.responseMessage(data));
-                    scrollChatToBottom();
-                }
+            } catch (err) {
+                console.warn('error ws data', err);
             }
         });
     }
