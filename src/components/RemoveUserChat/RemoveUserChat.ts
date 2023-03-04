@@ -5,6 +5,7 @@ import { ChatService } from '../../api/ChatService';
 import { User } from '../../types/model';
 import { Button } from '../Button';
 import { actions } from '../../modules/actions';
+import { requestError } from '../../modules/requestError';
 
 interface RemoveUserPopupProps {
     id: number,
@@ -21,8 +22,12 @@ function RemoveUserChat({
         const { chatId } = store.getState();
 
         if (chatId) {
-            const userList = await ChatService.userList(chatId);
-            setUsers(userList.filter((user) => user.id !== store.getState().user?.id));
+            try {
+                const userList = await ChatService.userList(chatId);
+                setUsers(userList.filter((user) => user.id !== store.getState().user?.id));
+            } catch (xhr) {
+                requestError(xhr);
+            }
         }
     });
 

@@ -30,6 +30,7 @@ import { showMessage } from './messageBox';
 import { ChatService } from '../api/ChatService';
 import { UserService } from '../api/UserService';
 import { WebSocketService } from '../api/WebSocketService';
+import { requestError } from './requestError';
 
 const initState = {
     isInit: false,
@@ -77,21 +78,25 @@ store.addEventListener(INIT_ACTION, async () => {
 });
 
 store.addEventListener(INIT_MESSAGE_PAGE, async () => {
-    store.setState((state) => ({
-        ...state,
-        isLoading: true,
-    }));
+    try {
+        store.setState((state) => ({
+            ...state,
+            isLoading: true,
+        }));
 
-    const chatList = await ChatService.chatList();
+        const chatList = await ChatService.chatList();
 
-    store.setState((state) => ({
-        ...state,
-        chatList,
-        isLoading: false,
-    }));
+        store.setState((state) => ({
+            ...state,
+            chatList,
+            isLoading: false,
+        }));
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
-store.addEventListener(FORCE, async () => {
+store.addEventListener(FORCE, () => {
     store.setState((state) => ({
         ...state,
         force: !state.force,
@@ -105,7 +110,7 @@ store.addEventListener(PAGE_CHANGE, ({ detail: page }: CustomEvent) => {
     }));
 });
 
-store.addEventListener(CHAT_CHANGE, async ({ detail: chatId }: CustomEvent) => {
+store.addEventListener(CHAT_CHANGE, ({ detail: chatId }: CustomEvent) => {
     if (store.getState().chatId === chatId) {
         return;
     }
@@ -116,7 +121,7 @@ store.addEventListener(CHAT_CHANGE, async ({ detail: chatId }: CustomEvent) => {
     }));
 });
 
-store.addEventListener(RESPONSE_MESSAGE_LIST, async ({ detail: messageList }: CustomEvent) => {
+store.addEventListener(RESPONSE_MESSAGE_LIST, ({ detail: messageList }: CustomEvent) => {
     const newMessages = (messageList as ChatMessage[]).map((v) => ({
         ...v,
         actor: v.user_id === store.getState().user?.id ? 'my' : 'contact',
@@ -129,7 +134,7 @@ store.addEventListener(RESPONSE_MESSAGE_LIST, async ({ detail: messageList }: Cu
     }));
 });
 
-store.addEventListener(RESPONSE_MESSAGE, async ({ detail: message }: CustomEvent) => {
+store.addEventListener(RESPONSE_MESSAGE, ({ detail: message }: CustomEvent) => {
     store.setState((state) => ({
         ...state,
         messages: [...state.messages, {
@@ -140,8 +145,12 @@ store.addEventListener(RESPONSE_MESSAGE, async ({ detail: message }: CustomEvent
 });
 
 store.addEventListener(SEND_FILE, async ({ detail: file }: CustomEvent) => {
-    const { id } = await ChatService.sendResource(file);
-    WebSocketService.getInstance()?.sendFile(id.toString());
+    try {
+        const { id } = await ChatService.sendResource(file);
+        WebSocketService.getInstance()?.sendFile(id.toString());
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 store.addEventListener(AUTH, async ({ detail: payload }: CustomEvent) => {
@@ -158,7 +167,7 @@ store.addEventListener(AUTH, async ({ detail: payload }: CustomEvent) => {
 
         goTo(link);
     } catch (xhr) {
-        showMessage(JSON.parse(xhr.responseText).reason);
+        requestError(xhr);
     }
 });
 
@@ -176,29 +185,37 @@ store.addEventListener(CHECK_IN, async ({ detail: payload }: CustomEvent) => {
 
         goTo(link);
     } catch (xhr) {
-        showMessage(JSON.parse(xhr.responseText).reason);
+        requestError(xhr);
     }
 });
 
 store.addEventListener(ADD_USER, async ({ detail: userName }: CustomEvent) => {
-    const userList = await UserService.search(userName);
-    const user = userList.find((user) => user.login === userName);
+    try {
+        const userList = await UserService.search(userName);
+        const user = userList.find((user) => user.login === userName);
 
-    if (!user) {
-        showMessage('Пользователь не найден');
-        return;
-    }
+        if (!user) {
+            showMessage('Пользователь не найден');
+            return;
+        }
 
-    const { chatId } = store.getState();
-    if (!chatId) {
-        showMessage('Чат не выбран');
-        return;
+        const { chatId } = store.getState();
+        if (!chatId) {
+            showMessage('Чат не выбран');
+            return;
+        }
+        await ChatService.addUser(chatId, user.id);
+    } catch (xhr) {
+        requestError(xhr);
     }
-    await ChatService.addUser(chatId, user.id);
 });
 
 store.addEventListener(REMOVE_USER, async ({ detail: { userId, chatId } }: CustomEvent) => {
-    await ChatService.removeUser(chatId, userId);
+    try {
+        await ChatService.removeUser(chatId, userId);
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 store.addEventListener(NEW_MESSAGE, ({ detail: message }: CustomEvent) => {
@@ -206,52 +223,76 @@ store.addEventListener(NEW_MESSAGE, ({ detail: message }: CustomEvent) => {
 });
 
 store.addEventListener(AVATAR_UPDATE, async ({ detail: file }: CustomEvent) => {
-    const user = await UserService.updateAvatar(file);
+    try {
+        const user = await UserService.updateAvatar(file);
 
-    store.setState((state) => ({
-        ...state,
-        user,
-    }));
-    store.dispatch(actions.force({}));
+        store.setState((state) => ({
+            ...state,
+            user,
+        }));
+        store.dispatch(actions.force({}));
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 store.addEventListener(PROFILE_UPDATE, async ({ detail: data }: CustomEvent) => {
-    await UserService.updateProfile(data);
-    goTo(getLinkPage('settings'));
+    try {
+        await UserService.updateProfile(data);
+        goTo(getLinkPage('settings'));
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 store.addEventListener(PASSWORD_UPDATE, async ({ detail: data }: CustomEvent) => {
-    await UserService.updatePassword(data);
-    goTo(getLinkPage('settings'));
+    try {
+        await UserService.updatePassword(data);
+        goTo(getLinkPage('settings'));
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 store.addEventListener(LOGOUT, async () => {
-    await AuthService.logout();
-    goTo(getLinkPage('auth'));
+    try {
+        await AuthService.logout();
+        goTo(getLinkPage('auth'));
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 store.addEventListener(REMOVE_CHAT, async ({ detail: chatId }: CustomEvent) => {
-    await ChatService.removeChat(chatId);
-    store.setState((state) => {
-        const newChatList = state.chatList.filter((chat) => chat.id !== chatId);
-        return {
-            ...state,
-            chatId: newChatList[0].id || null,
-            chatList: newChatList,
-        };
-    });
+    try {
+        await ChatService.removeChat(chatId);
+        store.setState((state) => {
+            const newChatList = state.chatList.filter((chat) => chat.id !== chatId);
+            return {
+                ...state,
+                chatId: newChatList[0].id || null,
+                chatList: newChatList,
+            };
+        });
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 store.addEventListener(ADD_CHAT, async ({ detail: title }: CustomEvent) => {
-    await ChatService.createChat(title);
-    const chatList = await ChatService.chatList();
+    try {
+        await ChatService.createChat(title);
+        const chatList = await ChatService.chatList();
 
-    store.setState((state) => ({
-        ...state,
-        chatList,
-    }));
+        store.setState((state) => ({
+            ...state,
+            chatList,
+        }));
 
-    store.dispatch(actions.force({}));
+        store.dispatch(actions.force({}));
+    } catch (xhr) {
+        requestError(xhr);
+    }
 });
 
 export {

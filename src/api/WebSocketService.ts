@@ -3,6 +3,7 @@ import { wsUrl } from './baseUrl';
 import { store } from '../modules/store';
 import { actions } from '../modules/actions';
 import { scrollChatToBottom, scrollToMessage } from '../modules/scrollChat';
+import { requestError } from '../modules/requestError';
 
 const PING_INTERVAL = 30000;
 
@@ -26,10 +27,14 @@ class WebSocketService {
     }
 
     private async connect() {
-        const { token } = await ChatService.getWebSocketToken(this.chatId);
-        this.token = token;
-        this.ws = new WebSocket(`${wsUrl}/${this.userId}/${this.chatId}/${this.token}`);
-        this.ws.addEventListener('open', this.init.bind(this));
+        try {
+            const { token } = await ChatService.getWebSocketToken(this.chatId);
+            this.token = token;
+            this.ws = new WebSocket(`${wsUrl}/${this.userId}/${this.chatId}/${this.token}`);
+            this.ws.addEventListener('open', this.init.bind(this));
+        } catch (xhr) {
+            requestError(xhr);
+        }
     }
 
     private init() {
