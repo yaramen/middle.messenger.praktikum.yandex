@@ -31,14 +31,14 @@ function FormEdit({
     const updateFormState = (e: InputEvent) => {
         const target = e.target as HTMLInputElement;
         const value = {
-            ...formState,
+            ...formState(),
             [target.name]: target.value,
         };
         setFormState(value);
     };
 
     const validation = () => {
-        const newErrors = formValidation(fields, formState);
+        const newErrors = formValidation(fields, formState());
         setErrors(newErrors);
         return newErrors;
     };
@@ -57,8 +57,8 @@ function FormEdit({
                     ...field,
                     readonly: !isEdit,
                     key: field.name,
-                    value: formState[field.name],
-                    errors: errors[field.name],
+                    value: formState()[field.name],
+                    errors: errors()[field.name],
                     onChange: updateFormState,
                     onFocus: validation,
                     onBlur: validation,
@@ -78,11 +78,10 @@ function FormEdit({
                     label: 'Сохранить',
                     type: 'submit',
                     click: (e: Event) => {
+                        e.preventDefault();
                         const newErrors = validation();
                         if (isValid(newErrors)) {
-                            submit(formState);
-                        } else {
-                            e.preventDefault();
+                            submit(formState());
                         }
                     },
                 },

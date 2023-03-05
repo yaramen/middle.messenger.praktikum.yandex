@@ -6,18 +6,20 @@ import { AvatarEdit } from '../AvatarEdit';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
 import { FormEdit } from '../FormEdit';
-import { Profile } from '../../types/model';
+import { User } from '../../types/model';
 
 interface ProfileFormProps {
     fields: FormField[],
     isEdit: boolean,
-    profile: Profile,
+    profile: User,
 }
 
 function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
     return createElement(
         'div',
-        {},
+        {
+            key: 'ProfileForm',
+        },
         createComponent(
             AvatarEdit,
             {
@@ -25,7 +27,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                 value: {
                     name: 'avatar',
                     value: profile.avatar,
-                    label: profile.nickName,
+                    label: profile.display_name,
                     type: 'image',
                 },
             },
@@ -37,7 +39,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                 fields,
                 isEdit,
                 submit: (data) => store.dispatch(actions.profileUpdate(data)),
-                cancel: () => goTo(getLinkPage('profile')),
+                cancel: () => goTo(getLinkPage('settings')),
             },
         ),
         isEdit ? null : createElement(
@@ -51,7 +53,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                     key: 'data',
                     label: 'Изменить данные',
                     style: 'link',
-                    click: () => goTo(getLinkPage('profileEdit')),
+                    click: () => goTo(getLinkPage('settings-edit')),
                 },
             ),
             createComponent(
@@ -60,7 +62,7 @@ function ProfileForm({ fields, isEdit, profile }: ProfileFormProps) {
                     key: 'password',
                     label: 'Изменить пароль',
                     style: 'link',
-                    click: () => goTo(getLinkPage('passwordEdit')),
+                    click: () => goTo(getLinkPage('settings-password-edit')),
                 },
             ),
         ),

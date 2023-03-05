@@ -29,14 +29,14 @@ function Form({
     const updateFormState = (e: InputEvent) => {
         const target = e.target as HTMLInputElement;
         const value = {
-            ...formState,
+            ...formState(),
             [target.name]: target.value,
         };
         setFormState(value);
     };
 
     const validation = () => {
-        const newErrors = formValidation(formData.fields, formState);
+        const newErrors = formValidation(formData.fields, formState());
         setErrors(newErrors);
 
         return newErrors;
@@ -69,7 +69,7 @@ function Form({
                     onChange: updateFormState,
                     onFocus: validation,
                     onBlur: validation,
-                    errors: errors[field.name],
+                    errors: errors()[field.name],
                 },
             ),
         )),
@@ -87,12 +87,12 @@ function Form({
                         if (button.type === 'submit') {
                             const newErrors = validation();
                             if (isValid(newErrors)) {
-                                submit(e, button, formState);
+                                submit(e, button, formState());
                             } else {
                                 e.preventDefault();
                             }
                         } else {
-                            submit(e, button, formState);
+                            submit(e, button, formState());
                         }
                     },
                 },

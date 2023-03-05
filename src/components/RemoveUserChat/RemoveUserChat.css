@@ -1,0 +1,14 @@
+.name {
+    padding: 0 0 30px;
+    text-align: center;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.login {
+    min-width: 70%;
+    color: inherit;
+}

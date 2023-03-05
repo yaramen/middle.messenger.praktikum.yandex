@@ -13,7 +13,7 @@ function queryStringify(data: Record<string, string>) {
 type Options = {
     timeout?: number,
     method?: Method,
-    data?: Document | XMLHttpRequestBodyInit | Record<string, string> | null,
+    data?: Document | XMLHttpRequestBodyInit | Record<string, string | number> | Object | null,
     headers?: Record<string, string>,
 };
 
@@ -53,6 +53,7 @@ class HTTPTransport {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.timeout = timeout;
+            xhr.withCredentials = true;
 
             const urlPath = method === Method.GET && data
                 ? url + queryStringify(data as Record<string, string>)
@@ -64,7 +65,15 @@ class HTTPTransport {
             }
 
             xhr.onload = () => {
-                resolve(xhr);
+                if (xhr.status >= 400) {
+                    reject(xhr);
+                } else {
+                    try {
+                        resolve(JSON.parse(xhr.responseText));
+                    } catch (e) {
+                        resolve(xhr.responseText);
+                    }
+                }
             };
 
             xhr.onabort = reject;
@@ -73,8 +82,11 @@ class HTTPTransport {
 
             if (method === Method.GET) {
                 xhr.send();
+            } else if (typeof data === 'object' && data instanceof FormData) {
+                xhr.send(data);
             } else {
-                xhr.send(data as Document | XMLHttpRequestBodyInit | null);
+                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                xhr.send(JSON.stringify(data));
             }
         });
     };

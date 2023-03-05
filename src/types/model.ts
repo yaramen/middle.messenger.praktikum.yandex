@@ -1,37 +1,59 @@
-type Contact = {
+type ChatItemType = {
     id: number
-    name: string
-    lastMessage: string
-    time: string
-    unread: number,
+    title: string
     avatar: string
+    last_message: {
+        time: string,
+        content: string
+        user: {
+            avatar: string,
+        }
+    },
+    unread_count: number,
 };
+
+type ChatListType = ChatItemType[];
 
 type ChatMessage = {
+    id: number,
+    user_id: number,
     actor: 'contact' | 'my',
     time: string,
-    messageType: 'html' | 'image',
-    status?: 'send' | 'sending',
+    type: 'message' | 'file',
+    is_read: true,
     content: string,
+    file?: {
+        id: string,
+        path: string,
+        filename: string,
+        content_type: string
+    }
 };
 
-type Profile = {
-    id: number,
-    email: string,
+type NewUser = {
+    first_name: string,
+    second_name: string,
     login: string,
-    firstName: string,
-    fastName: string,
-    nickName: string,
-    phone: string,
+    email: string,
     password: string,
+    phone: string,
+};
+
+type User = {
+    id: number,
+    first_name: string,
+    second_name: string,
+    display_name: string,
+    login: string,
+    email: string,
+    phone: string,
     avatar: string,
 };
 
-type Chat = Record<string, ChatMessage[]>;
-
 export {
-    Contact,
+    ChatItemType,
+    ChatListType,
     ChatMessage,
-    Chat,
-    Profile,
+    NewUser,
+    User,
 };

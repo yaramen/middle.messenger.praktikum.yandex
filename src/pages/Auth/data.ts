@@ -42,7 +42,7 @@ const authFormData: FormData = {
             label: 'Нет аккаунта?',
             style: 'secondary',
             type: 'button',
-            link: getLinkPage('checkIn'),
+            link: getLinkPage('sign-up'),
         },
     ],
 };

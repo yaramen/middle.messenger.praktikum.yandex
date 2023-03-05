@@ -11,8 +11,24 @@ import { createComponent, createElement } from '../../modules/vdom/createElement
 import { ChatList } from '../ChatList';
 import { store } from '../../modules/store';
 import { TextField } from '../TextField';
+import { actions } from '../../modules/actions';
+import { usePopup } from '../../modules/popup';
+import { Popup } from '../Popup';
+import { PromptPopup } from '../PromptPopup';
+import addIcon from '../../icons/add.svg';
 
 function Sidebar() {
+    const popupAddChat = usePopup(createComponent(Popup, {
+        key: 'popup',
+        title: 'Добавить чат',
+        content: createComponent(PromptPopup, {
+            key: 'addUser',
+            closePopup: () => popupAddChat.close(),
+            send: (name) => store.dispatch((actions.addChat(name))),
+        }),
+        close: () => popupAddChat.close(),
+    }));
+
     return createElement(
         'div',
         { className: styles.sidebar },
@@ -39,15 +55,20 @@ function Sidebar() {
                             {
                                 key: 'action-list',
                                 actions: [{
-                                    key: 'profile',
+                                    key: 'settings',
                                     icon: profileIcon,
                                     label: 'Профиль',
-                                    click: () => goTo(getLinkPage('profile')),
+                                    click: () => goTo(getLinkPage('settings')),
+                                }, {
+                                    key: 'settings',
+                                    icon: addIcon,
+                                    label: 'Добавить чат',
+                                    click: () => popupAddChat.show(),
                                 }, {
                                     key: 'exit',
                                     icon: exitAction,
                                     label: 'Выйти',
-                                    click: () => goTo(getLinkPage('auth')),
+                                    click: () => store.dispatch(actions.logout({})),
                                 }],
                             },
                         ),
@@ -75,7 +96,6 @@ function Sidebar() {
                 ChatList,
                 {
                     key: 'chat-list',
-                    contactList: store.getState().contactList,
                 },
             ),
         ),

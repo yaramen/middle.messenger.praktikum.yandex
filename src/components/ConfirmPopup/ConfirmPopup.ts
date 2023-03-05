@@ -1,27 +1,29 @@
 import { Button } from '../Button';
-import { store } from '../../modules/store';
-import { actions } from '../../modules/actions';
-import styles from './RemoveUserPopup.css';
+import styles from './ConfirmPopup.css';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 
 interface RemoveUserPopupProps {
     id: number,
-    name: string,
+    text?: string,
     closePopup: () => void
+    confirm: () => void
 }
 
-function RemoveUserPopup({
+function ConfirmPopup({
     id,
-    name,
+    text = '',
     closePopup,
+    confirm,
 }: RemoveUserPopupProps) {
     return createElement(
         'div',
-        {},
+        {
+            key: id,
+        },
         createElement(
             'div',
             { className: styles.name },
-            createText(name),
+            createText(text),
         ),
         createElement(
             'div',
@@ -32,7 +34,7 @@ function RemoveUserPopup({
                     key: 'yes',
                     label: 'Да',
                     click: () => {
-                        store.dispatch(actions.removeUser(id));
+                        confirm();
                         closePopup();
                     },
                 },
@@ -50,5 +52,5 @@ function RemoveUserPopup({
 }
 
 export {
-    RemoveUserPopup,
+    ConfirmPopup,
 };

@@ -1,12 +1,18 @@
 import { store } from './store';
 import { actions } from './actions';
 
-type PageType = 'auth' | 'checkIn' | 'messenger' | 'profile' | 'profileEdit' | 'passwordEdit' | 'error404' | 'error500';
+type PageType =
+    'auth'
+    | 'sign-up'
+    | 'messenger'
+    | 'settings'
+    | 'settings-edit'
+    | 'settings-password-edit'
+    | 'error404'
+    | 'error500';
 
 function createRouterState(path: string): { path: string, page:string, id: string } {
-    const urlParams = new URLSearchParams(path);
-    const page = urlParams.get('page');
-    const id = urlParams.get('id');
+    const [page, id] = path.slice(1).split('/');
 
     return {
         path,
@@ -16,33 +22,37 @@ function createRouterState(path: string): { path: string, page:string, id: strin
 }
 
 function getActiveRoute() {
-    return createRouterState(window.location.search);
+    return createRouterState(window.location.pathname);
 }
 
 function getLinkPage(page: PageType, id = 0) {
-    const idQuery = id ? `&id=${id}` : '';
-    return `?page=${page}${idQuery}`;
+    const idQuery = id ? `/${id}` : '';
+    return `/${page}${idQuery}`;
 }
 
-function goTo(path: string) {
-    const newRouterState = createRouterState(path);
+function goTo(path: string, skipHistory: boolean = false) {
     const { page, chatId } = store.getState();
+    const newRouterState = createRouterState(path);
     const isPageChange = page !== newRouterState.page;
     const isChatChange = chatId !== +newRouterState.id;
 
     if (isPageChange || isChatChange) {
-        window.history.pushState({}, Date.now().toString(), path);
+        if (!skipHistory) {
+            window.history.pushState({ ...newRouterState }, Date.now().toString(), path);
+        }
         if (isPageChange) {
             store.dispatch(actions.pageChange(newRouterState.page));
         }
         if (isChatChange) {
-            store.dispatch(actions.chatChange(Number(newRouterState.id)));
+            // store.dispatch(actions.chatChange(Number(newRouterState.id)));
         }
     }
 }
 
-window.addEventListener('popstate', () => {
-    goTo(window.location.search);
+window.addEventListener('popstate', (event) => {
+    if (event.currentTarget && 'location' in event.currentTarget) {
+        goTo((event.currentTarget.location as Location).pathname, true);
+    }
 });
 
 export {
