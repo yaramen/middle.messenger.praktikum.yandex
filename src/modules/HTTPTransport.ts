@@ -94,4 +94,5 @@ class HTTPTransport {
 
 export {
     HTTPTransport,
+    Method,
 };
