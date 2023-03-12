@@ -1,0 +1,8 @@
+{
+  "extension": ["ts"],
+  "spec": "src/**/*.spec.ts",
+  "require": "dom-mock.js",
+  "node-option": [
+    "loader=ts-node/esm"
+  ]
+}

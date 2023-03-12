@@ -1,6 +1,6 @@
 import { PopupFormLayout } from '../../layout/PopupFormLayout';
 import { Form } from '../../components/Form';
-import { goTo } from '../../modules/router';
+import { goToHistory as goTo } from '../../modules/storeRouter';
 import { checkInFormData } from './data';
 import { createComponent } from '../../modules/vdom/createElement';
 import { store } from '../../modules/store';

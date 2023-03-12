@@ -8,8 +8,6 @@ declare module '*.svg' {
     export default content;
 }
 
-interface Window {
-    handlers
+declare module Mocha {
+    const xhr: any;
 }
-
-// declare let event: Event;

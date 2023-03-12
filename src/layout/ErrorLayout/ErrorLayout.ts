@@ -1,5 +1,6 @@
 import { Button } from '../../components/Button';
-import { getLinkPage, goTo } from '../../modules/router';
+import { getLinkPage } from '../../modules/router';
+import { goToHistory as goTo } from '../../modules/storeRouter';
 import styles from './ErrorLayout.css';
 import { createComponent, createElement, createText } from '../../modules/vdom/createElement';
 

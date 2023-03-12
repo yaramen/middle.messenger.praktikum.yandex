@@ -22,8 +22,9 @@ import {
     SEND_FILE,
 } from './actions';
 import {
-    getActiveRoute, getLinkPage, goTo, PageType,
+    getActiveRoute, getLinkPage, PageType,
 } from './router';
+import { goToHistory as goTo } from './storeRouter';
 import { ChatListType, ChatMessage, User } from '../types/model';
 import { AuthService } from '../api/AuthService';
 import { showMessage } from './messageBox';
