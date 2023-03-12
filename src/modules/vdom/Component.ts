@@ -43,6 +43,10 @@ abstract class Component<PROPS> {
         this.vNode = value;
     }
 
+    public getState() {
+        return this.state;
+    }
+
     public init() {
         this._render(this.props);
         this.isInit = true;
