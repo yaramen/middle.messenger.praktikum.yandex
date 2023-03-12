@@ -11,8 +11,8 @@
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "typeRoots": [
-      "./declaration.d.ts",
-      "./node_modules/@types"
-    ]
+      "./node_modules/@types",
+      "./declaration.d.ts"
+    ],
   }
 }

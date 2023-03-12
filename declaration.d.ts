@@ -1,5 +1,3 @@
-import { SinonFakeXMLHttpRequestStatic } from 'sinon';
-
 declare module '*.css' {
     const content: Record<string, string>;
     export default content;
@@ -11,5 +9,5 @@ declare module '*.svg' {
 }
 
 declare module Mocha {
-    const xhr: SinonFakeXMLHttpRequestStatic;
+    const xhr: any;
 }

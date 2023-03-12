@@ -1,5 +1,4 @@
 import chai, { expect } from 'chai';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import spies from 'chai-spies';
 import { createElement, createText } from './createElement';
 import { FunctionComponent } from './Component';
@@ -21,6 +20,7 @@ describe('component', () => {
     it('should change state', () => {
         // @ts-ignore
         const funcComponent: FunctionComponent<void> & { increment: () => void } = new FunctionComponent();
+        // eslint-disable-next-line func-names
         funcComponent.render = function () {
             const [getIndex, setIndex] = this.useState(0);
             this.increment = () => setIndex(getIndex() + 1);
@@ -39,6 +39,7 @@ describe('component', () => {
         const funcComponent: FunctionComponent<void> & { increment: () => void } = new FunctionComponent();
         const callback = () => ({});
         const spyCallback = chai.spy(callback);
+        // eslint-disable-next-line func-names
         funcComponent.render = function () {
             const [getIndex, setIndex] = this.useState(0);
             this.increment = () => setIndex(getIndex() + 1);

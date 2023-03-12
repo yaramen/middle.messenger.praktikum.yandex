@@ -9,14 +9,17 @@ type Respond = {
 describe('http', () => {
     let requests: Respond[] = [];
 
+    // eslint-disable-next-line func-names
     beforeEach(function () {
         this.xhr = sinon.useFakeXMLHttpRequest();
         requests = [];
+        // eslint-disable-next-line func-names
         this.xhr.onCreate = function (xhr: Respond) {
             requests.push(xhr);
         };
     });
 
+    // eslint-disable-next-line func-names
     afterEach(function () {
         this.xhr.restore();
     });
@@ -71,12 +74,10 @@ describe('http', () => {
         expect(requests.length).to.equal(methods.length);
     });
 
-    it('should be bad response', () => {
+    it('should be bad response', (done) => {
         HTTPTransport
             .request('/foo', { method: Method.GET })
-            .then(() => {
-                throw new Error('Error');
-            });
+            .catch(() => done());
 
         expect(requests.length).to.equal(1);
         requests[0].respond(400, {}, 'OK');
