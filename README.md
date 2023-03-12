@@ -1,5 +1,5 @@
 ## Ссылка на pull request
-[PR](https://github.com/PR-5)
+[PR](https://github.com/yaramen/middle.messenger.praktikum.yandex/pull/5)
 
 ## back4app
 [ссылка](https://chat-mihaalich2.b4a.run/messenger)
