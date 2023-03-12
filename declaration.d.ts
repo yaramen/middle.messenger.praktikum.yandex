@@ -11,5 +11,3 @@ declare module '*.svg' {
 interface Window {
     handlers
 }
-
-// declare let event: Event;
