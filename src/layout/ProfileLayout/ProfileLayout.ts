@@ -1,7 +1,8 @@
 import styles from './ProfileLayout.css';
 import { Button } from '../../components/Button';
 import backIcon from '../../icons/back.svg';
-import { getLinkPage, goTo } from '../../modules/router';
+import { getLinkPage } from '../../modules/router';
+import { goToHistory as goTo } from '../../modules/storeRouter';
 import { createComponent, createElement } from '../../modules/vdom/createElement';
 import { VNode } from '../../modules/vdom/types';
 

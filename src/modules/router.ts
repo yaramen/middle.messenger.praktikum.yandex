@@ -1,6 +1,3 @@
-import { store } from './store';
-import { actions } from './actions';
-
 type PageType =
     'auth'
     | 'sign-up'
@@ -30,34 +27,20 @@ function getLinkPage(page: PageType, id = 0) {
     return `/${page}${idQuery}`;
 }
 
-function goTo(path: string, skipHistory: boolean = false) {
-    const { page, chatId } = store.getState();
+function goTo(path: string, page: PageType, skipHistory: boolean = false) {
     const newRouterState = createRouterState(path);
     const isPageChange = page !== newRouterState.page;
-    const isChatChange = chatId !== +newRouterState.id;
 
-    if (isPageChange || isChatChange) {
-        if (!skipHistory) {
-            window.history.pushState({ ...newRouterState }, Date.now().toString(), path);
-        }
-        if (isPageChange) {
-            store.dispatch(actions.pageChange(newRouterState.page));
-        }
-        if (isChatChange) {
-            // store.dispatch(actions.chatChange(Number(newRouterState.id)));
-        }
+    if (isPageChange && !skipHistory) {
+        window.history.pushState({ ...newRouterState }, Date.now().toString(), path);
     }
+    return isPageChange;
 }
-
-window.addEventListener('popstate', (event) => {
-    if (event.currentTarget && 'location' in event.currentTarget) {
-        goTo((event.currentTarget.location as Location).pathname, true);
-    }
-});
 
 export {
     getActiveRoute,
     getLinkPage,
+    createRouterState,
     goTo,
     PageType,
 };

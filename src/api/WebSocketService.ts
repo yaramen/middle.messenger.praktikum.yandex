@@ -58,6 +58,7 @@ class WebSocketService {
     }
 
     private addPing() {
+        // @ts-ignore
         this.pingInterval = setInterval(
             () => this.ws.send(JSON.stringify({ type: 'ping' })),
             PING_INTERVAL,

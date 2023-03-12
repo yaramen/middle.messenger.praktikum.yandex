@@ -1,7 +1,8 @@
 import { createComponent, createElement } from '../../modules/vdom/createElement';
 import { FormField } from '../../types/form';
 import { Button } from '../Button';
-import { getLinkPage, goTo } from '../../modules/router';
+import { getLinkPage } from '../../modules/router';
+import { goToHistory as goTo } from '../../modules/storeRouter';
 import { AvatarEdit } from '../AvatarEdit';
 import { store } from '../../modules/store';
 import { actions } from '../../modules/actions';
